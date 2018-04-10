@@ -1,0 +1,256 @@
+<!-- 查看跟进信息 -->
+<div class="examine-follow" :class="{'layui-hide':editFollow}">
+    <div class="follow-info-head" v-if="follow_up_type.length">
+        <div class="layui-row follow-tabs">
+            <button class="follow-tab-btn" v-for="(i,index) in follow_up_type" @click.stop="followTab(i.id)" :data-id="i.id" :class="filterFollow.type == i.id ? 'active' : ''">{{i.name}}</button>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <div class="layui-col-md3 layui-inline">
+                    <label class='layui-form-label'>操作人</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" v-model="filterFollow.operate_real_name" placeholder="请输入操作人名称">
+                    </div>
+                </div>
+                <div class="layui-col-md3 layui-inline" v-if="!dataAuth.customer_cooper_situation.product_name">
+                    <label class='layui-form-label'>产品名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" v-model="filterFollow.goods_name" placeholder="请输入产品名称">
+                    </div>
+                </div>
+                <div class="layui-col-md5 layui-inline">
+                    <label class="layui-form-label">跟进时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="follow_start" placeholder="yyyy-MM-dd HH:mm:ss" readonly="readonly">
+                    </div>
+                    <span>-</span>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="follow_end" placeholder="yyyy-MM-dd HH:mm:ss" readonly="readonly">
+                    </div>
+                </div>
+                {if condition="checkAuth('/admin/customers/followuprecord/add') eq 'true'"}
+                <a href="javascript:;" class="layui-btn pull-right" @click="isEditFollow">新增跟进信息</a>
+                {/if}
+            </div>
+            <div class="layui-col-md12">
+                <div class="follow-content">
+                    <label class="layui-form-label">跟进内容</label>
+                    <ul class="pull-left">
+                        <li v-for="(i,index) in fContent" :class="i.active ? 'active' : ''" @click.stop='followContent(index)'>{{i.name}}</li>
+                    </ul>
+                    <button class="layui-btn" @click.stop="inquiryFollow">查询</button>
+                    <button class="layui-btn layui-btn-primary" @click.stop="resetFollow">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="follow-info-content clearfix" v-if="followInfo.list && followInfo.list.length && follow_up_type.length">
+        <ul>
+            <li v-for="(item,index) in followInfo.list">
+                <div class="info-content-item clearfix">
+                    <div class="pull-left client-icon" style="margin-right:20px;">
+                        <img :src="item.head_portrait" onerror="this.src='/assets/images/calluser0.png'">
+                    </div>
+                    <div class="layui-col-md11">
+                        <div class="info-item info-item-title layui-col-md12">
+                            <strong class="pull-left" v-text="item.employee_nickname"></strong>
+                            <span class="department pull-left" v-text="item.employee_department"></span>
+                            <div class="label-box pull-right" v-if="!dataAuth.customer_cooper_situation.product_name">
+                                <a href="javascript:;" v-for="i in item.product_names">{{i}}</a>
+                            </div>
+                        </div>
+                        <div class="info-item layui-col-md12" v-html="item.text_record"> </div>
+                        <div class="info-item info-item-img layui-col-md12" :id='"follow_info_"+ item.followup_id' v-if="item.images">
+                            <a :href="i.image" v-for="i in item.images" v-if="i.image && i.thumb_image">
+                                <img :src="i.thumb_image" alt="">
+                            </a>
+                        </div>
+                        <div class="info-item layui-table layui-col-md12" v-if="item.voice_records && item.voice_records.length">
+                            <table class="layui-col-md12">
+                                <tbody class="layui-col-md12">
+                                <tr class="layui-col-md12">
+                                    <td class="layui-col-md2">姓名</td>
+                                    <td class="layui-col-md2">电话</td>
+                                    <td class="layui-col-md2">通话时长</td>
+                                    <td class="layui-col-md2">通话时间</td>
+                                    <td class="layui-col-md2">通话类型</td>
+                                    <td class="layui-col-md2">操作</td>
+                                </tr>
+                                <tr class="layui-col-md12" v-for="i in item.voice_records ">
+                                    <td class="layui-col-md2">{{!dataAuth.customer.real_name && i.customer_real_name ? i.customer_real_name : '未知用户'}}</td>
+                                    <td class="layui-col-md2">{{i.customer_mobile || '--'}}</td>
+                                    <td class="layui-col-md2">{{i.talk_time | VformatM}}</td>
+                                    <td class="layui-col-md2">{{i.call_time}}</td>
+                                    <td class="layui-col-md2">{{i.call_type == 1 ? '呼入' : '呼出'}}</td>
+                                    <td class="layui-col-md2">
+                                        {if condition="checkAuth('/admin/cooper/followuprecord/playvoice') eq 'true'"}
+                                        <a v-if="i.recfile" @click="playFollow(i.recfile,i.customer_real_name,i.call_time)" href="javascript:;">播放录音</a>
+                                        <span v-else>暂无录音播放</span>
+                                        {/if}
+                                        {if condition="checkAuth('/admin/cooper/followuprecord/downloadvoice') eq 'true'"}
+                                        <a v-if="i.recfile" :href="i.recfile ? i.recfile : 'javascript:;'" download="xxx">下载录音</a>
+                                        <span v-else>暂无录音下载</span>
+                                        {/if}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="info-item layui-item-time layui-col-md12">
+                            <span v-text="item.create_time"></span>
+                            {if condition="checkAuth('/admin/customers/followuprecord/update') eq 'true'"}
+                            <a href="javascript:;" @click="edit_item_Follow(item.followup_id)" class="follow-a">编辑</a>
+                            {/if}
+                            {if condition="checkAuth('/admin/cooper/followuprecord/delete') eq 'true'"}
+                            <a href="javascript:;" @click="del_item_Follow(item.followup_id,index)" class="follow-a">删除</a>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="follow-laypage" :class="followInfo.list && followInfo.list.length ? '' :'layui-hide'">
+        <div class="pull-right">
+            <span class="pull-left recording">共有 {{followInfo.all_num}} 条记录</span>
+            <div id="follow-page" class="pull-left"></div>
+        </div>
+    </div>
+    <div class="follow-info-content" v-if="followInfo.list && !followInfo.list.length || !follow_up_type.length">
+        <div class="no-result">
+            <div class="no-result-icon"></div>
+            <p>暂无数据</p>
+        </div>
+    </div>
+    <div class="follow-back" v-if="isfollowBack">
+        <a href="javascript:;" class="layui-btn" @click="followBack">返回</a>
+    </div>
+</div>
+<!-- 编辑跟进信息 -->
+<div class="edit-follow layui-clear" :class="{'layui-hide':!editFollow}">
+    <form class='layui-form layui-clear'>
+        <div class="form-content">
+            <!-- 线上产品 -->
+            <div class="layui-form-item layui-col-md12 content-row product-row" v-if="!dataAuth.customer_cooper_situation.product_name || !isEditAdd">
+                <label class="layui-form-label row-label two-font-color">跟进产品</label>
+                <div class="layui-input-block input-block-box" style="width:auto;" v-show="follow_product.online.length">
+                    <div class=""  style="width:auto;float:left">
+                        <div class="layui-input-inline" v-for="(item,index) in follow_product.online" style="width:auto;float:left" :key="item.sid">
+                            <input type="checkbox" :name='"product_id[" + index + "]"' lay-skin="primary" :value="item.sid" :title="item.sname">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-input-block layui-col-md8 input-block-box" v-if="!follow_product.online.length">
+                    <p class="product-tip">暂无跟进产品可供选择，请联系管理员配置</p>
+                </div>
+            </div>
+            <!-- 线下产品  暂时不做-->
+            <!--  <div class="layui-form-item layui-col-md12 content-row">
+                 <label class="layui-form-label row-label two-font-color"></label>
+                 <div class="layui-input-block layui-col-md8 input-block-box">
+                     <div class="layui-input-block layui-col-md2 input-block-box" v-for="(i,index) in global_set.line_investment_plan">
+                         <input type="checkbox"  :name='"offline_product_id[" + index + "]"' lay-skin="primary" :value="i" :title="i">
+                     </div>
+                 </div>
+             </div> -->
+            <div class="layui-form-item layui-col-md12">
+                <label class="layui-form-label row-label two-font-color">
+                    <span>*</span>跟进类型</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                    <input type="radio" name="type" v-if="i.id == follow_up_type[0].id" checked v-for="(i,index) in follow_up_type"  :value="i.id" :title="i.name">
+                    <input type="radio" name="type" v-if="i.id != follow_up_type[0].id" v-for="(i,index) in follow_up_type"  :value="i.id" :title="i.name">
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12">
+                <label class="layui-form-label row-label two-font-color">说明</label>
+                <div class="layui-input-block layui-col-md4 input-block-box textarea-box">
+                    <textarea name="record" placeholder="请输入说明内容，不超过500字" class="layui-textarea" maxlength="500" v-model="editFollowData.record"></textarea>
+                    <span>{{editFollowData.record && editFollowData.record.length ? editFollowData.record.length : 0}}/500</span>
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12">
+                <label class="layui-form-label row-label two-font-color">上传图片
+                    <br>
+                    <i>(每张图片小于2M)</i>
+                    <br>
+                    <i>{{editFollowData.images.length}}/15</i>
+                </label>
+                <div class="layui-upload layui-col-md9 input-block-box">
+                    <blockquote class="layui-elem-quote layui-quote-nm layui-col-md12">
+                        <div class="layui-upload-list pull-left layui-col-md12" id="follow-upload-list">
+                            <section>
+                                <a :href="item.image" class="uploadImges" v-if="item.thumb_image" v-for="(item, index) in editFollowData.images" :key="index">
+                                    <img :src="item.thumb_image" alt="">
+                                    <i class="iconfont icon-delete" @click.stop.prevent="delFollowImage(index, item.image, item.thumb_image)"></i>
+                                </a>
+                                <button type="button" v-show="editFollowData.images.length < 15" class="layui-btn upload-btn" id="follow-upload">
+                                    <i class="iconfont icon-add"></i>
+                                </button>
+                            </section>
+
+                        </div>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12">
+                <label class="layui-form-label row-label two-font-color">录音记录</label>
+                <div class="layui-input-block layui-col-md9 input-block-box">
+                    <div class="layui-table layui-col-md12 " v-if="editFollowData.voice_record && editFollowData.voice_record.length">
+                        <table class="layui-col-md12">
+                            <tbody class="layui-col-md12">
+                            <tr class="layui-col-md12">
+                                <td class="layui-col-md2">姓名</td>
+                                <td class="layui-col-md2">电话</td>
+                                <td class="layui-col-md2">通话时长</td>
+                                <td class="layui-col-md2">通话时间</td>
+                                <td class="layui-col-md3">通话类型</td>
+                                <td class="layui-col-md1">操作</td>
+                            </tr>
+                            <tr class="layui-col-md12" v-for="(i,index) in editFollowData.voice_record">
+                                <td class="layui-col-md2">{{!dataAuth.customer.real_name && i.toPhoneName ? i.toPhoneName : '未知用户'}}</td>
+                                <td class="layui-col-md2">{{i.toPhone || '--'}}</td>
+                                <td class="layui-col-md2">{{i.calltime | VformatM}}</td>
+                                <td class="layui-col-md2">{{i.starttime || '--'}}</td>
+                                <td class="layui-col-md3">{{i.CallType == 1 ? '呼入' : '呼出'}}</td>
+                                <td class="layui-col-md1">
+                                    <a href="javascript:;" @click.stop='delRecordItem(index)'>删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="layui-btn" id='addRecord' @click.stop="addRecord">添加录音记录</a>
+                </div>
+            </div>
+        </div>
+        <div class="btn-box">
+            <button type="reset" class="layui-btn layui-btn-primary" @click="cancelFollow">取消</button>
+            <button class="layui-btn follow-info-btn" lay-submit lay-filter="followBtn">确认</button>
+        </div>
+    </form>
+</div>
+
+
+
+<script type="text/html" id="CallRecordAllLists">
+    <li>
+        <div class="checkbox-box">
+            <input type="checkbox" name="checkAllCall" lay-filter="checkAllCall" lay-skin="primary">
+        </div>
+        <div class="name li-item">姓名</div>
+        <div class="call li-item">电话</div>
+        <div class="call-time-len li-item">通话时长</div>
+        <div class="call-time li-item">通话时间</div>
+    </li>
+    {%each list as value i%}
+    <li>
+        <div class="checkbox-box">
+            <input type="checkbox" lay-filter="checkCallList" {%value.ischecked ? 'checked' : ''%}  value="{%value.tel_id%}" name="tellCall[{%i%}]" lay-skin="primary">
+        </div>
+        <div class="name li-item">{%value.toPhoneName ? (value.toPhoneName ? value.toPhoneName : value.telerName) : '--'%}</div>
+        <div class="call li-item">{%value.toPhone || '--'%}</div>
+        <div class="call-time-len li-item">{%value.calltime | formatM%}</div>
+        <div class="call-time li-item">{%value.starttime ? value.starttime : '--'%}</div>
+    </li>
+    {%/each%}
+</script>

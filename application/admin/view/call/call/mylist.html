@@ -1,0 +1,156 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/mylist.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<div class="container add-client-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main">
+            <div class="layui-row condition">
+
+                <!-- // 筛选条件 start -->
+                <div class="layui-form-item">
+                    <div class="search-parent">
+                        <form class="layui-form" action="">
+                            <input name="keywordsName" v-model="keywordsName" placeholder="请输入姓名" autocomplete="off" class="search-inp"/>
+                            <input name="keywords" v-model="keywords" placeholder="请输入手机号" autocomplete="off" class="search-inp"/>
+                            <button class="iconfont icon-search search-icon" lay-submit lay-filter="formSearch"></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="examine-tag">
+                    <span class="tag-title">状态：</span>
+                    <ul class="lists">
+                        <li v-for="(item,index) in states" @click="choiceState($event, index, item.id, item.type)"><a
+                              href="javascript:;" class="tag-a" :class="{'tag-active': item.active}">{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="examine-tag">
+                    <span class="tag-title">筛选：</span>
+                    <ul class="lists" id="filtrate">
+                        <li>
+                            <a class="tag-a"
+                               @click="showDate = !showDate"
+                               :class="{'tag-active': showDateActive}"
+                               href="javascript:;"
+                            >{{dateName}}<i class="iconfont icon-down-arrow"></i>
+                            </a>
+                            <!-- 日期筛选 start -->
+                            <div class="filter-time" v-show="showDate">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="cancelCondition($event)">不限</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">今天</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">昨天</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">最近7天</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">最近30天</a>
+                                    <a href="javascript:;" @click="choiceTime($event,1)">自定义</a>
+                                    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                                        <input :class="['layui-input', 'lay-date-a']" readonly>
+                                        -
+                                        <input :class="['layui-input', 'lay-date-b']" readonly>
+                                        <button @click="addConditons($event)">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //日期筛选 end -->
+                        </li>
+                        <li>
+                            <a class="tag-a"
+                               @click="showTime = !showTime"
+                               :class="[showTimeActive && 'tag-active']"
+                               href="javascript:;"
+                            >{{dateTimeName}}<i class="iconfont icon-down-arrow"></i>
+                            </a>
+                            <!-- 通话时长 start -->
+                            <div class="filter-time filter-time-long" v-show="showTime">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="cancelTime($event)">不限</a>
+                                    <a href="javascript:;" @click="choiceTimeLong($event)">1-30秒</a>
+                                    <a href="javascript:;" @click="choiceTimeLong($event)">31-60秒</a>
+                                    <a href="javascript:;" @click="choiceTimeLong($event)">61-120秒</a>
+                                    <a href="javascript:;" @click="choiceTimeLong($event)">120秒以上</a>
+                                    <a href="javascript:;" @click="choiceTimeLong($event,1)">自定义</a>
+                                    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                                        <input maxlength="4"
+                                               oninput="this.value = +this.value.replace(/[^\d]/g,'')=== 0 ? '':+this.value.replace(/[^\d]/g,'')"
+                                               :class="['layui-input', 'lay-date-t-a']">秒
+                                        -
+                                        <input maxlength="4"
+                                               oninput="this.value = +this.value.replace(/[^\d]/g,'')=== 0 ? '':+this.value.replace(/[^\d]/g,'')"
+                                               :class="['layui-input', 'lay-date-t-b']">秒
+                                        <button @click="addConditonsTime($event)">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //通话时长 end -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- // 筛选条件 end -->
+
+                <div class="holderBg"></div>
+
+                <!-- table start -->
+                <div class="table-box">
+                    <div class="table-container">
+                        <table class="m-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                               v-if="callRecord.length != 0">
+                            <thead>
+                            <tr>
+                                <th><a href="javascript:;" data-type="0" @click="orderFilter($event, 0)">最近联系<i></i></a></th>
+                                <th>电话号码</th>
+                                <th>姓名</th>
+                                <th>联系人</th>
+                                <th>是否接通</th>
+                                <th><a href="javascript:;" data-type="0" @click="orderFilter($event, 1)">通话时长<i></i></a></th>
+                                <th>通话方式</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="item in callRecord">
+                                <td>{{item.starttime}}</td>
+                                <td>{{item.toPhone}}</td>
+                                <td>{{item.toPhoneName ? item.toPhoneName : '未知用户'}}</td>
+                                <td>{{item.telerName}}</td>
+                                <td>{{item.talked == 1 ? '是' : '否'}}</td>
+                                <td>{{item.calltime | VformatM}}</td>
+                                <td>{{item.CallType == 1 ? '呼入' : '呼出'}}</td>
+                                <td>
+                                    <a href="javascript:;" v-if="item.recfile"
+                                       @click="play(item.recfile, item.toPhoneName, item.starttime)" class="play"
+                                       title="播放录音">播放录音</a>
+                                    <span v-else>暂无录音</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="no-result" v-if="callRecord.length == 0">
+                            <p>暂无数据</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- // table end -->
+
+                <!-- page start -->
+                <div class="callpage">
+                    <div class="page-select">
+                        <span>每页展示</span>
+                        <a href="javascript:;" @click="choiceLimit(index, item.id)" :class="{'tag-active': item.active}"
+                           v-for="(item,index) in page_limit_arr">{{item.id}}</a>
+                    </div>
+                    <div class="page-choice">
+                        <span class="page-total">共有{{total_num}}条记录</span>
+                        <div class="page-boxs" id="callpages"></div>
+                    </div>
+                </div>
+                <!-- //page end -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/mylist.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

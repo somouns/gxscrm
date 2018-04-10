@@ -1,0 +1,177 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 帐号列表 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row common-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">帐号管理</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <form action="" class="layui-form">
+                    <div class="layui-col-md12 jur-top jur-depart fl">
+                        <div class="layui-form juf-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">真实姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="nickname" v-model="data.nickname"  lay-verify="" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">手机号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="mobile" v-model="data.mobile" lay-verify="" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="username" v-model="data.username" lay-verify="" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="department" v-model="data.department" lay-verify="" placeholder="请输入部门" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">坐席号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="seat_number" v-model="data.seat_number" lay-verify="" placeholder="请输入坐席号" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">最后登录</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="start_time" class="layui-input" id="test-start" placeholder="yyyy-MM-dd" readonly>
+                                    </div>
+                                </div>
+                                <span class="jur-line">-</span>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="stop_time" class="layui-input" id="test-stop" placeholder="yyyy-MM-dd" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">状态</label>
+                                <div class="layui-input-block">
+                                    <select name="status" lay-filter="status">
+                                        <option value="">请选择</option>
+                                        <option value="1">正常</option>
+                                        <option value="2">已停用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">职级</label>
+                                <div class="layui-input-block">
+                                    <select name="level" lay-filter="level">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="(item, index) in gradeDataAll">{{item.grade_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">职位</label>
+                                <div class="layui-input-block">
+                                    <select name="position" lay-filter="position">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="(item, index) in positionDataAll">{{item.position_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="example-handle">
+                                <button class="examine-query" lay-submit lay-filter="formSelect">查询</button><button @click="reset" type="reset" class="examine-reset pull-left">重置</button>
+                            </div>
+                            <div class="example-handle handle-add">
+                                {if condition="checkAuth('/admin/user/adduser') eq 'true'"}
+                                <a class="examine-query" @click="importUsr">批量导入</a>
+                                <a href="/admin/user/adduser" data-type="tab" data-title="新增账号" class="examine-query">新增</a>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="jur-total clear">共<span class="jur-number">{{getAllListTotal}}</span>个帐号</div>
+            <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <thead>
+                <tr align="center">
+                    <th class="left-photo">头像</th>
+                    <th>真实姓名</th>
+                    <th>用户名</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>职级</th>
+                    <th>坐席号</th>
+                    <th>手机号</th>
+                    <th>最后登录时间</th>
+                    <th>登录次数</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center" v-for="(item, index) in tableDataAll">
+                    <td class="left-photo"><img class="account-img" :src="item.avatar" onerror="this.src='/assets/images/avatar2.png'"/></td>
+                    <td>{{item.nickname}}</td>
+                    <td>{{item.username}}</td>
+                    <td>{{item.department}}</td>
+                    <td>{{item.position}}</td>
+                    <td>{{item.level}}</td>
+                    <td>{{item.seat_number}}</td>
+                    <td>{{item.mobile}}</td>
+                    <td>{{item.updatetime}}</td>
+                    <td>{{item.loginnumber}}</td>
+                    <td>{{item.status == 1 ? '正常' : '已停用'}}</td>
+                    <td>
+                        {if condition="checkAuth('/admin/user/selectoneuser') eq 'true'"}
+                        <a class="audit-skip" data-type="tab" data-title="查看账号" v-if="item.status == 1" :href='"/admin/user/selectoneuser?id=" + item.id'>查看</a>
+                        <a class="audit-skip gary" v-else>查看</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/user/edituser') eq 'true'"}
+                        <a class="audit-skip" data-type="tab" data-title="编辑账号" v-if="item.status == 1" :href='"/admin/user/editUser?id=" + item.id'>编辑</a>
+                        <a class="audit-skip gary" v-else>编辑</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/user/updatepassword') eq 'true'"}
+                        <a class="audit-skip" href="javascript:;" v-if="item.status == 1" @click="changePassword(index, item.id)">修改密码</a>
+                        <a class="audit-skip gary" v-else>修改密码</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/user/adduserauth') eq 'true'"}
+                        <a class="audit-skip" data-type="tab" data-title="权限设置" v-if="item.status == 1" :href='"/admin/user/adduserauth?id=" + item.id'>权限设置</a>
+                        <a class="audit-skip gary" v-else>权限设置</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/user/stopuser') eq 'true'"}
+                        <a class="audit-skip stop-skip" @click="accountStop(index, item.id, item.status)" href="javascript:;">{{item.status == 1 ? '停用' : '启用'}}</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/user/deluser') eq 'true'"}
+                        <a class="audit-skip" v-if="item.status == 1" href="javascript:;" @click="accountDelete(item.id)" :data-id="item.id">删除</a>
+                        <a class="audit-skip gary" v-else>删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div v-if="tableDataAll.length == 0" class="no-result">
+                <p>暂无数据</p>
+            </div>
+            <!-- 分页 S-->
+            <div class="page" v-show="tableDataAll.length != 0">
+                <div id="test2"></div>
+            </div>
+            <!-- 分页 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/accountsManage.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,116 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/signManage.css" />
+{include file="common/header_bottom"/}
+
+<!-- 新增标的页 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row add-sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">产品信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">产品名称：</span><span>凤凰一号</span></li>
+                    <li class="sign-item"><span class="sign-name">产品创建人：</span><span>张三</span></li>
+                    <li class="sign-item"><span class="sign-name">产品状态：</span><span>未出局</span></li>
+                    <li class="sign-item"><span class="sign-name">创建时间：</span><span>2016-08-14 23：59：59</span></li>
+                    <li class="sign-item"><span class="sign-name">开始时间：</span><span>2016-08-14 23：59：59</span></li>
+                    <li class="sign-item"><span class="sign-name">结束时间：</span><span>2016-08-14 23：59：59</span></li>
+                </ul>
+            </div>
+            <div class="layui-row add-sign-row">
+                <div class="layui-form">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12 sign-header">
+                        <h2 class="jur-head">标的信息</h2>
+                    </div>
+                    <!-- 股票名称 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">股票名称</label>
+                        <div class="layui-input-block">
+                            <div class="layui-inline">
+                                <input type="text" name="stock_name" value="海特高新" placeholder="请输入股票名称" class="layui-input" disabled>
+                            </div>
+                            <!--<p class="stock-price"><span>现价：12元</span><span>跌停价：12元</span><span>涨停价：12元</span></p>-->
+                        </div>
+                    </div>
+                    <!-- 建仓价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">建仓价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="text" name="stock_buy_price" value="12" placeholder="请输入建仓价" class="layui-input" disabled>
+                        </div>
+                    </div>
+                    <!-- 调仓比例 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">调仓比例</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="stock_position" value="5" placeholder="请输入调仓比例" class="layui-input" disabled>
+                        </div>
+                    </div>
+                    <!-- 止盈价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>止盈价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="text" name="stock_win_price" v-model="oldVal.stock_win_price" required lay-verify="required|stockWin" @blur="stockWin" onkeyup="this.value = this.value.replace(/[^\d]/g,'')" placeholder="请输入止盈价" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyWin.checkShow">{{verifyData.verifyWin.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 止损价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>止损价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="text" name="stock_lose_price" v-model="oldVal.stock_lose_price" required lay-verify="required|stockLose" @blur="stockLose" onkeyup="this.value = this.value.replace(/[^\d]/g,'')" placeholder="请输入止损价" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyLose.checkShow">{{verifyData.verifyLose.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 标的负责人 -->
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label"><span class="sign-hit">* </span>标的负责人</label>
+                            <div class="layui-input-inline">
+                                <select name="stock_teacher_id" required lay-verify="required" lay-search="">
+                                    <option value="">请输入用户真实姓名，至少1个字符</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                    <option value="4">element</option>
+                                    <option value="5">laytpl</option>
+                                    <option value="6">upload</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 建议话术 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">建议话术</label>
+                        <div class="layui-input-block">
+                            <textarea name="stock_suggestcontent" placeholder="请输入建议话术" class="layui-textarea" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    <!-- 操作理由 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">操作理由</label>
+                        <div class="layui-input-block">
+                            <textarea name="stock_info" placeholder="请输入操作理由" class="layui-textarea" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    <!-- 保存与取消 -->
+                    <div class="examine">
+                        <div class="example-handle">
+                            <button class="examine-reset" @click="cancel">取消</button><a lay-submit lay-filter="stockForm" class="examine-query">保存内容</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/signManageEdit.js"></script>
+{include file="common/footer_bottom"/}

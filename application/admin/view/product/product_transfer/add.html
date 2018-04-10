@@ -1,0 +1,95 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/signManage.css" />
+{include file="common/header_bottom"/}
+
+<!-- 新增调仓记录页 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row add-sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">基本信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">股票名称：</span><span>海特高新（002023）</span></li>
+                    <li class="sign-item"><span class="sign-name">所属产品：</span><span>凤凰一号</span></li>
+                    <li class="sign-item"><span class="sign-name">总仓位：</span><span>3成</span></li>
+                    <li class="sign-item"><span class="sign-name">建仓价：</span><span>12.56元</span></li>
+                    <li class="sign-item"><span class="sign-name">止盈价：</span><span>22.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">止损价：</span><span>8.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">状态：</span><span>未出局</span></li>
+                    <li class="sign-item"><span class="sign-name">标的负责人：</span><span>张三</span></li>
+                </ul>
+            </div>
+            <div class="layui-row add-sign-row">
+                <div class="layui-form">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12 sign-header">
+                        <h2 class="jur-head">调仓</h2>
+                    </div>
+                    <!-- 总仓位 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <span class="total-warehouse">现价：11.01元</span>
+                            <span class="total-warehouse">跌停价：<i class="sign-down">11.01元</i></span>
+                            <span class="total-warehouse">涨停价：<i class="sign-add">11.01元</i></span>
+                        </div>
+                    </div>
+                    <!-- 调仓类型 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>调仓类型</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="transfer_type" value="1" title="加仓" checked="">
+                            <input type="radio" name="transfer_type" value="2" title="减仓">
+                        </div>
+                    </div>
+                    <!-- 调仓比例 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>调仓比例</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="stock_position" required lay-verify="required|stockRate" @blur="stockRate" placeholder="请输入0~10之间的数字" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyRate.checkShow">{{verifyData.verifyRate.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 调仓价格 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>调仓价格</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="buy_price" required lay-verify="required|stockBook" @blur="stockBook" placeholder="请输入股票代码或名称，代码至少3个字符" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyBook.checkShow">{{verifyData.verifyBook.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 建议话术 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">建议话术</label>
+                        <div class="layui-input-block">
+                            <textarea name="suggest_content" placeholder="" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <!-- 操作理由 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">操作理由</label>
+                        <div class="layui-input-block">
+                            <textarea name="info" placeholder="" class="layui-textarea"></textarea>
+
+                        </div>
+                    </div>
+                    <!-- 保存与取消 -->
+                    <div class="examine">
+                        <div class="example-handle">
+                            <button class="examine-reset">取消</button><a class="examine-query" lay-submit lay-filter="formSpace">保存内容</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/signManageSpace.js"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,94 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/product-detail.css" /> {include file="common/header_bottom"/}
+
+<div class="container detai-product-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main clearfix">
+            <div class="layui-row layui-col-md12 main-row">
+                <h1>产品资料 <a class="pull-right" :href="'/admin/product/product/log?product_id=' + product_id" data-type="tab" data-title="操作日志">操作日志</a></h1>
+                <div class="layui-row-content layui-col-md12">
+                    <div class="product-info layui-col-md12">
+                        <div class="product-info-item layui-col-md12">
+                            <div class="layui-col-md6">
+                                <label class="layui-col-md3">产品名称 :</label> <p class="layui-col-md9">{{productData.product_name}}</p>
+                            </div>
+                            <div class="layui-col-md6">
+                                <label class="layui-col-md3">产品创建人 :</label> <p class="layui-col-md9">{{productData.operate_real_name}}</p>
+                            </div>
+                        </div>
+                       <div class="product-info-item layui-col-md12">
+                            <div class="layui-col-md6">
+                                <label class="layui-col-md3">创建时间 :</label> <p class="layui-col-md9">{{productData.create_time}}</p>
+                            </div>
+                            <div class="layui-col-md6">
+                                <label class="layui-col-md3">产品负责人 :</label> <p class="layui-col-md9">{{productData.product_leader_name}}</p>
+                            </div>
+                        </div>
+                        <div class="product-info-item layui-col-md12">
+                            <div class="layui-col-md6">
+                                <label class="layui-col-md3">开始时间 :</label> <p class="layui-col-md9">{{productData.start_time}}</p>
+                            </div>
+                            <div class="layui-col-md6">
+                                <label class="layui-col-md3">结束时间 :</label> <p class="layui-col-md9">{{productData.end_time}}</p>
+                            </div>
+                        </div>
+                        <div class="product-info-item layui-col-md12">
+                            <div class="layui-col-md6">
+                                <label class="layui-col-md3">产品状态 :</label> <p class="layui-col-md9" v-if="productData.status">{{productData.status == 1 ? '未出局' :'已出局'}}</p>
+                            </div>
+                        </div>
+                        <div class="product-info-item product-brief layui-col-md12">
+                            <div class="layui-col-md12">
+                                <label>产品简介 :</label> <span class="layui-col-md10" style="word-wrap:break-word">{{productData.product_introduce}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row layui-col-md12 main-row">
+                <h1>标的资料</h1>
+                <div class="layui-row-content layui-col-md12" v-if="product_stock.length">
+                    <table class="layui-table main-table layui-col-md12">
+                        <thead class="layui-col-md12">
+                            <tr class="first-tr layui-col-md12">
+                                <td class="layui-col-md2 layui-elip">股票名称</td>
+                                <td class="layui-col-md1 layui-elip">建仓价</td>
+                                <td class="layui-col-md1 layui-elip">总仓位</td>
+                                <td class="layui-col-md1 layui-elip">止盈价</td>
+                                <td class="layui-col-md1 layui-elip">止损价</td>
+                                <td class="layui-col-md2 layui-elip">创建时间</td>
+                                <td class="layui-col-md1 layui-elip">标的负责人</td>
+                                <td class="layui-col-md1 layui-elip">状态</td>
+                                <td class="layui-col-md1 layui-elip">调仓次数</td>
+                                <td class="layui-col-md1 layui-elip">研报数量</td>
+                            </tr>
+                            <tr v-for="i in product_stock" class="layui-col-md12">
+                                <td class="layui-col-md2 layui-elip">{{i.stock_name}}</td>
+                                <td class="layui-col-md1 layui-elip">{{i.buy_price}}</td>
+                                <td class="layui-col-md1 layui-elip">{{i.position}}</td>
+                                <td class="layui-col-md1 layui-elip">{{i.win_price}}</td>
+                                <td class="layui-col-md1 layui-elip">{{i.lose_price}}</td>
+                                <td class="layui-col-md2 layui-elip">{{i.create_time}}</td>
+                                <td class="layui-col-md1 layui-elip">{{i.nickname || '--'}}</td>
+                                <td class="layui-col-md1 layui-elip" v-if="i.status">{{i.status == 1? '正常' :'已结束'}}</td>
+                                <td class="layui-col-md1 layui-elip" v-else>--</td>
+                                <td class="layui-col-md1 layui-elip">{{i.position_num}}</td>
+                                <td class="layui-col-md1 layui-elip">{{i.report_num}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="noData layui-col-md12" v-if="!product_stock.length"></div>
+            </div>
+            <div class="layui-row layui-row-btn layui-col-md12 main-row">
+                <button class="layui-btn layui-btn-primary" @click="comeback">返回上一级</button>
+                <a class="layui-btn" :href='"/admin/product/product_stock/add?product_id=" + product_id' data-type="tab" data-title="新增标的">新增标的</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/productDetail.js"></script>
+{include file="common/footer_bottom"/}

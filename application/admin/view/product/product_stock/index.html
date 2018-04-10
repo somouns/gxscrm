@@ -1,0 +1,118 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/signManage.css" />
+{include file="common/header_bottom"/}
+
+<!-- 标的列表 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">标的列表</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <div class="layui-col-md12 jur-top row-list fl">
+                    <div class="layui-form juf-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">股票名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="stock_name" v-model="data.stock_name" lay-verify="" placeholder="请输入股票名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">产品名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="product_name" v-model="data.product_name" lay-verify="" placeholder="请输入产品名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">发布时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="test-start" v-model="data.product_stock_create_time_start" placeholder="yyyy-MM-dd hh-mm-ss">
+                                </div>
+                            </div>
+                            <span class="jur-line">~</span>
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="test-stop" v-model="data.product_stock_create_time_end" placeholder="yyyy-MM-dd hh-mm-ss">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">状态</label>
+                            <div class="layui-input-block">
+                                <select name="status" lay-filter="level">
+                                    <option value="">请选择</option>
+                                    <option value="0">全部</option>
+                                    <option value="1">正常</option>
+                                    <option value="2">已结束</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">负责人</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="product_stock_leader_name" v-model="data.product_stock_leader_name" lay-verify="" placeholder="请输入负责人" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="example-handle">
+                            <button class="examine-query" lay-submit lay-filter="formSelect">查询</button><button class="examine-reset">重置</button>
+                        </div>
+                        <div class="example-handle">
+                            <a class="examine-query" data-type="tab" data-title="新增标的" href="/admin/product/product_stock/add?product_id=99">新增</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 表格部分 -->
+            <div class="jur-total clear">共<span class="jur-number">{{getAllListTotal}}</span>条标的</div>
+            <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <thead>
+                <tr align="center">
+                    <th>股票名称</th>
+                    <th>产品名称</th>
+                    <th>发布时间</th>
+                    <th>状态</th>
+                    <th>标的负责人</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center" v-for="(item, index) in tableDataAll">
+                    <td class="group-decript">{{item.stock_name}}</td>
+                    <td>{{item.product_name}}</td>
+                    <td>{{item.create_time}}</td>
+                    <td>{{item.status == 1 ? '正常' : (item.status == 2 ? '已结束' : '******') }}</td>
+                    <td>admin</td>
+                    <td>
+                        <a class="audit-skip" data-type="tab" data-title="标的详情" href="/admin/product/product_stock/detail">查看</a>
+                        <a class="audit-skip" data-type="tab" data-title="编辑标的" href="/admin/product/product_stock/edit">编辑</a>
+                        <a class="audit-skip" @click="stockDelete">删除</a>
+                        <a class="audit-skip" @click="stockOutPut">出局</a>
+                        <a class="audit-skip" data-type="tab" data-title="新增调仓" href="/admin/product/product_transfer/add">新增调仓</a>
+                        <a class="audit-skip" data-type="tab" data-title="新增话术" href="/admin/product/product_suggestcontent/add">新增话术</a>
+                        <a class="audit-skip" data-type="tab" data-title="新增研报" href="/admin/product/product_report/add">新增研报</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div v-if="tableDataAll.length == 0" class="no-result">
+                <p>暂无数据</p>
+            </div>
+            <!-- 分页 S-->
+            <div class="page page-align" v-show="tableDataAll.length != 0">
+                <div id="test"></div>
+            </div>
+            <!-- 分页 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/signManage.js"></script>
+{include file="common/footer_bottom"/}

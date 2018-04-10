@@ -1,0 +1,311 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/financeManage.css" />
+{include file="common/header_bottom"/}
+
+<!-- 客户审批 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <form action="" class="layui-form">
+                <div class="layui-tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">我提交的审批</li>
+                        <li>全部审批</li>
+                        <li>待我修改的审批</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <!-- 我提交的审批 S-->
+                        <div class="layui-tab-item layui-show">
+                            <!-- 头部 -->
+                            <div class="layui-form-item finance-search">
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input"><span><i class="iconfont icon-search"></i></span>
+                                </div>
+                            </div>
+                            <!--<div class="layui-row">-->
+                                <!--&lt;!&ndash; 表格部分 &ndash;&gt;-->
+                                <!--<div class="layui-col-md12 table-row">-->
+                                    <!--&lt;!&ndash; 表格(自动化渲染) &ndash;&gt;-->
+                                    <!--<table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">-->
+                                        <!--<thead>-->
+                                        <!--<tr>-->
+                                            <!--<th lay-data="{field:'customer_name', width:160}">客户姓名</th>-->
+                                            <!--<th lay-data="{field:'goods_name', width:160}">购买产品</th>-->
+                                            <!--<th lay-data="{field:'goods_type', width:260}">产品类型</th>-->
+                                            <!--<th lay-data="{field:'buy_num', width:160}">购买数量</th>-->
+                                            <!--<th lay-data="{field:'pay_money', width:160}">购买金额</th>-->
+                                            <!--<th lay-data="{field:'pay_type', width:160}">支付方式</th>-->
+                                            <!--<th lay-data="{field:'create_time', width:260}">移交时间</th>-->
+                                            <!--<th lay-data="{field:'status', width:220}">审核状态</th>-->
+                                        <!--</tr>-->
+                                        <!--</thead>-->
+                                        <!--<tbody>-->
+                                        <!--<tr v-for="item in tableDataMe">-->
+                                            <!--<td>{{item.customer_name}}</td>-->
+                                            <!--<td>{{item.goods_name}}</td>-->
+                                            <!--<td>{{item.goods_type}}</td>-->
+                                            <!--<td>{{item.buy_num}}</td>-->
+                                            <!--<td>{{item.pay_money}}</td>-->
+                                            <!--<td>{{item.pay_type}}</td>-->
+                                            <!--<td>{{item.create_time}}</td>-->
+                                            <!--<td class="audit-td">-->
+                                                <!--{{item.status}}-->
+                                                <!--<div class="audit-state">-->
+                                                    <!--<p>上一步状态：合规审核拒绝</p>-->
+                                                    <!--<p>审核备注：开发过程违规</p>-->
+                                                    <!--<p>审核时间：2017-09-07 11：00</p>-->
+                                                    <!--<p>最新状态：待销售修改</p>-->
+                                                <!--</div>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                        <!--</tbody>-->
+                                    <!--</table>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                                <thead>
+                                <tr align="center">
+                                    <th>客户姓名</th>
+                                    <th>购买产品</th>
+                                    <th>产品类型</th>
+                                    <th>购买数量</th>
+                                    <th>购买金额（元）</th>
+                                    <th>支付方式</th>
+                                    <th>移交时间</th>
+                                    <th>审核状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr align="center" v-for="item in tableDataMe">
+                                    <td>{{item.customer_name}}</td>
+                                    <td>{{item.goods_name}}</td>
+                                    <td>{{item.goods_type}}</td>
+                                    <td>{{item.buy_num}}</td>
+                                    <td>{{item.pay_money}}</td>
+                                    <td>{{item.pay_type}}</td>
+                                    <td>{{item.create_time}}</td>
+                                    <td class="audit-td">
+                                        {{item.status}}
+                                        <div class="audit-state">
+                                            <p>上一步状态：合规审核拒绝</p>
+                                            <p>审核备注：开发过程违规</p>
+                                            <p>审核时间：2017-09-07 11：00</p>
+                                            <p>最新状态：待销售修改</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="page">
+                                <div class="page-select">
+                                    <span class="page-title">每页展示客户</span>
+                                    <ul>
+                                        <li><a href="javascript:;" class="select-active">1000</a></li>
+                                        <li><a href="javascript:;">500</a></li>
+                                        <li><a href="javascript:;">300</a></li>
+                                    </ul>
+                                </div>
+                                <div class="page-choice">
+                                    <ul>
+                                        <li><a href="javascript:;">&lt;</a></li>
+                                        <li><a href="javascript:;">1</a></li>
+                                        <li><a href="javascript:;" class="page-active">2</a></li>
+                                        <li><a href="javascript:;">3</a></li>
+                                        <li><a href="javascript:;">...</a></li>
+                                        <li><a href="javascript:;">99</a></li>
+                                        <li><a href="javascript:;">&gt;</a></li>
+                                    </ul>
+                                </div>
+                                <p class="page-total">共有<span>99</span>条记录</p>
+                            </div>
+                        </div>
+                        <!-- 我提交的审批 E-->
+                        <!-- 全部审批 S-->
+                        <div class="layui-tab-item">
+                            <!-- 头部 -->
+                            <div class="layui-form-item finance-search financial">
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input"><span><i class="iconfont icon-search"></i></span>
+                                    <div class="example-handle">
+                                        <button href="" class="examine-operate">备注管理</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 审核流程 -->
+                            <div class="finance-flow">
+                                <span class="flow-title">审核流程</span>
+                                <ul>
+                                    <li><a class="flow-first" href="javascript:;"><span>①</span>财务</a></li>
+                                    <li><a class="flow-middle" href="javascript:;"><span>②</span>质检</a></li>
+                                    <li><a class="flow-middle" href="javascript:;"><span>③</span>合同</a></li>
+                                    <li><a class="flow-last" href="javascript:;"><span>④</span>回访</a></li>
+                                </ul>
+                            </div>
+                            <!-- 标签 -->
+                            <div class="finance-tag">
+                                <div class="examine-tag">
+                                    <span class="tag-title">备注</span>
+                                    <ul>
+                                        <li><a href="" class="tag-a">用户年龄不合规</a></li>
+                                        <li><a href="" class="tag-a tag-active">用户类型不符合</a></li>
+                                        <li><a href="" class="tag-a">信息错误等</a></li>
+                                        <li><a href="" class="tag-a">用户年龄不合规</a></li>
+                                        <li><a href="" class="tag-a">用户类型不符合</a></li>
+                                        <li><a href="" class="tag-a">信息错误等</a></li>
+                                    </ul>
+                                </div>
+                                <div class="examine-tag">
+                                    <span class="tag-title">筛选</span>
+                                    <ul>
+                                        <li><a href="" class="tag-a">合规状态</a></li>
+                                        <li><a href="" class="tag-a">移交时间</a></li>
+                                        <li><a href="" class="tag-a">购买服务</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                                <thead>
+                                <tr align="center">
+                                    <th>客户姓名</th>
+                                    <th>购买产品</th>
+                                    <th>产品类型</th>
+                                    <th>购买数量</th>
+                                    <th>购买金额（元）</th>
+                                    <th>支付方式</th>
+                                    <th>移交时间</th>
+                                    <th>销售人员</th>
+                                    <th>审核状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr align="center" v-for="item in tableDataAll">
+                                    <td>{{item.customer_name}}</td>
+                                    <td>{{item.goods_name}}</td>
+                                    <td>{{item.goods_type}}</td>
+                                    <td>{{item.buy_num}}</td>
+                                    <td>{{item.pay_money}}</td>
+                                    <td>{{item.pay_type}}</td>
+                                    <td>{{item.create_time}}</td>
+                                    <td>{{item.salesman}}</td>
+                                    <td class="audit-td">
+                                        {{item.status}}
+                                        <div class="audit-state">
+                                            <p>上一步状态：合规审核拒绝</p>
+                                            <p>审核备注：开发过程违规</p>
+                                            <p>审核时间：2017-09-07 11：00</p>
+                                            <p>最新状态：待销售修改</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="page">
+                                <div class="page-select">
+                                    <span class="page-title">每页展示客户</span>
+                                    <ul>
+                                        <li><a href="javascript:;" class="select-active">1000</a></li>
+                                        <li><a href="javascript:;">500</a></li>
+                                        <li><a href="javascript:;">300</a></li>
+                                    </ul>
+                                </div>
+                                <div class="page-choice">
+                                    <ul>
+                                        <li><a href="javascript:;">&lt;</a></li>
+                                        <li><a href="javascript:;">1</a></li>
+                                        <li><a href="javascript:;" class="page-active">2</a></li>
+                                        <li><a href="javascript:;">3</a></li>
+                                        <li><a href="javascript:;">...</a></li>
+                                        <li><a href="javascript:;">99</a></li>
+                                        <li><a href="javascript:;">&gt;</a></li>
+                                    </ul>
+                                </div>
+                                <p class="page-total">共有<span>99</span>条记录</p>
+                            </div>
+                        </div>
+                        <!-- 全部审批 E-->
+                        <!-- 待我修改的审批 S-->
+                        <div class="layui-tab-item">
+                            <!-- 审核流程 -->
+                            <div class="finance-flow">
+                                <span class="flow-title">审核流程</span>
+                                <ul>
+                                    <li><a class="flow-first" href="javascript:;"><span>①</span>财务</a></li>
+                                    <li><a class="flow-middle" href="javascript:;"><span>②</span>质检</a></li>
+                                    <li><a class="flow-middle" href="javascript:;"><span>③</span>合同</a></li>
+                                    <li><a class="flow-last" href="javascript:;"><span>④</span>回访</a></li>
+                                </ul>
+                            </div>
+                            <div class="finance-wait"><input type="checkbox">全选<a @click="deleteName">删除客户</a></div>
+                            <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                                <thead>
+                                <tr align="center">
+                                    <th>客户姓名</th>
+                                    <th>购买产品</th>
+                                    <th>产品类型</th>
+                                    <th>购买数量</th>
+                                    <th>购买金额（元）</th>
+                                    <th>支付方式</th>
+                                    <th>移交时间</th>
+                                    <th>拒绝环节</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr align="center" v-for="item in tableDataWait">
+                                    <td><input type="checkbox"/>{{item.customer_name}}</td>
+                                    <td>{{item.goods_name}}</td>
+                                    <td>{{item.goods_type}}</td>
+                                    <td>{{item.buy_num}}</td>
+                                    <td>{{item.pay_money}}</td>
+                                    <td>{{item.pay_type}}</td>
+                                    <td>{{item.create_time}}</td>
+                                    <td class="audit-td">
+                                        {{item.refused_link}}
+                                        <div class="audit-state">
+                                            <p>上一步状态：合规审核拒绝</p>
+                                            <p>审核备注：开发过程违规</p>
+                                            <p>审核时间：2017-09-07 11：00</p>
+                                            <p>最新状态：待销售修改</p>
+                                        </div>
+                                    </td>
+                                    <td>修改</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="page">
+                                <div class="page-select">
+                                    <span class="page-title">每页展示客户</span>
+                                    <ul>
+                                        <li><a href="javascript:;" class="select-active">1000</a></li>
+                                        <li><a href="javascript:;">500</a></li>
+                                        <li><a href="javascript:;">300</a></li>
+                                    </ul>
+                                </div>
+                                <div class="page-choice">
+                                    <ul>
+                                        <li><a href="javascript:;">&lt;</a></li>
+                                        <li><a href="javascript:;">1</a></li>
+                                        <li><a href="javascript:;" class="page-active">2</a></li>
+                                        <li><a href="javascript:;">3</a></li>
+                                        <li><a href="javascript:;">...</a></li>
+                                        <li><a href="javascript:;">99</a></li>
+                                        <li><a href="javascript:;">&gt;</a></li>
+                                    </ul>
+                                </div>
+                                <p class="page-total">共有<span>99</span>条记录</p>
+                            </div>
+                        </div>
+                        <!-- 待我修改的审批 E-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/myExamination.js"></script>
+{include file="common/footer_bottom"/}

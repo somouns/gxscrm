@@ -1,0 +1,13 @@
+TP站点注意事项：
+1、模块下面的控制器类的首字母必须大写。
+
+2、模块下的控制器类如果使用驼峰命名法，在URL访问的时候，需要将用"_"分割。
+    如：admin/customers/CustomEmployee.php 下的控制器，访问的使用使用：admin/customers/custom_employee
+
+3、views下面的控制器对应的文件夹也要使用"_" 分割。
+
+4、如果在tp站点需要转发 内容到 接口站点 获取数据，那么承担转发的这个tp站点的路由里面不能有任何的页面渲染，否则会报错。
+    如：admin/customers/customer/index 这个页面需要显示客户的页面，那么这个路由就不能再用于向接口站点转发请求。
+        如果需要向接口站点转发请求，获取数据，请重新在admin/customers下的Customer.php文件中新建一个方法，且方法内不要包含任何代码
+        如： public function get() {}      。
+        获取客户信息： admin/customers/customer/get?c=customer&a=index

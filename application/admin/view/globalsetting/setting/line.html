@@ -1,0 +1,50 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/configure-edit.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+<!-- 线上 -->
+<div class="container my-client-container" >
+     <div  id="app" class="main-wrap" v-cloak>
+          <!--线上-->
+          <div class="main online">
+          	<h2>线上投顾计划：</h2>
+          	<div class="layui-form layui-col-md12 formbar">
+          		<form class="layui-form" action="">
+								<!-- 表格start -->
+		            <div class="tableBar">  
+		               <!-- 表格渲染 -->
+		               <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', page:true, even: true, limit: 10, limits: [10,20,30] }" lay-filter="jurTable">
+		                  	<thead>
+			                    <tr>
+			                      <th lay-data="{field:'name', width:210}">机构名称</th>
+			                      <th lay-data="{field:'product', width:1206}">服务名称</th>
+			                    </tr>
+		                  	</thead>
+		                  	<tbody>
+			                    <tr v-for="item in tableList">
+			                       	<td>{{item.name}}</td>
+			                       	<td>
+			                       		<div class="layui-input-block">
+														      <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">
+														      <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
+														      <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
+														      <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
+														    </div>
+			                       	</td>
+			                    </tr>
+		                  	</tbody>
+		               </table> 
+		            </div>
+		            <!-- 表格end -->
+							  <div class="btn-wrap layui-col-md12">
+							 		<button lay-submit lay-filter="formDemo" class="layui-btn">确定</button>
+							 		<button type="reset" class="layui-btn layui-btn-primary">取消</button>
+							  </div>
+							</form>
+          	</div>
+					</div>
+     </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/configure-view.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

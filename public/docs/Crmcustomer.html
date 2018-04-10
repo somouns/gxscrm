@@ -1,0 +1,4241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="php-apidoc - apid documenation generator">
+    <meta name="author" content="Calin Rada">
+    <title>crm客户相关接口</title>
+    <link href="com/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body      { padding-top: 70px; margin-bottom: 15px; }
+        .tab-pane { padding-top: 10px; }
+        .mt0      { margin-top: 0px; }
+        .footer   { font-size: 12px; color: #666; }
+        .label    { display: inline-block; min-width: 65px; padding: 0.3em 0.6em 0.3em; }
+        .string   { color: green; }
+        .number   { color: darkorange; }
+        .boolean  { color: blue; }
+        .null     { color: magenta; }
+        .key      { color: red; }
+        .popover  { max-width: 400px; max-height: 400px; overflow-y: auto;}
+    </style>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">crm客户相关接口</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" enctype ="multipart/form-data">
+                <div class="form-group">
+                    Api key: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="Api key header with api key (key) and api key value (value) "><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="key" id="apikey_key">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="value" id="apikey_value">
+                </div>
+                <div class="form-group" style="margin-left: 10px;">
+                    Basic Auth: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="If needed"><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="Username" id="basic_auth_username">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="Password" id="basic_auth_password">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success btn-sm tooltipP" data-toggle="tooltip" title="Save API key and Basic Auth data in localstorage" id="save_auth_data">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Api URL</h5>
+                <input id="apiUrl" type="text" class="form-control input-sm" placeholder="http://api.mydomain.tld">
+            </div>
+        </div>
+        <hr>
+        <div class="panel-group" id="accordion">
+            <h2>员工新增客户</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion0" href="#collapseOne0"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=add</a>
+        </h4>
+    </div>
+    <div id="collapseOne0" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab0">
+                <li class="active"><a href="#info0" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox0" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample0" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info0">
+                    <div class="well">
+                    员工新增客户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>from_channel</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户来源： 1 股先生  2 微信推广  3 其他</td>
+</tr>
+
+<tr>
+    <td>mark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>来源备注</td>
+</tr>
+
+<tr>
+    <td>real_name</td>
+    <td>string</td>
+    <td>No</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>id_card</td>
+    <td>string</td>
+    <td>No</td>
+    <td>身份证</td>
+</tr>
+
+<tr>
+    <td>sex</td>
+    <td>int</td>
+    <td>No</td>
+    <td>性别：1 男  2 女</td>
+</tr>
+
+<tr>
+    <td>qq</td>
+    <td>string</td>
+    <td>No</td>
+    <td>QQ号</td>
+</tr>
+
+<tr>
+    <td>weixin</td>
+    <td>string</td>
+    <td>No</td>
+    <td>微信号</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>array</td>
+    <td>No</td>
+    <td>手机号码 ['13211112222','13311112222']</td>
+</tr>
+
+<tr>
+    <td>customer_type</td>
+    <td>int</td>
+    <td>No</td>
+    <td>自定义客户分组的ID</td>
+</tr>
+
+<tr>
+    <td>custom_mark</td>
+    <td>array</td>
+    <td>No</td>
+    <td>客户备注id ['1','2']</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox0">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=add" method="post" name="form0" id="form0">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="from_channel" placeholder="from_channel" name="from_channel">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mark" placeholder="mark" name="mark">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="real_name" placeholder="real_name" name="real_name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id_card" placeholder="id_card" name="id_card">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="sex" placeholder="sex" name="sex">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="qq" placeholder="qq" name="qq">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="weixin" placeholder="weixin" name="weixin">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_type" placeholder="customer_type" name="customer_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="custom_mark" placeholder="custom_mark" name="custom_mark">
+</div>
+    <button type="submit" class="btn btn-success send" rel="0">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers0"></pre>
+                                <pre id="response0"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response0">{
+        code:返回是否成功标识code,-1为失败，1为成功
+        message:返回成功失败的描述,
+        data: {
+            customer_id: '客户ID'
+        }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>员工编辑客户</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=update</a>
+        </h4>
+    </div>
+    <div id="collapseOne1" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab1">
+                <li class="active"><a href="#info1" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox1" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample1" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info1">
+                    <div class="well">
+                    员工编辑客户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>customer_finance_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户财务信息ID</td>
+</tr>
+
+<tr>
+    <td>from_channel</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户来源： 1 股先生  2 微信推广  3 其他</td>
+</tr>
+
+<tr>
+    <td>mark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>来源备注</td>
+</tr>
+
+<tr>
+    <td>real_name</td>
+    <td>string</td>
+    <td>No</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>id_card</td>
+    <td>string</td>
+    <td>No</td>
+    <td>身份证</td>
+</tr>
+
+<tr>
+    <td>sex</td>
+    <td>int</td>
+    <td>No</td>
+    <td>性别：1 男  2 女 </td>
+</tr>
+
+<tr>
+    <td>age</td>
+    <td>int</td>
+    <td>No</td>
+    <td>年龄</td>
+</tr>
+
+<tr>
+    <td>career</td>
+    <td>string</td>
+    <td>No</td>
+    <td>职业</td>
+</tr>
+
+<tr>
+    <td>qq</td>
+    <td>string</td>
+    <td>No</td>
+    <td>QQ号</td>
+</tr>
+
+<tr>
+    <td>weixin</td>
+    <td>string</td>
+    <td>No</td>
+    <td>微信号</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>array</td>
+    <td>No</td>
+    <td>手机号码 ['13211112222','13311112222']</td>
+</tr>
+
+<tr>
+    <td>province</td>
+    <td>int</td>
+    <td>No</td>
+    <td>省</td>
+</tr>
+
+<tr>
+    <td>city</td>
+    <td>int</td>
+    <td>No</td>
+    <td>市</td>
+</tr>
+
+<tr>
+    <td>area</td>
+    <td>int</td>
+    <td>No</td>
+    <td>县</td>
+</tr>
+
+<tr>
+    <td>address</td>
+    <td>string</td>
+    <td>No</td>
+    <td>详细地址</td>
+</tr>
+
+<tr>
+    <td>income_source</td>
+    <td>array</td>
+    <td>No</td>
+    <td>收入来源：[1,2]  1 薪资 2 对外投资 3 企业经营  4 其他</td>
+</tr>
+
+<tr>
+    <td>income_source_mark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>其他收入来源备注</td>
+</tr>
+
+<tr>
+    <td>lately_avg_income</td>
+    <td>string</td>
+    <td>No</td>
+    <td>最近3年平均年收入</td>
+</tr>
+
+<tr>
+    <td>has_debt</td>
+    <td>int</td>
+    <td>No</td>
+    <td>是否有债务： 1 有  2 无</td>
+</tr>
+
+<tr>
+    <td>has_debt_mark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>有债务备注</td>
+</tr>
+
+<tr>
+    <td>financial_assets</td>
+    <td>array</td>
+    <td>No</td>
+    <td>金融资产['ck','gp']  存款:ck,股票:gp,基金:jj,其他:qt</td>
+</tr>
+
+<tr>
+    <td>financial_assets_money</td>
+    <td>array</td>
+    <td>No</td>
+    <td>金融资产金额['1000','2000']  存款:ck,股票:gp,基金:jj,其他:qt</td>
+</tr>
+
+<tr>
+    <td>is_open_gem</td>
+    <td>int</td>
+    <td>No</td>
+    <td>是否开通创业板   1 是，2 否</td>
+</tr>
+
+<tr>
+    <td>is_open_st</td>
+    <td>int</td>
+    <td>No</td>
+    <td>是否开通ST  1 是，2 否</td>
+</tr>
+
+<tr>
+    <td>current_position</td>
+    <td>int</td>
+    <td>No</td>
+    <td>当前仓位</td>
+</tr>
+
+<tr>
+    <td>portfolio_investment</td>
+    <td>array</td>
+    <td>No</td>
+    <td>证券投资['gp','jj'] 股票:gp,债券:zj,基金:jj,期货:qh,其他:qt</td>
+</tr>
+
+<tr>
+    <td>portfolio_investment_money</td>
+    <td>array</td>
+    <td>No</td>
+    <td>证券投资金额['1000','800'] 股票:gp,债券:zj,基金:jj,期货:qh,其他:qt</td>
+</tr>
+
+<tr>
+    <td>financial_investment_experience</td>
+    <td>int</td>
+    <td>No</td>
+    <td>金融投资学习工作经历  1 有 , 2 无</td>
+</tr>
+
+<tr>
+    <td>financial_investment_experience_mark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>金融投资学习工作经历备注</td>
+</tr>
+
+<tr>
+    <td>financial_industry_certificate</td>
+    <td>int</td>
+    <td>No</td>
+    <td>金融行业职业资格证书  1 有 , 2 无</td>
+</tr>
+
+<tr>
+    <td>financial_industry_certificate_mark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>金融行业职业资格证书备注</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox1">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=update" method="post" name="form1" id="form1">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_finance_id" placeholder="customer_finance_id" name="customer_finance_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="from_channel" placeholder="from_channel" name="from_channel">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mark" placeholder="mark" name="mark">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="real_name" placeholder="real_name" name="real_name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id_card" placeholder="id_card" name="id_card">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="sex" placeholder="sex" name="sex">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="age" placeholder="age" name="age">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="career" placeholder="career" name="career">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="qq" placeholder="qq" name="qq">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="weixin" placeholder="weixin" name="weixin">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="province" placeholder="province" name="province">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="city" placeholder="city" name="city">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="area" placeholder="area" name="area">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="address" placeholder="address" name="address">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="income_source" placeholder="income_source" name="income_source">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="income_source_mark" placeholder="income_source_mark" name="income_source_mark">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="lately_avg_income" placeholder="lately_avg_income" name="lately_avg_income">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="has_debt" placeholder="has_debt" name="has_debt">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="has_debt_mark" placeholder="has_debt_mark" name="has_debt_mark">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="financial_assets" placeholder="financial_assets" name="financial_assets">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="financial_assets_money" placeholder="financial_assets_money" name="financial_assets_money">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="is_open_gem" placeholder="is_open_gem" name="is_open_gem">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="is_open_st" placeholder="is_open_st" name="is_open_st">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="current_position" placeholder="current_position" name="current_position">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="portfolio_investment" placeholder="portfolio_investment" name="portfolio_investment">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="portfolio_investment_money" placeholder="portfolio_investment_money" name="portfolio_investment_money">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="financial_investment_experience" placeholder="financial_investment_experience" name="financial_investment_experience">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="financial_investment_experience_mark" placeholder="financial_investment_experience_mark" name="financial_investment_experience_mark">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="financial_industry_certificate" placeholder="financial_industry_certificate" name="financial_industry_certificate">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="financial_industry_certificate_mark" placeholder="financial_industry_certificate_mark" name="financial_industry_certificate_mark">
+</div>
+    <button type="submit" class="btn btn-success send" rel="1">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers1"></pre>
+                                <pre id="response1"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response1">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>员工导入客户</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2"> http://crm.guxiansheng.cn/admin/customers/customer/import</a>
+        </h4>
+    </div>
+    <div id="collapseOne2" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab2">
+                <li class="active"><a href="#info2" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox2" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample2" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info2">
+                    <div class="well">
+                    员工导入客户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_type</td>
+    <td>int</td>
+    <td>No</td>
+    <td>	自定义客户分组的ID</td>
+</tr>
+
+<tr>
+    <td>import_csv</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>file的name值</td>
+</tr>
+
+<tr>
+    <td>from_channel</td>
+    <td>int</td>
+    <td>No</td>
+    <td>客户来源： 1 股先生  2 微信推广  3 其他</td>
+</tr>
+
+<tr>
+    <td>id_card</td>
+    <td>string</td>
+    <td>No</td>
+    <td>身份证</td>
+</tr>
+
+<tr>
+    <td>real_name</td>
+    <td>string</td>
+    <td>No</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>qq</td>
+    <td>string</td>
+    <td>No</td>
+    <td>QQ号</td>
+</tr>
+
+<tr>
+    <td>weixin</td>
+    <td>string</td>
+    <td>No</td>
+    <td>微信号</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>string</td>
+    <td>No</td>
+    <td>手机号码(多个用|分隔) '13211112222|13311112222'</td>
+</tr>
+
+<tr>
+    <td>customer_type</td>
+    <td>string</td>
+    <td>No</td>
+    <td>自定义客户分组的ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox2">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/import" method="post" name="form2" id="form2">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_type" placeholder="customer_type" name="customer_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="import_csv" placeholder="import_csv" name="import_csv">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="from_channel" placeholder="from_channel" name="from_channel">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id_card" placeholder="id_card" name="id_card">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="real_name" placeholder="real_name" name="real_name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="qq" placeholder="qq" name="qq">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="weixin" placeholder="weixin" name="weixin">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_type" placeholder="customer_type" name="customer_type">
+</div>
+    <button type="submit" class="btn btn-success send" rel="2">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers2"></pre>
+                                <pre id="response2"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response2">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>我的客户列表</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_list</a>
+        </h4>
+    </div>
+    <div id="collapseOne3" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab3">
+                <li class="active"><a href="#info3" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox3" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample3" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info3">
+                    <div class="well">
+                    我的客户列表
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerPool</td>
+    <td>string</td>
+    <td>No</td>
+    <td>搜索客户公海 1表示搜索客户公海</td>
+</tr>
+
+<tr>
+    <td>name_or_tel</td>
+    <td>string</td>
+    <td>No</td>
+    <td>搜索客户姓名或者手机号</td>
+</tr>
+
+<tr>
+    <td>mark_id</td>
+    <td>string</td>
+    <td>No</td>
+    <td>搜索备注ID</td>
+</tr>
+
+<tr>
+    <td>tag_id</td>
+    <td>string</td>
+    <td>No</td>
+    <td>搜索标签ID</td>
+</tr>
+
+<tr>
+    <td>create_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>创建时间</td>
+</tr>
+
+<tr>
+    <td>relation_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>联系时间</td>
+</tr>
+
+<tr>
+    <td>no_relation_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>未联系时间</td>
+</tr>
+
+<tr>
+    <td>turnover_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>成交时间</td>
+</tr>
+
+<tr>
+    <td>join_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>加入时间</td>
+</tr>
+
+<tr>
+    <td>update_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>更新时间</td>
+</tr>
+
+<tr>
+    <td>service_end_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>服务到期时间</td>
+</tr>
+
+<tr>
+    <td>organizational_structure</td>
+    <td>string</td>
+    <td>No</td>
+    <td>组织架构</td>
+</tr>
+
+<tr>
+    <td>custom_group_id</td>
+    <td>string</td>
+    <td>No</td>
+    <td>自定义客户群组</td>
+</tr>
+
+<tr>
+    <td>shareToMe</td>
+    <td>string</td>
+    <td>No</td>
+    <td>共享给我的客户 1表示搜索共享给我的客户</td>
+</tr>
+
+<tr>
+    <td>transferToMe</td>
+    <td>string</td>
+    <td>No</td>
+    <td>转移给我的客户 1表示搜索转移给我的客户</td>
+</tr>
+
+<tr>
+    <td>groupCustomer</td>
+    <td>string</td>
+    <td>No</td>
+    <td>群组客户  groupCustomer 、 type    整个群组、群组ID</td>
+</tr>
+
+<tr>
+    <td>specialGroup</td>
+    <td>string</td>
+    <td>No</td>
+    <td>特殊群组  specialGroup_ztfy 、type 整个涨停风云   ztfy|2017-10-21</td>
+</tr>
+
+<tr>
+    <td>customerPool</td>
+    <td>string</td>
+    <td>No</td>
+    <td>客户公海  1表示搜索客户公海</td>
+</tr>
+
+<tr>
+    <td>order</td>
+    <td>string</td>
+    <td>No</td>
+    <td>客户列表排序，dyn_down dyn_up最近动态升降序，relation_down relation_up 最近联系时间升降序，create_down create_up 客户创建时间升降序 </td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox3">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_list" method="post" name="form3" id="form3">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerPool" placeholder="customerPool" name="customerPool">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="name_or_tel" placeholder="name_or_tel" name="name_or_tel">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mark_id" placeholder="mark_id" name="mark_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="tag_id" placeholder="tag_id" name="tag_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="create_time" placeholder="create_time" name="create_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="relation_time" placeholder="relation_time" name="relation_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="no_relation_time" placeholder="no_relation_time" name="no_relation_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="turnover_time" placeholder="turnover_time" name="turnover_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="join_time" placeholder="join_time" name="join_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="update_time" placeholder="update_time" name="update_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="service_end_time" placeholder="service_end_time" name="service_end_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="organizational_structure" placeholder="organizational_structure" name="organizational_structure">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="custom_group_id" placeholder="custom_group_id" name="custom_group_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="shareToMe" placeholder="shareToMe" name="shareToMe">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="transferToMe" placeholder="transferToMe" name="transferToMe">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="groupCustomer" placeholder="groupCustomer" name="groupCustomer">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="specialGroup" placeholder="specialGroup" name="specialGroup">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerPool" placeholder="customerPool" name="customerPool">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="order" placeholder="order" name="order">
+</div>
+    <button type="submit" class="btn btn-success send" rel="3">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers3"></pre>
+                                <pre id="response3"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response3">{
+    code: '返回是否成功标识code,-1为失败，1为成功',
+    message: '返回成功失败的描述',
+    data: {
+        list: [
+            {
+                id: '客户id',
+                archives_num: '客户档案编号',
+                real_name: '真实姓名',
+                id_card: '身份证',
+                sex: '性别：1 男  2 女',
+                age: '年龄',
+                province: '省',
+                city: '市',
+                area: '县',
+                address: '详细地址',
+                from_channel: '客户来源',
+                mark: '客户来源备注',
+                is_customer_pool: '客户是否在客户池：1 不在公海池 2  在公海池',
+                career: '职业',
+                cooper_situation: [
+                    '涨停风云',
+                    '李五',
+                    '二组'
+                ],
+                product_name: [
+                    '涨停风云',
+                    '火箭1号'
+                ],
+                status: '客户状态： 1 正常，0 禁用',
+                operate_id: '录入人ID',
+                operate_real_name: '录入人真实姓名',
+                create_time: '客户创建日期',
+                create_department_name: '创建人部门',
+                update_time: '修改时间',
+                lately_contact_employeeid: '最近联系人',
+                lately_contact_time: '最近联系日期',
+                lately_dynamic: '最新动态',
+                lately_dynamic_time: '最新动态日期',
+                head_type: 3,
+                lately_contact_employee_name: '最近联系人姓名',
+                mobile: [
+                    '电话 18983133431'
+                ]
+            },
+            {
+            id: '客户id',
+            archives_num: '客户档案编号',
+            real_name: '真实姓名',
+            id_card: '身份证',
+            sex: '性别：1 男  2 女',
+            age: '年龄',
+            province: '省',
+            city: '市',
+            area: '县',
+            address: '详细地址',
+            from_channel: '客户来源',
+            mark: '客户来源备注',
+            is_customer_pool: '客户是否在客户池：1 不在公海池 2  在公海池',
+            career: '职业',
+            cooper_situation: [
+                '涨停风云',
+                '李五',
+                '二组'
+            ],
+            product_name: [
+                '涨停风云',
+                '火箭1号'
+            ],
+            status: '客户状态： 1 正常，0 禁用',
+            operate_id: '录入人ID',
+            operate_real_name: '录入人真实姓名',
+            create_time: '客户创建日期',
+            create_department_name: '创建人部门',
+            update_time: '修改时间',
+            lately_contact_employeeid: '最近联系人',
+            lately_contact_time: '最近联系日期',
+            lately_dynamic: '最新动态',
+            lately_dynamic_time: '最新动态日期',
+            head_type: 3,
+            lately_contact_employee_name: '最近联系人姓名',
+            mobile: [
+                '电话 18983133431'
+            ]
+            }
+        ],
+        total_num: '总记录数',
+        total_page: '总页数'
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>客户列表左侧</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_list_left</a>
+        </h4>
+    </div>
+    <div id="collapseOne4" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab4">
+                <li class="active"><a href="#info4" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox4" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample4" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info4">
+                    <div class="well">
+                    客户列表左侧
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox4">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_list_left" method="post" name="form4" id="form4">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="4">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers4"></pre>
+                                <pre id="response4"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response4">{
+    code: '返回是否成功标识code,-1为失败，1为成功',
+    message: '返回成功失败的描述',
+    data: {
+    customGroup: [
+        {
+            type: '自定义客户分钟id  500',
+            name: '自定义客户名称  一般客户',
+            total_num: '总数 13'
+        },
+        {
+            type: '自定义客户分钟id  500',
+            name: '自定义客户名称  一般客户',
+            total_num: '总数 13'
+        },
+    ],
+    fixedGroup: [
+        {
+            type: 'shareToMe',
+            name: '共享给我的客户',
+            total_num: '总数  24'
+        },
+        {
+            type: 'transferToMe',
+            name: '转移给我的客户',
+            total_num: '总数'
+        },
+        {
+            type: 'groupCustomer',
+            name: '群组客户',
+            total_num: '总数 174',
+            child: [
+                {
+                    type: 'groupCustomer',
+                    name: '全部',
+                    total_num: '总数 87'
+                },
+                {
+                    type: '分组id 11',
+                    name: '分组名称 谢老板',
+                    total_num: '总数 87'
+                },
+                {
+                    type: '分组id 11',
+                    name: '分组名称 谢老板',
+                    total_num: '总数 87'
+                }
+            ]
+        }
+    ],
+    specialGroup: [
+    {
+        type: 'specialGroup_ztfy',
+        name: '涨停风云',
+        total_num: '总数 6',
+        child: [
+            {
+                type: 'ztfy|2017-10-21',
+                name: '日期 2017-10-21',
+                total_num: '总数 2'
+            },
+            {
+                type: 'ztfy|2017-10-19',
+                name: '日期 2017-10-19',
+                total_num: '总数 1'
+            },
+            {
+                type: 'ztfy|2017-10-18',
+                name: '日期 2017-10-18',
+                total_num: '总数 1'
+            },
+            {
+                type: 'ztfyyiwang|2017-10-18',
+                name: '以往',
+                total_num: '总数 2'
+            }
+        ]
+    },
+    {
+        type: 'customerPool',
+        name: '客户公海',
+        total_num: '总数 18'
+    }
+    ]
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>客户列表标签备注</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_list_tag_mark</a>
+        </h4>
+    </div>
+    <div id="collapseOne5" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab5">
+                <li class="active"><a href="#info5" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox5" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample5" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info5">
+                    <div class="well">
+                    客户列表标签备注
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox5">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_list_tag_mark" method="post" name="form5" id="form5">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="5">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers5"></pre>
+                                <pre id="response5"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response5">{
+    code: '返回是否成功标识code,-1为失败，1为成功',
+    message: '返回成功失败的描述',
+    data: {
+        marklist: [
+        {
+            id: '备注id 1',
+            mark_name: '备注名称 老客户'
+        },
+        {
+            id: '备注id 2',
+            mark_name: '备注名称 新客户'
+        }
+        ],
+        taglist: [
+        {
+            id: '标签id 8',
+            pid: '1',
+            tag_name: '标签名称 签单审核己提交'
+        },
+        {
+            id: '标签id 9',
+            pid: '1',
+            tag_name: '标签名称 签单审核待修改'
+        }
+        ]
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>单个客户基本信息</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_info</a>
+        </h4>
+    </div>
+    <div id="collapseOne6" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab6">
+                <li class="active"><a href="#info6" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox6" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample6" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info6">
+                    <div class="well">
+                    单个客户基本信息
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox6">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_info" method="post" name="form6" id="form6">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="6">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers6"></pre>
+                                <pre id="response6"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response6">{
+    code: 1,
+    message: 'ok',
+    data: {
+    id: '52',
+    head_type: '头像',
+    archives_num: '客户档案编号',
+    real_name: '真实姓名',
+    id_card: '身份证',
+    sex: '性别：1 男 2 女',
+    is_cebind: '是否有绑定关系：1 有 0 没有',
+    age: '年龄',
+    province: '省',
+    city: '市 2368',
+    area: '县 2370',
+    province_name: '省名称',
+    city_name: '市名称',
+    area_name: '县名称',
+    address: '详细地址',
+    from_channel: '客户来源： 1 股先生 2 微信推广 3 其他',
+    mark: '来源备注',
+    is_customer_pool: '1',
+    career: '职业',
+    cooper_situation: '0',
+    product_name: '',
+    status: '1',
+    operate_id: '1',
+    operate_real_name: '三鑫admin',
+    create_time: '2017-10-15 15:29:28',
+    update_time: '2017-10-15 18:16:03',
+    lately_contact_employeeid: '0',
+    lately_contact_time: '0000-00-00 00:00:00',
+    lately_dynamic: '',
+    lately_dynamic_time: '0000-00-00 00:00:00',
+    mobile: [
+        {
+            mobile: 13588885555,
+            is_relation: '是否关联合作情况 1 关联  0 未关联',
+            contact_id: '联系电话ID 21797'
+        }
+    ],
+    weixin: 'wx11111131',
+    qq: '12121230'
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>单个客户详细信息</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_detail</a>
+        </h4>
+    </div>
+    <div id="collapseOne7" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab7">
+                <li class="active"><a href="#info7" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox7" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample7" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info7">
+                    <div class="well">
+                    单个客户详细信息
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox7">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_detail" method="post" name="form7" id="form7">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="7">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers7"></pre>
+                                <pre id="response7"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample7">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response7">{
+    code: 1,
+    message: 'ok',
+    data: {
+    id: '52',
+    head_type: '头像',
+    archives_num: '客户档案编号',
+    real_name: '真实姓名',
+    id_card: '身份证',
+    sex: '性别：1 男 2 女',
+    is_cebind: '是否有绑定关系：1 有 0 没有',
+    age: '年龄',
+    province: '省',
+    city: '市 2368',
+    area: '县 2370',
+    province_name: '省名称',
+    city_name: '市名称',
+    area_name: '县名称',
+    address: '详细地址',
+    from_channel: '客户来源： 1 股先生 2 微信推广 3 其他',
+    mark: '来源备注',
+    is_customer_pool: '1',
+    career: '职业',
+    cooper_situation: '0',
+    product_name: '',
+    status: '1',
+    operate_id: '1',
+    operate_real_name: '三鑫admin',
+    create_time: '2017-10-15 15:29:28',
+    update_time: '2017-10-15 18:16:03',
+    lately_contact_employeeid: '0',
+    lately_contact_time: '0000-00-00 00:00:00',
+    lately_dynamic: '',
+    lately_dynamic_time: '0000-00-00 00:00:00',
+    mobile: [
+        {
+        mobile: 13588885555,
+        is_relation: '是否关联合作情况 1 关联  0 未关联'
+        contact_id: '联系电话ID 21797'
+        }
+    ],
+    weixin: 'wx11111131',
+    qq: '12121230',
+    finance_info: {
+        id: '财务信息id',
+        customer_id: '客户ID',
+        income_source: [
+            {
+                t_id: 1,
+                t_name: '薪资',
+                is_check: 1
+            },
+            {
+                t_id: 2,
+                t_name: '对外投资',
+                is_check: 0
+            },
+            {
+                t_id: 3,
+                t_name: '企业经营',
+                is_check: 0
+            },
+            {
+                t_id: 4,
+                t_name: '其他',
+                is_check: 0
+            }
+        ],
+        income_source_mark: '其他收入来源备注 其他来源',
+        has_debt: '是否有债务： 1 有 2 无',
+        has_debt_mark: '有债务备注',
+        financial_assets: [
+            {
+                t_id: 'ck',
+                t_name: '存款',
+                is_check: 1,
+                t_money: 500
+            },
+            {
+                t_id: 'gp',
+                t_name: '股票',
+                is_check: 1,
+                t_money: 400
+            },
+            {
+                t_id: 'jj',
+                t_name: '基金',
+                is_check: 0,
+                t_money: ''
+            },
+            {
+                t_id: 'qt',
+                t_name: '其他',
+                is_check: 0,
+                t_money: ''
+            }
+        ],
+        lately_avg_income: '最近3年平均年收入',
+        operate_id: '1',
+        operate_real_name: '三鑫admin',
+        is_open_gem: '是否开通创业板 1 是，2 否',
+        is_open_st: '是否开通ST 1 是，2 否',
+        current_position: '当前仓位',
+        portfolio_investment: [
+            {
+                t_id: 'gp',
+                t_name: '股票',
+                is_check: 1,
+                t_money: 400
+            },
+            {
+                t_id: 'zj',
+                t_name: '债券',
+                is_check: 0,
+                t_money: ''
+            },
+            {
+                t_id: 'jj',
+                t_name: '基金',
+                is_check: 0,
+                t_money: ''
+            },
+            {
+                t_id: 'qh',
+                t_name: '期货',
+                is_check: 0,
+                t_money: ''
+            },
+            {
+                t_id: 'qt',
+                t_name: '其他',
+                is_check: 1,
+                t_money: 1000
+            }
+        ],
+        financial_investment_experience: '金融投资学习工作经历 1 有 , 2 无',
+        financial_investment_experience_mark: '金融投资学习工作经历备注 1年',
+        financial_industry_certificate: '金融行业职业资格证书 1 有 , 2 无',
+        financial_industry_certificate_mark: '金融行业职业资格证书备注 证券从业资格证书',
+        create_time: '2017-10-16 10:02:59',
+        update_time: '2017-10-16 10:03:27'
+    }
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>验证客户联系方式唯一</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion8" href="#collapseOne8"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=check_customer_contact</a>
+        </h4>
+    </div>
+    <div id="collapseOne8" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab8">
+                <li class="active"><a href="#info8" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox8" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample8" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info8">
+                    <div class="well">
+                    验证客户联系方式唯一
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户id  新增时传0</td>
+</tr>
+
+<tr>
+    <td>contact_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>联系方式类型： 1 电话号码  2 微信号    3 QQ号</td>
+</tr>
+
+<tr>
+    <td>contact_way</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>联系方式</td>
+</tr>
+
+<tr>
+    <td>action_type</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>操作类型： 新增 add  编辑 update</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox8">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=check_customer_contact" method="post" name="form8" id="form8">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="contact_type" placeholder="contact_type" name="contact_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="contact_way" placeholder="contact_way" name="contact_way">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="action_type" placeholder="action_type" name="action_type">
+</div>
+    <button type="submit" class="btn btn-success send" rel="8">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers8"></pre>
+                                <pre id="response8"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response8">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>全局设置返回某一配置</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion9" href="#collapseOne9"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=customer_source</a>
+        </h4>
+    </div>
+    <div id="collapseOne9" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab9">
+                <li class="active"><a href="#info9" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox9" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample9" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info9">
+                    <div class="well">
+                    全局设置返回某一配置
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>全局配置的名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox9">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=customer_source" method="post" name="form9" id="form9">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="name" placeholder="name" name="name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="9">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers9"></pre>
+                                <pre id="response9"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample9">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response9">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    data{
+            name: 全局配置name,
+            value: {
+                    配置name返回不同的属猪
+            }
+         }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>获取地区信息</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion10" href="#collapseOne10"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_area</a>
+        </h4>
+    </div>
+    <div id="collapseOne10" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab10">
+                <li class="active"><a href="#info10" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox10" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample10" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info10">
+                    <div class="well">
+                    获取地区信息
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>pid</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>父级ID  获取省时传0</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox10">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_area" method="post" name="form10" id="form10">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pid" placeholder="pid" name="pid">
+</div>
+    <button type="submit" class="btn btn-success send" rel="10">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers10"></pre>
+                                <pre id="response10"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample10">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response10">{
+    code: 1,
+    message: 'ok',
+    data: {
+        list: [
+            {
+            id: '地区ID 1',
+            shortname: '简称 北京',
+            name: '名称 北京'
+            },
+            {
+            id: '地区ID 19',
+            shortname: '简称 天津',
+            name: '名称 天津'
+            }
+            ]
+        }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>共享客户</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion11" href="#collapseOne11"> http://crm.guxiansheng.cn/admin/customers/customer/share_customer?c=customer&a=share_customer</a>
+        </h4>
+    </div>
+    <div id="collapseOne11" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab11">
+                <li class="active"><a href="#info11" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox11" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample11" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info11">
+                    <div class="well">
+                    共享客户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerIds</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>toEmployeeIds</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>共享给哪些员工</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox11">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/share_customer?c=customer&a=share_customer" method="post" name="form11" id="form11">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerIds" placeholder="customerIds" name="customerIds">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="toEmployeeIds" placeholder="toEmployeeIds" name="toEmployeeIds">
+</div>
+    <button type="submit" class="btn btn-success send" rel="11">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers11"></pre>
+                                <pre id="response11"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample11">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response11">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>客户转移</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion12" href="#collapseOne12"> http://crm.guxiansheng.cn/admin/customers/customer/transfer_customer?c=customer&a=transfer_customer</a>
+        </h4>
+    </div>
+    <div id="collapseOne12" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab12">
+                <li class="active"><a href="#info12" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox12" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample12" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info12">
+                    <div class="well">
+                    客户转移
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerIds</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>toEmployeeId</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>转移给哪个员工</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox12">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/transfer_customer?c=customer&a=transfer_customer" method="post" name="form12" id="form12">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerIds" placeholder="customerIds" name="customerIds">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="toEmployeeId" placeholder="toEmployeeId" name="toEmployeeId">
+</div>
+    <button type="submit" class="btn btn-success send" rel="12">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers12"></pre>
+                                <pre id="response12"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response12">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>移入客户池</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion13" href="#collapseOne13"> http://crm.guxiansheng.cn/admin/customers/customer/move_customer_to_pool?c=customer&a=move_customer_to_pool</a>
+        </h4>
+    </div>
+    <div id="collapseOne13" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab13">
+                <li class="active"><a href="#info13" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox13" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample13" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info13">
+                    <div class="well">
+                    移入客户池
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerIds</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox13">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/move_customer_to_pool?c=customer&a=move_customer_to_pool" method="post" name="form13" id="form13">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerIds" placeholder="customerIds" name="customerIds">
+</div>
+    <button type="submit" class="btn btn-success send" rel="13">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers13"></pre>
+                                <pre id="response13"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample13">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response13">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>删除客户</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion14" href="#collapseOne14"> http://crm.guxiansheng.cn/admin/customers/customer/delete_customer?c=customer&a=delete_customer</a>
+        </h4>
+    </div>
+    <div id="collapseOne14" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab14">
+                <li class="active"><a href="#info14" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox14" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample14" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info14">
+                    <div class="well">
+                    删除客户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerIds</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox14">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/delete_customer?c=customer&a=delete_customer" method="post" name="form14" id="form14">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerIds" placeholder="customerIds" name="customerIds">
+</div>
+    <button type="submit" class="btn btn-success send" rel="14">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers14"></pre>
+                                <pre id="response14"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample14">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response14">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>清理客户池，将员工自己客户中，有存在于客户池的从自己的关系中删除</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion15" href="#collapseOne15"> http://crm.guxiansheng.cn/admin/customers/customer/batch_delete_customer_pool?c=customer&a=batch_delete_customer_pool</a>
+        </h4>
+    </div>
+    <div id="collapseOne15" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab15">
+                <li class="active"><a href="#info15" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox15" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample15" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info15">
+                    <div class="well">
+                    清理客户池，将员工自己客户中，有存在于客户池的从自己的关系中删除
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerIds</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox15">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/batch_delete_customer_pool?c=customer&a=batch_delete_customer_pool" method="post" name="form15" id="form15">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerIds" placeholder="customerIds" name="customerIds">
+</div>
+    <button type="submit" class="btn btn-success send" rel="15">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers15"></pre>
+                                <pre id="response15"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample15">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response15">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>移动客户分组</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion16" href="#collapseOne16"> http://crm.guxiansheng.cn/admin/customers/customer/move_customer_group?c=customer&a=move_customer_group</a>
+        </h4>
+    </div>
+    <div id="collapseOne16" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab16">
+                <li class="active"><a href="#info16" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox16" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample16" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info16">
+                    <div class="well">
+                    移动客户分组
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerIds</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>customGroupId</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>自定义分组ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox16">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/move_customer_group?c=customer&a=move_customer_group" method="post" name="form16" id="form16">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerIds" placeholder="customerIds" name="customerIds">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customGroupId" placeholder="customGroupId" name="customGroupId">
+</div>
+    <button type="submit" class="btn btn-success send" rel="16">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers16"></pre>
+                                <pre id="response16"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample16">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response16">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>客户分配</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion17" href="#collapseOne17"> http://crm.guxiansheng.cn/admin/customers/customer/customer_allocation?c=customer&a=customer_allocation</a>
+        </h4>
+    </div>
+    <div id="collapseOne17" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab17">
+                <li class="active"><a href="#info17" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox17" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample17" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info17">
+                    <div class="well">
+                    客户分配(将客户从客户池移出，并转给某个员工)
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerIds</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>toEmployeeId</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>接受客户池转入客户的员工ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox17">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/customer_allocation?c=customer&a=customer_allocation" method="post" name="form17" id="form17">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerIds" placeholder="customerIds" name="customerIds">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="toEmployeeId" placeholder="toEmployeeId" name="toEmployeeId">
+</div>
+    <button type="submit" class="btn btn-success send" rel="17">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers17"></pre>
+                                <pre id="response17"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample17">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response17">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>判断某个客户能不能添加合作情况</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion18" href="#collapseOne18"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=check_add_cooper_situation</a>
+        </h4>
+    </div>
+    <div id="collapseOne18" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab18">
+                <li class="active"><a href="#info18" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox18" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample18" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info18">
+                    <div class="well">
+                    判断某个客户能不能添加合作情况
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerId</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox18">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=check_add_cooper_situation" method="post" name="form18" id="form18">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerId" placeholder="customerId" name="customerId">
+</div>
+    <button type="submit" class="btn btn-success send" rel="18">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers18"></pre>
+                                <pre id="response18"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample18">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response18">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>获取登录员工的已存在于客户池的客户</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion19" href="#collapseOne19"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_in_customer_pool</a>
+        </h4>
+    </div>
+    <div id="collapseOne19" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab19">
+                <li class="active"><a href="#info19" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox19" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample19" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info19">
+                    <div class="well">
+                    获取登录员工的已存在于客户池的客户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>pagesize</td>
+    <td>int</td>
+    <td>No</td>
+    <td>每页展示条数</td>
+</tr>
+
+<tr>
+    <td>curpage</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>当前页</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox19">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_in_customer_pool" method="post" name="form19" id="form19">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pagesize" placeholder="pagesize" name="pagesize">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="curpage" placeholder="curpage" name="curpage">
+</div>
+    <button type="submit" class="btn btn-success send" rel="19">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers19"></pre>
+                                <pre id="response19"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample19">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response19">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    data: {
+        total_num: '总记录数 14',
+        total_page: '总页数 2',
+        list: [
+            {
+                id: '客户id',
+                real_name: '客户姓名',
+                sex: '1(1男 2女 0未选择)',
+                lately_contact_time: '最近联系日期 2017-10-24 14:12:45'
+            },
+            {
+                id: '客户id',
+                real_name: '客户姓名',
+                sex: '2',
+                lately_contact_time: '最近联系日期 2017-10-24 14:12:45'
+            }
+        ]
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>获取某个客户的电话</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion20" href="#collapseOne20"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_customer_mobile</a>
+        </h4>
+    </div>
+    <div id="collapseOne20" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab20">
+                <li class="active"><a href="#info20" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox20" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample20" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info20">
+                    <div class="well">
+                    获取某个客户的电话
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerId</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox20">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_customer_mobile" method="post" name="form20" id="form20">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerId" placeholder="customerId" name="customerId">
+</div>
+    <button type="submit" class="btn btn-success send" rel="20">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers20"></pre>
+                                <pre id="response20"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample20">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response20">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    data: {
+        '电话号码 13500000001',
+        '电话号码 13500000002',
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>获取当前登录员工下客户总数和今日新增客户</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion21" href="#collapseOne21"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_employee_customer_tj</a>
+        </h4>
+    </div>
+    <div id="collapseOne21" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab21">
+                <li class="active"><a href="#info21" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox21" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample21" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info21">
+                    <div class="well">
+                    获取当前登录员工下客户总数和今日新增客户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox21">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_employee_customer_tj" method="post" name="form21" id="form21">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="21">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers21"></pre>
+                                <pre id="response21"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample21">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response21">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    data: {
+    all_total: '总的客户数',
+    today_total: '今日新增客户数',
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>获取某个客户所在的客户分组</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion22" href="#collapseOne22"> http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_customer_group</a>
+        </h4>
+    </div>
+    <div id="collapseOne22" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab22">
+                <li class="active"><a href="#info22" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox22" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample22" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info22">
+                    <div class="well">
+                    获取某个客户所在的客户分组
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customerId</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox22">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/customers/customer/crmAdmin?c=customer&a=get_customer_group" method="post" name="form22" id="form22">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customerId" placeholder="customerId" name="customerId">
+</div>
+    <button type="submit" class="btn btn-success send" rel="22">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers22"></pre>
+                                <pre id="response22"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample22">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response22">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    data: [
+        '分组名称',
+        '分组名称',
+    ]
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>IVR电话系列接口</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-success">GET</span> <a data-toggle="collapse" data-parent="#accordion23" href="#collapseOne23"> http://crm.guxiansheng.cn/admin/call/call/get?c=call&a=getEmployeeWithCustomer</a>
+        </h4>
+    </div>
+    <div id="collapseOne23" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab23">
+                <li class="active"><a href="#info23" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox23" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample23" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info23">
+                    <div class="well">
+                    获取指定员工和指定客户的通话记(跟进记录选择录音)
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>No</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox23">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/call/call/get?c=call&a=getEmployeeWithCustomer" method="get" name="form23" id="form23">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="23">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers23"></pre>
+                                <pre id="response23"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample23">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response23">{
+    code:返回是否成功标识code,1为成功,-1为请求失败
+    message:返回成功失败的描述,
+    data:[]
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+        </div>
+        <hr>
+
+        <div class="row mt0 footer">
+            <div class="col-md-6" align="left">
+                Generated on 2018-01-02, 10:47:43
+            </div>
+            <div class="col-md-6" align="right">
+                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.3.4</a>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+    <script src="com/jquery.min.js"></script>
+    <script src="com/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+            json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+
+    var storage = (function() {
+        var uid = new Date;
+        var storage;
+        var result;
+        try {
+            (storage = window.localStorage).setItem(uid, uid);
+            result = storage.getItem(uid) == uid;
+            storage.removeItem(uid);
+            return result && storage;
+        } catch (exception) {}
+    }());
+
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if(!this.value) {
+                return;
+            }
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    $(document).ready(function() {
+
+        $('form').attr('enctype' ,"multipart/form-data");
+        $('#answer_entrance_content').attr('type','file');
+        if (storage) {
+            $('#basic_auth_username').val(storage.getItem('basicAuthUsername'));
+            $('#basic_auth_password').val(storage.getItem('basicAuthPassword'));
+            $('#apikey_key').val(storage.getItem('apiKey'));
+            $('#apikey_value').val(storage.getItem('apiKeyValue'));
+        }
+
+        $('#php-apidoctab a').click(function(e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+
+        $('.tooltipP').tooltip({
+            placement: 'bottom'
+        });
+
+        $('code[id^=response]').hide();
+
+        $.each($('pre[id^=sample_response],pre[id^=sample_post_body]'), function() {
+            if ($(this).html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($(this).html().replace(/'/g, '"')), undefined, 2);
+            $(this).html(syntaxHighlight(str));
+        });
+
+        $("[data-toggle=popover]").popover({placement:'right'});
+
+        $('body').on('shown.bs.popover', function() {
+            var $sample = $(this).find(".popover-content");
+            if ($sample.html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($sample.html().replace(/'/g, '"')), undefined, 2);
+            $sample.html('<pre>' + syntaxHighlight(str) + '</pre>');
+        });
+
+        $('body').on('click', '#save_auth_data', function(e) {
+            if (storage) {
+                storage.setItem('basicAuthUsername', $('#basic_auth_username').val());
+                storage.setItem('basicAuthPassword', $('#basic_auth_password').val());
+                storage.setItem('apiKey', $('#apikey_key').val());
+                storage.setItem('apiKeyValue', $('#apikey_value').val());
+            } else {
+                alert('Your browser does not support local storage');
+            }
+        });
+
+        $('body').on('click', '.send', function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+            //added /g to get all the matched params instead of only first
+            var matchedParamsInRoute = $(form).attr('action').match(/[^{]+(?=\})/g);
+            var theId = $(this).attr('rel');
+            //keep a copy of action attribute in order to modify the copy
+            //instead of the initial attribute
+            var url = $(form).attr('action');
+
+            //get form serialized data in order to remove matchedParams
+            var serializedData = $(form).serializeObject();
+
+            var index, key, value;
+
+            if(matchedParamsInRoute) {
+                for (index = 0; index < matchedParamsInRoute.length; ++index) {
+                    try {
+                        key = matchedParamsInRoute[index];
+                        value = serializedData[key];
+                        if (typeof value == "undefined") value ="";
+                        url = url.replace("{" + key + "}", value);
+                        delete serializedData[key];
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
+
+            var st_headers = {};
+
+            var basicAuthUsername = $('#basic_auth_username').val();
+            var basicAuthPassword = $('#basic_auth_password').val();
+            var apiKey = $('#apikey_key').val();
+            var apiKeyValue = $('#apikey_value').val();
+
+            if(apiKey.length > 0 && apiKeyValue.length > 0) {
+                st_headers[apiKey] = apiKeyValue;
+            }
+
+            if (basicAuthUsername != '' && basicAuthPassword != '') {
+                st_headers['Authorization'] = "Basic " + btoa(basicAuthUsername + ":" + basicAuthPassword);
+            }
+
+            $("#sandbox" + theId + " .headers input[type=text]").each(function() {
+                val = $(this).val();
+                if(val.length > 0) {
+                    st_headers[$(this).prop('name')] = val;
+                }
+            });
+
+            /*$.ajax({
+                url: $('#apiUrl').val() + url,
+                data: serializedData,
+                type: $(form).attr('method') + '',
+                dataType: 'json',
+                headers: st_headers,
+                success: function(data, textStatus, xhr) {
+                    if (typeof data === 'object') {
+                        var str = JSON.stringify(data, null, 2);
+                        $('#response' + theId).html(syntaxHighlight(str));
+                    } else {
+                        $('#response' + theId).html(data);
+                    }
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
+                    $('#response' + theId).show();
+                },
+                error: function(xhr, textStatus, error) {
+                    var str = JSON.stringify($.parseJSON(xhr.responseText), null, 2);
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
+                    $('#response' + theId).html(syntaxHighlight(str));
+                    $('#response' + theId).show();
+
+                }
+            });*/
+            $(this).parent('form').submit();
+            return false;
+        });
+    });
+    </script>
+</body>
+</html>

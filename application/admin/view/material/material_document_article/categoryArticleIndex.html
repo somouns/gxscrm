@@ -1,0 +1,91 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/materialCategory.css"/>
+{include file="common/header_bottom"/}
+
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" class="main-wrap" v-cloak>
+
+        <div class="layui-container">
+            <!-- 搜索/操作按钮 -->
+            <div class="layui-form-item finance-search clearfix">
+                <div class="layui-input-block">
+                    <form action="" class="layui-form">
+                        <input name="title"
+                               lay-verify="keywords"
+                               @blur="searchBlur"
+                               autocomplete="off"
+                               placeholder="请输入文档分类"
+                               class="layui-input"
+                        >
+                        <button lay-submit
+                                lay-filter="formSearchAll"
+                                class="layui-btn iconfont icon-search search-icon"
+                        >
+                        </button>
+                    </form>
+                </div>
+                <div class="btns pull-right">
+                    <a class="layui-btn" href="javascript:;">新建文档分类</a>
+                    <a class="layui-btn" href="javascript:;">删除文档分类</a>
+                </div>
+            </div>
+
+            <!--表格-->
+            <table class="common-table"
+                   cellpadding="0"
+                   cellspacing="0"
+                   border="0"
+                   width="100%"
+                   align="center"
+            >
+                <thead>
+                <tr align="center">
+                    <th class="check">
+                        <div class="squaredFour">
+                            <input type="checkbox" id="_check_all" v-model="allChecked"
+                                   @click="checkAllUsr"/>
+                            <label for="_check_all"></label>
+                        </div>
+                    </th>
+                    <th class="t-name">文档分类</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr align="center">
+                    <td>
+                        <div class="squaredFour">
+                            <input type="checkbox" id="_check_all2" v-model="allChecked"
+                                   @click="checkAllUsr"/>
+                            <label for="_check_all2"></label>
+                        </div>
+                    </td>
+                    <td>文档库</td>
+                    <td class="btns">
+                        <a href="javascript:;" title="编辑" class="edit"><i class="iconfont icon-enditor"></i></a>
+                        <a href="javascript:;" title="删除"><i class="iconfont icon-shanchu"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="no-result" style="display: none;">
+                <p>暂无数据</p>
+            </div>
+
+            <!-- 分页 -->
+            <div class="page">
+                <div class="page-choice">
+                    <div id="page"></div>
+                </div>
+                <p class="page-total">已选1条，共有<span>0</span>条记录</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/materialCategory.js"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,587 @@
+@charset "utf-8";
+.side-menu {
+  position: fixed;
+  right: 0;
+  top: 35%;
+  z-index: 90;
+}
+.side-menu .side-nav {
+  position: relative;
+  float: left;
+  z-index: 99;
+}
+.side-menu .side-nav ul li {
+  width: 55px;
+  height: 45px;
+  background-color: #2a2a2a;
+  margin-top: 10px;
+}
+.side-menu .side-nav ul li a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.side-menu .side-nav ul li:hover {
+  background-color: #2883E1;
+}
+.side-menu .side-nav ul li.nav-letter {
+  background-image: url(../images/Ce-xf.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.side-menu .side-nav ul li.nav-letter span {
+  height: 16px;
+  line-height: 16px;
+  font-size: 10px;
+  color: #fff;
+  padding: 0 5px;
+  text-align: center;
+  display: inline-block;
+  background-color: #f2493b;
+  border-radius: 16px;
+  position: relative;
+  right: -32px;
+  top: 5px;
+}
+.side-menu .side-nav ul li.nav-tel {
+  background-image: url(../images/Ce-tel.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.side-menu .side-nav ul li.nav-edit {
+  background-image: url(../images/Ce-edit.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.side-menu .side-nav ul li.nav-people {
+  background-image: url(../images/Ce-people.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.side-menu .tel-window {
+  background-color: #fff;
+  margin-top: -200px;
+  margin-right: 20px;
+  float: left;
+  width: 363px;
+  height: 616px;
+  box-shadow: 0px 0px 5px 1px #d7d7d7;
+}
+.side-menu .tel-window .tel-window-nav {
+  height: 49px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+.side-menu .tel-window .tel-window-nav p {
+  padding-left: 20px;
+  line-height: 49px;
+  color: #666;
+  font-size: 18px;
+}
+.side-menu .tel-window .tel-window-nav p .all-record {
+  color: #2883E1;
+  padding-left: 10px;
+  font-size: 14px;
+}
+.side-menu .tel-window .tel-window-nav .tel-close {
+  background: url(../images/tel-close.png) no-repeat center;
+  width: 10px;
+  height: 10px;
+  display: inherit;
+  position: absolute;
+  right: 19px;
+  top: 20px;
+  z-index: 3;
+}
+.side-menu .tel-window .layui-tab {
+  margin: 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title {
+  border: 0;
+  height: 65px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li {
+  padding: 0;
+  width: 90px;
+  height: 64px;
+  line-height: 1;
+  color: #999;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li i {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 9px auto 9px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.lately-contact i {
+  background: url(../images/Ce-gay.png) no-repeat 0 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.call i {
+  background: url(../images/Ce-gay.png) no-repeat -30px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.custom-dial i {
+  background: url(../images/Ce-gay.png) no-repeat -60px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.unknown-customer i {
+  background: url(../images/Ce-gay.png) no-repeat -90px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.lately-contact.layui-this i {
+  background: url(../images/Ce-blue.png) no-repeat 0 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.call.layui-this i {
+  background: url(../images/Ce-blue.png) no-repeat -30px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.custom-dial.layui-this i {
+  background: url(../images/Ce-blue.png) no-repeat -60px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li.unknown-customer.layui-this i {
+  background: url(../images/Ce-blue.png) no-repeat -90px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title li + li {
+  border-left: 1px solid #ddd;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title .layui-this {
+  color: #2883E1;
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+}
+.side-menu .tel-window .layui-tab .layui-tab-title .layui-this:after {
+  border: 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content {
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li {
+  padding: 0 20px;
+  height: 69px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-head {
+  float: left;
+  height: 100%;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-head img {
+  border-radius: 50%;
+  margin-top: 17px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-head h2 {
+  font-size: 14px;
+  color: #222;
+  width: 125px;
+  margin: -35px 0 3px 46px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-head p {
+  font-size: 12px;
+  color: #666;
+  width: 125px;
+  margin-left: 46px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon {
+  display: none;
+  float: right;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon a {
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon a + a {
+  margin: 25px 0 0 19px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-call {
+  background: url(../images/contact-gay.png) no-repeat 0 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-call:hover {
+  background: url(../images/contact-gay-hover.png) no-repeat 0 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-record {
+  background: url(../images/contact-gay.png) no-repeat -20px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-record:hover {
+  background: url(../images/contact-gay-hover.png) no-repeat -20px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-addrecord {
+  background: url(../images/contact-gay.png) no-repeat -40px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-addrecord:hover {
+  background: url(../images/contact-gay-hover.png) no-repeat -40px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-remove {
+  background: url(../images/contact-gay.png) no-repeat -60px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li .contact-icon .icon-remove:hover {
+  background: url(../images/contact-gay-hover.png) no-repeat -60px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li:hover {
+  background-color: #fcfcfc;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 ul li:hover .contact-icon {
+  display: block;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 .no-data {
+  background: url(../images/no-contact.png) no-repeat center;
+  width: 100%;
+  min-height: 400px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item0 .no-customer {
+  background: url(../images/no-customer.png) no-repeat center;
+  width: 100%;
+  min-height: 400px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 {
+  text-align: center;
+  padding: 0 43px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 .input-box {
+  position: relative;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  margin-top: 30px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 .input-box input {
+  border: 0;
+  color: #222;
+  font-size: 30px;
+  width: 277px;
+  text-align: center;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 .input-box span {
+  position: absolute;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  top: 18px;
+  right: 10px;
+  background: url(../images/delete-tel.png) no-repeat 0 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 .input-box span:hover {
+  background: url(../images/delete-tel.png) no-repeat -20px 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 dl {
+  margin-top: 19px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 dl dd {
+  float: left;
+  width: 91px;
+  height: 60px;
+  background-color: #f5f5f5;
+  font-size: 24px;
+  color: #666;
+  line-height: 60px;
+  text-align: center;
+  margin: 1px 0 0 1px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item2 button {
+  width: 249px;
+  height: 58px;
+  background: url(../images/Ce-bth.png) no-repeat 0 -60px;
+  border: 0;
+  margin-top: 30px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 {
+  text-align: center;
+  overflow: hidden;
+  min-height: 500px;
+  background-color: #eff6ff;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav {
+  background-color: #fff;
+  position: relative;
+  z-index: 10;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav img {
+  position: absolute;
+  margin: 49px 0;
+  border-radius: 50%;
+  left: 141px;
+  z-index: 10;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav .breath-line {
+  position: absolute;
+  top: 11px;
+  left: 104px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav .breath-line p {
+  position: absolute;
+  top: 0;
+  border: 1px solid #efefef;
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  opacity: 0.0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav .breath-line.active .line1item {
+  opacity: 0.0;
+  animation: cline 2.4s infinite;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav .breath-line.active .line2item {
+  opacity: 0.0;
+  animation: cline 2.4s 0.6s infinite;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav .breath-line.active .line3item {
+  opacity: 0.0;
+  animation: cline 2.4s 1.2s infinite;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-nav .breath-line.active .line4item {
+  opacity: 0.0;
+  animation: cline 2.4s 1.8s infinite;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-text {
+  position: relative;
+  z-index: 11;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-text .contact-name {
+  font-size: 18px;
+  color: #222;
+  margin-top: 160px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-text .contact-tel {
+  font-size: 30px;
+  color: #222;
+  margin-top: 15px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-text .contact-warn {
+  font-size: 14px;
+  color: #999;
+  margin-top: 12px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-way {
+  margin-top: 40px;
+  position: relative;
+  z-index: 10;
+  padding-bottom: 50px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-way p {
+  color: #2883E1;
+  font-size: 14px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-way .contact-bth {
+  width: 249px;
+  height: 58px;
+  border: 0;
+  margin-top: 15px;
+  background: url(../images/Ce-bth.png) no-repeat 0 -60px;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .contact-way .contact-bth.active {
+  background: url(../images/Ce-bth.png) no-repeat 0 0;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .wave-box {
+  position: absolute;
+  min-height: 330px;
+  width: 100%;
+  top: 0;
+  z-index: 9;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .wave-box:before,
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .wave-box:after {
+  content: "";
+  position: absolute;
+  left: 40%;
+  min-width: 1500px;
+  min-height: 1500px;
+  background-color: #fff;
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .wave-box:before {
+  bottom: 22px;
+  border-radius: 43%;
+  animation-duration: 12s;
+}
+.side-menu .tel-window .layui-tab .layui-tab-content .tab-item1 .wave-box:after {
+  bottom: 12px;
+  opacity: .5;
+  border-radius: 49%;
+  animation-duration: 12s;
+}
+.side-menu .remarks-group {
+  margin-right: 20px;
+  width: 250px;
+  padding-bottom: 20px;
+  height: 525px;
+  margin-top: -155px;
+  float: left;
+  box-shadow: 0px 0px 5px 1px #d7d7d7;
+  background-color: #fff;
+}
+.side-menu .remarks-group .window-nav {
+  height: 49px;
+  border-bottom: 1px solid #ddd;
+  padding: 0 20px;
+  position: relative;
+}
+.side-menu .remarks-group .window-nav p {
+  color: #666;
+  font-size: 18px;
+  line-height: 49px;
+}
+.side-menu .remarks-group .window-nav .window-close {
+  background: url(../images/tel-close.png) no-repeat center;
+  width: 10px;
+  height: 10px;
+  display: inherit;
+  position: absolute;
+  z-index: 3;
+  right: 19px;
+  top: 20px;
+}
+.side-menu .remarks-group .action-box {
+  padding: 0 20px;
+}
+.side-menu .remarks-group .action-box ul {
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+.side-menu .remarks-group .action-box .choose-finish {
+  border-bottom: 1px solid #eee;
+  margin-left: -10px;
+}
+.side-menu .remarks-group .action-box .choose-finish li {
+  background-color: #2883E1;
+  height: 28px;
+  color: #fff;
+  font-size: 14px;
+  float: left;
+  margin-left: 10px;
+  line-height: 28px;
+  border-radius: 3px;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+.side-menu .remarks-group .action-box .choose-finish li a {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  margin-left: 10px;
+  background: url(../images/r-close.png) no-repeat center;
+}
+.side-menu .remarks-group .action-box .choose-wait {
+  margin-left: -20px;
+}
+.side-menu .remarks-group .action-box .choose-wait li {
+  height: 26px;
+  color: #666;
+  font-size: 14px;
+  float: left;
+  margin-left: 20px;
+  line-height: 26px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+.side-menu .group-window {
+  width: 250px;
+  height: auto;
+  margin-top: -82px;
+}
+.side-menu .group-window .group-warning {
+  color: #f2493b;
+  font-size: 12px;
+}
+.side-menu .group-window .group-warning i {
+  vertical-align: middle;
+}
+@keyframes cline {
+  0% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    opacity: 0.2;
+  }
+  25% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    opacity: 0.6;
+  }
+  75% {
+    transform: scale(0.85);
+    -webkit-transform: scale(0.85);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes cline {
+  0% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    opacity: 0.2;
+  }
+  25% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    opacity: 0.6;
+  }
+  75% {
+    transform: scale(0.85);
+    -webkit-transform: scale(0.85);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+}
+@-moz-keyframes cline {
+  0% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    opacity: 0.2;
+  }
+  25% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    opacity: 0.6;
+  }
+  75% {
+    transform: scale(0.85);
+    -webkit-transform: scale(0.85);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, 0) rotateZ(0deg);
+  }
+  25% {
+    transform: translate(-50%, -2%) rotateZ(90deg);
+  }
+  50% {
+    transform: translate(-50%, -2%) rotateZ(180deg);
+  }
+  75% {
+    transform: translate(-50%, -2%) rotateZ(270deg);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(360deg);
+  }
+}

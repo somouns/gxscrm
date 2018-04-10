@@ -1,0 +1,257 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+<link rel="stylesheet" href="__ADMINCSS__/page/add-group.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 编辑群组 -->
+<div class="container add-group-container">
+    <div id="app" v-cloak class="main-wrap">
+        <div class="layui-container">
+            <!-- 权限组列表主内容区域 -->
+            <div class="main-group group-title">
+                <h2>新增群组</h2>
+                <div class="layui-form layui-col-md12 group-list">
+                    <!-- 群组名称 -->
+                    <div class="layui-form-item layui-col-md12 form-item group-first">
+                        <label class="layui-form-label">
+                            <span>* </span>群组名称：</label>
+                        <div class="layui-input-block layui-col-md4">
+                            <input type="text" v-model="dataLists.group_name" placeholder="请输入群组名称" class="layui-input group-name">
+                        </div>
+                    </div>
+                    <!-- 管理员 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">
+                            <span>* </span>管理员：</label>
+                        <div class="layui-input-block layui-col-md4">
+                            <button class="layui-btn" @click="addMan($event)" data-code="1"><i class="iconfont icon-add" data-code="1"></i>新增</button>
+                        </div>
+                    </div>
+                    <!-- 管理员人员数量 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">人员数量 ( <span class="group-nums">{{lastTags1.length}}</span>)</label>
+                        <div class="layui-input-block layui-col-md8">
+                            <ul class="group-ul ul-man" data-code="1">
+                                <li v-for="(item, index) in lastTags1" :data-id="item.employee_id"><span>{{item.employee_name}}</span><i class="iconfont icon-delete" @click="deleteTag1(index)"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 群组成员 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">
+                            <span>*</span>群组成员：</label>
+                        <div class="layui-input-block layui-col-md8">
+                            <button class="layui-btn" @click="addMan($event)" data-code="2"><i class="iconfont icon-add" data-code="2"></i>新增</button>
+                            <button class="layui-btn" @click="nowGroupShow">增加现有群组</button>
+                        </div>
+                    </div>
+                    <!-- 群组成员人员数量 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">人员数量 ( <span class="group-nums">{{lastTags2.length}}</span>)</label>
+                        <div class="layui-input-block layui-col-md8">
+                            <ul class="group-ul ul-member" data-code="2">
+                                <li v-for="(item, index) in lastTags2" :data-id="item.employee_id">{{item.employee_name}}<i class="iconfont icon-delete" @click="deleteTag2(index)"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--组织架构-->
+                    <div class="organize-framework" v-show="groupShow">
+                        <h2 class="organize-nav">组织架构<a href="JavaScript:;"></a></h2>
+                        <div class="organize-content">
+                            <div class="customer-group">
+                                <form class="layui-form" action="">
+                                    <div class="layui-inline">
+                                        <div class="layui-input-inline">
+                                            <select name="modules" lay-filter="search-org" lay-search="">
+                                                <option value="">请输入姓名查找</option>
+                                                <option :value="item.id + ','+item.name" v-for="item in OrgSearchArr">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <nav class="sidebar-nav">
+                                    <ul class="metismenu" id="menu1">
+                                        <li v-for="(item, index) in groupList">
+                                            <a :class="!item.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item.id" :data-text="item.name" @click="orgSelectItem">
+                                                {{ item.name }}
+                                                <span @click.stop="orgSelectAll($event,item.id)" v-if="!item.type">全选</span>
+                                            </a>
+                                            <ul aria-expanded="false" v-if="item.child">
+                                                <li v-for="(item2, index) in item.child">
+                                                    <a :class="!item2.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item2.id" :data-text="item2.name" @click="orgSelectItem">
+                                                        {{ item2.name }}
+                                                        <span @click.stop="orgSelectAll" v-if="!item2.type">全选</span>
+                                                    </a>
+                                                    <ul aria-expanded="false" v-if="item2.child">
+                                                        <li v-for="(item3, index) in item2.child">
+                                                            <a :class="!item3.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item3.id" :data-text="item3.name" @click="orgSelectItem">
+                                                                {{ item3.name }}
+                                                                <span @click.stop="orgSelectAll" v-if="!item3.type">全选</span>
+                                                            </a>
+                                                            <ul aria-expanded="false" v-if="item3.child">
+                                                                <li v-for="(item4, index) in item3.child">
+                                                                    <a :class="!item4.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item4.id" :data-text="item4.name" @click="orgSelectItem">
+                                                                        {{ item4.name }}
+                                                                        <span @click.stop="orgSelectAll" v-if="!item4.type">全选</span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" v-if="item4.child">
+                                                                        <li v-for="(item5, index) in item4.child">
+                                                                            <a :class="!item5.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item5.id" :data-text="item5.name" @click="orgSelectItem">
+                                                                                {{ item5.name }}
+                                                                                <span @click.stop="orgSelectAll" v-if="!item5.type">全选</span>
+                                                                            </a>
+                                                                            <ul aria-expanded="false" v-if="item5.child">
+                                                                                <li v-for="(item6, index) in item5.child">
+                                                                                    <a :class="!item6.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item6.id" :data-text="item6.name" @click="orgSelectItem">
+                                                                                        {{ item6.name }}
+                                                                                        <span @click.stop="orgSelectAll" v-if="!item6.type">全选</span>
+                                                                                    </a>
+                                                                                    <ul aria-expanded="false" v-if="item6.child">
+                                                                                        <li v-for="(item7, index) in item6.child">
+                                                                                            <a :class="!item7.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item7.id" :data-text="item7.name" @click="orgSelectItem">
+                                                                                                {{ item7.name }}
+                                                                                                <span @click.stop="orgSelectAll" v-if="!item7.type">全选</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="choose-people">
+                                <h2>已选客户：{{ selectedOrgUsr.length }}</h2>
+                                <ul>
+                                    <li v-for="(item, index) in selectedOrgUsr" :data-id="item.id">{{ item.name }} <i @click="delChoose(index)"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="organize-bth">
+                            <button class="cancel" @click="groupCancel">取消</button>
+                            <button class="ensure" @click="groupSure($event)">确定</button>
+                        </div>
+                    </div>
+                    <!-- 现有群组列表 -->
+                </div>
+            </div>
+            <div class="layui-row common-row group-row" v-show="addGroupShow">
+                <!-- 头部 -->
+                <div class="layui-col-md12 row-list">
+                    <h2 class="jur-head">现有群组</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <div class="layui-col-md12 jur-top row-list fl">
+                    <div class="layui-form juf-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">群组名：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="group_name"  lay-verify="" placeholder="请输入群组名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">管理员：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="administrator"  lay-verify="" placeholder="请输入管理员" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="example-handle">
+                            <button class="examine-query" lay-submit lay-filter="formSelect">查询</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="jur-total clear">共<span class="jur-number">{{getAllListTotal}}</span>个群组</div>
+                <!-- 表格部分 -->
+                <table class="common-table wait-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                    <thead>
+                    <tr align="center">
+                        <th>
+                            <div class="squaredFour">
+                                <input type="checkbox" value="None" id="check-all" name="checks" class="checkAll"/>
+                                <label  class="child-select" for="check-all"></label>
+                            </div>
+                        </th>
+                        <th>序号</th>
+                        <th>群组名称</th>
+                        <th>人员数量</th>
+                        <th>管理员</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr align="center" v-for="(item, index) in groupNewList">
+                        <td>
+                            <div class="squaredFour">
+                                <input type="checkbox" value="None" :data-id="item.id" :id='"check" + index' name="check" class="child-input"/>
+                                <label class="child-select" :for='"check" + index'></label>
+                            </div>
+                        </td>
+                        <td>{{index + 1 }}</td>
+                        <td>{{item.group_name}}</td>
+                        <td>{{item.member_num}}</td>
+                        <td class="group-admin">{{item.administrator}}</td>
+                        <td><a class="audit-skip" href="javascript:;" :data-id="item.id" @click="newGroupSelect(item.id)">选择</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="page">
+                    <div class="page-select page-left">
+                        <div class="examine">
+                            <div class="example-handle pull-left">
+                                <a class="examine-query" @click="batchAdd">批量添加</a>
+                            </div>
+                            <div class="example-handle pull-left">
+                                <a class="examine-reset" @click="newAddCancel">取消</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 分页 S-->
+                    <div id="test2" class="pull-right"></div>
+                    <!-- 分页 E-->
+                </div>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine examine-follow">
+                <div class="example-handle">
+                    <a class="examine-query" @click="addGroupMan">保存</a><a class="examine-reset"  @click="cancel">取消</a>
+                </div>
+            </div>
+            <!-- 选择成员 S-->
+            <div class="group-pop" v-show="lastChooseShow">
+                <div class="select-title">
+                    <h3>选择成员</h3>
+                </div>
+                <ul class="choose-ul">
+                    <li v-for="(item, index) in lastChoose">
+                        <div class="squaredFour">
+                            <input type="checkbox" value="None" :data-id="item.employee_id" :id='"checked" + index' name="checkOne" class="child-last"/>
+                            <label class="child-select" :for='"checked" + index'></label>
+                        </div>
+                        <span :data-type="item.employee_id">{{item.employee_name}}</span>
+                    </li>
+                </ul>
+                <div class="example-handle">
+                    <div class="squaredFour">
+                        <input type="checkbox" value="None" id='checkLast' name="checkSelect" class="child-one"/>
+                        <label class="child-select" for='checkLast'></label>
+                    </div>
+                    <span>全选</span>
+                    <button class="examine-reset" @click="selectCancel">取消</button><button class="examine-query pull-right" @click="selectOneUser">确定</button>
+                </div>
+            </div>
+            <!-- 选择成员 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/groupManageAdd.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,107 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/service.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 产品管理 > 服务记录 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 产品管理 > 服务记录 -->
+        <div class="layui-container">
+            <div class="layui-row common-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">服务记录</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <div class="layui-col-md12 jur-top row-list fl">
+                    <div class="layui-form juf-form">
+                        <form action="" class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label jur-name-label">操作人：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" lay-verify="" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" v-if="!cooper_situation.product_name">
+                                <label class="layui-form-label jur-name-label">产品名称：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="product" lay-verify="" placeholder="请输入产品名称" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">跟进时间：</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="start_time" class="layui-input test-item" placeholder="yyyy-MM-dd hh-mm-ss">
+                                    </div>
+                                </div>
+                                <span class="jur-line">-</span>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="stop_time" class="layui-input test-item" placeholder="yyyy-MM-dd hh-mm-ss">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example-handle jur-handle">
+                                <button class="examine-query" lay-submit lay-filter="formSelect">查询</button>
+                                <button type="reset" class="examine-reset" @click="reset">重置</button>
+                            </div>
+                            <div class="example-handle layui-form-item">
+                            	  <label class="layui-form-label jur-name-label">标签：</label>
+                                <a href="javascript:;" @click="product($event,3)" class="layui-btn layui-btn-small">语音</a>
+                                <a href="javascript:;" @click="product($event,1)" class="layui-btn layui-btn-small">文字</a>
+                                <a href="javascript:;" @click="product($event,2)" class="layui-btn layui-btn-small">图片</a>
+                            </div>
+                            {if condition="checkAuth('/admin/service/service_record/export') eq 'true'"}
+                            <div class="lead" align="right" v-if="serviceInfo != ''"><a
+                            :href="'/admin/service/service_record/export?educe=1&start_time='+Stime+'&end_time='+Etime+'&product_name='+Pname+'&operate_real_name='+Opname+'&type='+num"
+                            class="iconfont icon-import layui-btn layui-btn-mini">导出</a></div>
+                            <div class="lead" align="right"  v-else><a href="javascript:;" 
+                            class="iconfont icon-import layui-btn layui-btn-mini" @click="noData()">导出</a></div>
+                            {/if}
+
+                        </form>
+                    </div>
+                     <div class="jur-total clear">共<span class="jur-number">{{serviceTotal}}</span>条数据<span class="pull-right point"><i>*</i> 页面初始状态下，系统默认导出当月所有服务记录，可通过调整搜索条件变更导出的内容</span></div>
+                </div>
+                <!-- 表格部分 -->
+                <table class="common-table table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                    <thead>
+                    <tr align="center">
+                        <th class="small" v-if="!customer.real_name">客户姓名</th>
+                        <th class="small" v-if="!cooper_situation.product_name">产品名称</th>
+                        <th class="con">服务内容</th>
+                        <th class="small">操作时间</th>
+                        <th class="small">操作人</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr align="center" v-for="item in serviceInfo" v-if = "serviceInfo != ''">
+                        <td v-if="!customer.real_name">{{item.real_name ? item.real_name : '未命名'}}</td>
+                        <td v-if="!cooper_situation.product_name">{{item.product_name}}</td>
+                        <td class="conwidth">{{item.record}}</td>
+                        <td>{{item.update_time}}</td>
+                        <td>{{item.operate_real_name}}</td>
+                    </tr>
+                    <tr v-if = "serviceInfo == ''" class="noData">
+                        <td></td>
+                        <td></td>
+                        <td class="notd"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 分页 S-->
+            <div class="page" align="right">
+                <div id="test"></div>
+            </div>
+            <!-- 分页 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/service.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

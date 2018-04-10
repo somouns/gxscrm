@@ -1,0 +1,178 @@
+<!--全局侧栏导航-->
+<div :class="['side-menu-fixed', sideBarPhoneShow && 'open']">
+    <div class="side-nav">
+        <ul>
+            <li class="nav-letter"><a href="/admin/sms/sms/index" data-title="消息管理" data-type="tab"><span v-if="globalNum !=0">{{globalNum}}</span></a></li>
+            {if condition="checkAuth('/admin/call/call/call') eq 'true'"}
+            <li class="nav-tel"><a href="javascript:void(0)" @click="openSideBarPhone" data-title="电话助手"></a></li>
+            {/if}
+        </ul>
+    </div>
+    <!-- 电话窗口 -->
+    <div class="tel-window">
+        <div class="tel-window-nav">
+            <p>快速拨号
+                {if condition="checkAuth('/admin/call/call/lists') eq 'true'"}
+                <a href="/admin/call/call/lists" data-type="tab" title="所有记录" class="all-record">所有记录</a>
+                {/if}
+                {if condition="checkAuth('/admin/call/call/bindlist') eq 'true'"}
+                <a href="/admin/call/call/bindlist" data-type="tab" data-title="绑定记录" class="all-record">绑定记录</a>
+                {/if}
+                {if condition="checkAuth('/admin/call/call/mylist') eq 'true'"}
+                <a href="/admin/call/call/mylist" data-type="tab" data-title="我的记录" class="all-record">我的记录</a>
+                {/if}
+            </p>
+            <a href="javascript:void(0)" class="tel-close" @click="openSideBarPhone"></a>
+        </div>
+        <div class="layui-tab" lay-filter="tellWindow">
+            <ul class="layui-tab-title">
+                <li class="layui-this lately-contact" lay-id="1"><i></i><span>最近联系</span></li>
+                <li class="call" lay-id="2"><i></i>通话</li>
+                <li class="custom-dial" lay-id="3"><i></i>自定义拨号</li>
+                <li class="unknown-customer" lay-id="4"><i></i>未知客户</li>
+            </ul>
+            <div class="layui-tab-content">
+                <!-- 最近联系人 -->
+                <div class="layui-tab-item layui-show tab-item0">
+                    <div class="item-lists" v-if="callDatahas.length != 0">
+                        <ul>
+                            <li v-for="(item,index) in callDatahas">
+                                <div class="contact-head">
+                                    <img :src="item.image" width="34" height="34" onerror="this.src='/assets/images/avatar2.png'">
+                                    <h2>{{item.toPhoneName}}</h2>
+                                    <p>{{item.starttime}}</p>
+                                </div>
+                                <div class="contact-icon">
+                                    <a href="javascript:;" @click="listCallTell(item.customer_contact_id,index)" title="拨号" class="icon-call"></a>
+                                    <a href="javascript:;" @click="player(item.recfile, item.toPhoneName, item.starttime)" title="查看录音" class="icon-record"></a>
+                                    <a :href='"/admin/customers/customer/update?type=2&customer_id="+item.customer_id' v-if="item.is_cebind == 1" data-type="tab" title="添加记录" class="icon-addrecord"></a>
+                                    <a href="javascript:;" v-else title="添加记录" class="icon-addrecord"></a>
+                                    <a href="javascript:;" @click="removeCallRecord('has',index, item.tel_id)" title="移除" class="icon-remove"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="no-data" v-if="callDatahas.length == 0"></div>
+                    <!-- 包含多个电话 start -->
+                    <div class="more-tells-boxs" :class="{'layui-show':moreTellsShow}">
+                        <header>
+                            <span>请选择联系电话</span>
+                            <a href="javascript:;" title="关闭" @click="moreTellsShow = !moreTellsShow" class="layui-icon">&#x1006;</a>
+                        </header>
+                        <section>
+                            <ul>
+                                <li v-for="(list,i) in moreTells" :key="i">
+                                    <span>{{list.contact_way}}</span>
+                                    <a href="javascript:;" @click="listCallTell(list.contact_id, i, true)"></a>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                    <!-- // 包含多个电话 end -->
+                </div>
+                <!-- 通话 -->
+                <div class="layui-tab-item tab-item1">
+                    <div class="dial-connter" v-if="connect">
+                        <div class="contact-nav clearfix">
+                            <img :src="callInfo.image" width="81" height="81">
+                            <div class="breath-line active">
+                                <p class="line1item"></p>
+                                <p class="line2item"></p>
+                                <p class="line3item"></p>
+                                <p class="line4item"></p>
+                            </div>
+                        </div>
+                        <div class="contact-text">
+                            <p class="contact-name">{{callInfo.real_name}}</p>
+                            <p class="contact-tel" v-html="callInfo.phone_num"></p>
+                            <p class="contact-warn">设备正常</p>
+                        </div>
+                        <!-- 挂断状态 active -->
+                        <!-- <div class="contact-way">
+                            <p>正在呼叫...</p>
+                            <button class="contact-bth active"></button>
+                        </div> -->
+                        <div class="wave-box"></div>
+                    </div>
+                    <div class="no-tell" v-if="!connect"></div>
+                </div>
+                <!-- 自定义拨号 -->
+                <div class="layui-tab-item tab-item2">
+                    <div class="input-box"><input type="text" name="tell" v-model="tellVal" maxlength="13"><span v-show="clearTell" @click="tellVal = ''"></span></div>
+                    <dl>
+                        <dd v-for="(item,index) in tellkey" @click="dialfn(item)" :key="index">{{item}}</dd>
+                    </dl>
+                    <button @click="callTell" title="拨打电话"></button>
+                </div>
+                <!-- 未知用户 -->
+                <div class="layui-tab-item tab-item0">
+                    <div class="item-lists" v-if="callDatanot.length != 0">
+                        <ul>
+                            <li v-for="(item,index) in callDatanot">
+                                <div class="contact-head">
+                                    <img :src="item.image" width="34" height="34">
+                                    <h2>{{item.toPhoneName ? item.toPhoneName : '未知用户'}}</h2>
+                                    <p>{{item.starttime}}</p>
+                                </div>
+                                <div class="contact-icon">
+                                    <a href="javascript:;" @click="listCallTell(item.toPhone)" title="拨号" class="icon-call"></a>
+                                    <a href="javascript:;" @click="player(item.recfile, '未知用户', item.starttime, true, item.toPhone)" title="查看录音" class="icon-record"></a>
+                                    <a :href='"/admin/customers/customer/add?usertell="+item.toPhone' data-type="tab" title="新建客户" class="icon-addrecord"></a>
+                                    <a href="javascript:;" @click="removeCallRecord('not',index, item.tel_id)" title="移除" class="icon-remove"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="no-customer" v-if="callDatanot.length == 0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 客户备注窗口 -->
+    <div class="remarks-window remarks-group" style="display:none">
+        <div class="window-nav">
+            <p>客户备注</p>
+            <a href="javascript:void(0)" class="window-close"></a>
+        </div>
+        <div class="action-box">
+            <ul class="choose-finish clearfix">
+                <li>老客户<a href=""></a></li>
+                <li>有意向<a href=""></a></li>
+                <li>可以关单<a href=""></a></li>
+                <li>老客户<a href=""></a></li>
+                <li>有意向<a href=""></a></li>
+                <li>可以关单<a href=""></a></li>
+            </ul>
+            <ul class="choose-wait clearfix">
+                <li>新客户</li>
+                <li>重点关注</li>
+                <li>慎重开发客户</li>
+                <li>新客户</li>
+                <li>新客户</li>
+            </ul>
+        </div>
+    </div>
+    <!-- 客户分组窗口 -->
+    <div class="group-window remarks-group" style="display:none">
+        <div class="window-nav">
+            <p>客户分组</p>
+            <a href="javascript:void(0)" class="window-close"></a>
+        </div>
+        <div class="action-box">
+            <ul class="choose-finish clearfix">
+                <li>老客户<a href=""></a></li>
+                <li>有意向<a href=""></a></li>
+                <li>可以关单<a href=""></a></li>
+                <li>老客户<a href=""></a></li>
+            </ul>
+            <ul class="choose-wait clearfix">
+                <li>新客户</li>
+                <li>重点关注</li>
+                <li>慎重开发客户</li>
+                <li>新客户</li>
+                <li>新客户</li>
+            </ul>
+            <p class="group-warning"><i>*</i>&nbsp; 选择分组后，客户将从原有自 定义分组一处</p>
+        </div>
+    </div>
+</div>

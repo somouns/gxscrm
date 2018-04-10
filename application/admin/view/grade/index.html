@@ -1,0 +1,75 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 职级列表 -->
+<div class="container">
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row common-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12 row-list">
+                    <h2 class="jur-head">职级管理</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <div class="layui-col-md12 jur-top row-list fl">
+                    <div class="layui-form juf-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">职级名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="grade_name" lay-verify="" placeholder="请输入职级名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="example-handle">
+                            <button class="examine-query" lay-submit lay-filter="formSelect">查询</button>
+                        </div>
+                        <div class="example-handle handle-add">
+                            {if condition="checkAuth('/admin/grade/addgrade') eq 'true'"}
+                            <button class="examine-query" @click="addGrade">新增职级</button>
+                            {else /}
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+                <div class="jur-total clear">共<span class="jur-number">{{getAllListTotal}}</span>个职级</div>
+                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                    <thead>
+                    <tr align="center">
+                        <th>职级名称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr align="center" v-for="(item, index) in tableDataAll">
+                        <td>{{item.grade_name}}</td>
+                        <td>
+                            {if condition="checkAuth('/admin/grade/editgrade') eq 'true'"}
+                            <a class="audit-skip" href="javascript:;" @click="gradeEdit(item.id,index)" :data-id="item.id">编辑</a>
+                            {else /}
+                            {/if}
+                            {if condition="checkAuth('/admin/grade/delgrade') eq 'true'"}
+                            <a class="audit-skip" href="javascript:;" @click="gradeDelete(item.id)" :data-id="item.id">删除</a>
+                            {else /}
+                            {/if}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 暂无数据 -->
+            <div v-if="tableDataAll.length == 0" class="no-result">
+                <p>暂无数据</p>
+            </div>
+            <!-- 分页 S-->
+            <div class="page" v-show="tableDataAll.length != 0">
+                <div id="test2"></div>
+            </div>
+            <!-- 分页 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/gradeManage.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

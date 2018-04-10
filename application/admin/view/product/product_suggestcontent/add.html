@@ -1,0 +1,55 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/signManage.css" />
+{include file="common/header_bottom"/}
+
+<!-- 新增话术页 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row add-sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">基本信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">股票名称：</span><span>海特高新（002023）</span></li>
+                    <li class="sign-item"><span class="sign-name">所属产品：</span><span>凤凰一号</span></li>
+                    <li class="sign-item"><span class="sign-name">总仓位：</span><span>3成</span></li>
+                    <li class="sign-item"><span class="sign-name">建仓价：</span><span>12.56元</span></li>
+                    <li class="sign-item"><span class="sign-name">止盈价：</span><span>22.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">止损价：</span><span>8.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">状态：</span><span>未出局</span></li>
+                    <li class="sign-item"><span class="sign-name">标的负责人：</span><span>张三</span></li>
+                </ul>
+            </div>
+            <div class="layui-row add-sign-row">
+                <div class="layui-form">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12 sign-header">
+                        <h2 class="jur-head">话术</h2>
+                    </div>
+                    <!-- 建议话术 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">建议话术</label>
+                        <div class="layui-input-block speech-rich">
+                            <!--<textarea name="desc" placeholder="" class="layui-textarea"></textarea>-->
+                            <textarea id="speech" style="display: none;"></textarea>
+                        </div>
+                    </div>
+                    <!-- 保存与取消 -->
+                    <div class="examine">
+                        <div class="example-handle">
+                            <button class="examine-reset">取消</button><a class="examine-query">保存内容</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/signManageSpeech.js"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,103 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 权限组列表 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row common-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">权限管理</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <div class="layui-col-md12 jur-top row-list fl">
+                    <div class="juf-form">
+                        <form action="" class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label jur-name-label">权限组名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" lay-verify="" placeholder="请输入权限组名称" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">创建时间</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="start_time" class="layui-input" id="test-start" placeholder="yyyy-MM-dd hh-mm-ss" readonly>
+                                    </div>
+                                </div>
+                                <span class="jur-line">-</span>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="stop_time" class="layui-input" id="test-stop" placeholder="yyyy-MM-dd hh-mm-ss" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example-handle jur-handle">
+                                <button class="examine-query" lay-submit lay-filter="formSelect">查询</button>
+                                <button type="reset" class="examine-reset" @click="reset">重置</button>
+                            </div>
+                            <div class="example-handle handle-add">
+                                {if condition="checkAuth('/admin/auth/group/addgroup') eq 'true'"}
+                                <a href="/admin/auth/group/addgroup" data-type="tab" title="新增权限" class="examine-query jur-add">新增</a>
+                                {/if}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="jur-total clear">共<span class="jur-number">{{getAllListTotal}}</span>个权限组</div>
+                <!-- 表格部分 -->
+                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                    <thead>
+                    <tr align="center">
+                        <th>权限组名称</th>
+                        <th>描述</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr align="center" v-for="item in tableDataAll">
+                        <td>{{item.name}}</td>
+                        <td class="group-decript">{{item.describe}}</td>
+                        <td>{{item.createtime}}</td>
+                        <td>
+                            {if condition="checkAuth('/admin/auth/group/selectonegroup') eq 'true'"}
+                            <a class="audit-skip" data-type="tab" data-title="查看权限" :href='"/admin/auth/group/selectonegroup?id=" + item.id'>查看</a>
+                            {else /}
+                            {/if}
+                            {if condition="checkAuth('/admin/auth/group/editgroup') eq 'true'"}
+                            <a class="audit-skip" data-type="tab" data-title="编辑权限" :href='"/admin/auth/group/editgroup?id=" + item.id'>编辑</a>
+                            {else /}
+                            {/if}
+                            {if condition="checkAuth('/admin/auth/group/delgroup') eq 'true'"}
+                            <a class="audit-skip" href="javascript:;" @click="jurDelete(item.id)" :data-id="item.id">删除</a>
+                            {else /}
+                            {/if}
+                            {if condition="checkAuth('/admin/auth/group/limit') eq 'true'"}
+                            <a class="audit-skip" data-type="tab" data-title="用户管理" :href='"/admin/auth/group/limit?gid=" + item.id'>用户管理</a>
+                            {else /}
+                            {/if}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="tableDataAll.length == 0" class="no-result">
+                <p>暂无数据</p>
+            </div>
+            <!-- 分页 S-->
+            <div class="page" v-show="tableDataAll.length != 0">
+                <div id="test2"></div>
+            </div>
+            <!-- 分页 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/jurisdictionList.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

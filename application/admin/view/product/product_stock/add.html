@@ -1,0 +1,238 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/signManage.css" />
+{include file="common/header_bottom"/}
+
+<!-- 新增标的页 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row add-sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">产品信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">产品名称：</span><span>凤凰一号</span></li>
+                    <li class="sign-item"><span class="sign-name">产品创建人：</span><span>张三</span></li>
+                    <li class="sign-item"><span class="sign-name">产品状态：</span><span>未出局</span></li>
+                    <li class="sign-item"><span class="sign-name">创建时间：</span><span>2016-08-14 23：59：59</span></li>
+                    <li class="sign-item"><span class="sign-name">开始时间：</span><span>2016-08-14 23：59：59</span></li>
+                    <li class="sign-item"><span class="sign-name">结束时间：</span><span>2016-08-14 23：59：59</span></li>
+                </ul>
+            </div>
+            <div class="layui-row add-sign-row">
+                <div class="layui-form">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12 sign-header">
+                        <h2 class="jur-head">标的信息</h2>
+                    </div>
+                    <!-- 股票名称 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>股票名称</label>
+                        <div class="layui-input-block">
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <select name="stock_name" required lay-verify="required" lay-search="">
+                                        <option value="">请输入股票代码或名称，代码至少3个字符</option>
+                                        <option value="1">海特高新(002023)</option>
+                                        <option value="2">form</option>
+                                        <option value="3">layim</option>
+                                        <option value="4">element</option>
+                                        <option value="5">laytpl</option>
+                                        <option value="6">upload</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="stock-price"><span>现价：12元</span><span>跌停价：13元</span><span>涨停价：11元</span></p>
+                        </div>
+                    </div>
+                    <!-- 建仓价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>建仓价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="text" name="stock_buy_price" required lay-verify="required|stockBook" @blur="stockBook" onkeyup="this.value = this.value.replace(/[^\d]/g,'')" placeholder="请输入建仓价" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyBook.checkShow">{{verifyData.verifyBook.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 调仓比例 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>调仓比例</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="stock_position" required lay-verify="required|stockRate" @blur="stockRate" onkeyup="this.value = this.value.replace(/[^\d]/g,'')" placeholder="请输入0~10之间的数字" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyRate.checkShow">{{verifyData.verifyRate.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 止盈价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>止盈价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="text" name="stock_win_price" required lay-verify="required|stockWin" @blur="stockWin" onkeyup="this.value = this.value.replace(/[^\d]/g,'')" placeholder="请输入止盈价" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyWin.checkShow">{{verifyData.verifyWin.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 止损价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>止损价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="text" name="stock_lose_price" required lay-verify="required|stockLose" @blur="stockLose" onkeyup="this.value = this.value.replace(/[^\d]/g,'')" placeholder="请输入止损价" class="layui-input">
+                            <i class="stock-error" v-show="verifyData.verifyLose.checkShow">{{verifyData.verifyLose.text}}</i>
+                        </div>
+                    </div>
+                    <!-- 标的负责人 -->
+                    <div class="layui-form-item stock-inline">
+                        <div class="layui-inline">
+                            <label class="layui-form-label"><span class="sign-hit">* </span>标的负责人</label>
+                            <div class="layui-input-block">
+                                <!--<input type="text" name="stock_teacher_id" class="layui-input" readonly>-->
+                                <input type="hidden" name="stock_teacher_id" v-model="readerOrgUsr.id">
+                                <p class="layui-input department" @click="showpop = !showpop" :class="{'place': !readerOrgUsr.department_name}">{{readerOrgUsr.department_name ? readerOrgUsr.department_name : '请选择'}}</p>
+                            </div>
+                        </div>
+                        <!-- 组织架构 start-->
+                        <div class="examine-filter" v-show="showpop">
+                            <div class="organize-framework">
+                                <h2 class="organize-nav">组织架构</h2>
+                                <div class="organize-content">
+                                    <div class="customer-group">
+                                        <form class="layui-form" action="">
+                                            <div class="layui-inline">
+                                                <div class="layui-input-inline">
+                                                    <select name="modules" lay-filter="search-org" lay-search="">
+                                                        <option value="">请输入标的负责人</option>
+                                                        <option :value="item.id + ','+item.name" v-for="item in OrgSearchArr">{{item.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <nav class="sidebar-nav">
+                                            <ul class="metismenu" id="org-framework">
+                                                <!-- BasicDepartment -->
+                                                <li v-for="(item, index) in BasicDepartment">
+                                                    <a :class="item.child && 'has-arrow'" href="javascript:;"
+                                                       aria-expanded="false" :data-id="item.id" :data-type="item.type" :data-text="item.name"
+                                                       @click="orgSelectItem($event,item.type)">
+                                                        {{ item.name }}
+                                            <span @click.stop.prevent="orgSelectAdd($event,item.id,item.name)"
+                                                  v-if="item.type == 'member'">添加</span>
+                                                    </a>
+                                                    <ul aria-expanded="false" v-if="item.child">
+                                                        <li v-for="(item2, index) in item.child">
+                                                            <a :class="item2.child && 'has-arrow'" href="javascript:;"
+                                                               aria-expanded="false" :data-id="item2.id" :data-type="item2.type"
+                                                               :data-text="item2.name" @click="orgSelectItem($event,item2.type)">
+                                                                {{ item2.name }}
+                                                    <span @click.stop.prevent="orgSelectAdd($event,item2.id,item2.name)"
+                                                          v-if="item2.type == 'member'">添加</span>
+                                                            </a>
+                                                            <ul aria-expanded="false" v-if="item2.child">
+                                                                <li v-for="(item3, index) in item2.child">
+                                                                    <a :class="item3.child && 'has-arrow'"
+                                                                       href="javascript:;" aria-expanded="false" :data-type="item3.type"
+                                                                       :data-id="item3.id" :data-text="item3.name"
+                                                                       @click="orgSelectItem($event,item3.type)">
+                                                                        {{ item3.name }}
+                                                            <span @click.stop.prevent="orgSelectAdd($event,item3.id,item3.name)"
+                                                                  v-if="item3.type == 'member'">添加</span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" v-if="item3.child">
+                                                                        <li v-for="(item4, index) in item3.child">
+                                                                            <a :class="item4.child && 'has-arrow'"
+                                                                               href="javascript:;" aria-expanded="false"
+                                                                               :data-id="item4.id" :data-type="item4.type"
+                                                                               :data-text="item4.name"
+                                                                               @click="orgSelectItem($event,item4.type)">
+                                                                                {{ item4.name }}
+                                                                    <span @click.stop.prevent="orgSelectAdd($event,item4.id,item4.name)"
+                                                                          v-if="item4.type == 'member'">添加</span>
+                                                                            </a>
+                                                                            <ul aria-expanded="false"
+                                                                                v-if="item4.child">
+                                                                                <li v-for="(item5, index) in item4.child">
+                                                                                    <a :class="item5.child && 'has-arrow'"
+                                                                                       href="javascript:;"
+                                                                                       aria-expanded="false"
+                                                                                       :data-id="item5.id" :data-type="item5.type"
+                                                                                       :data-text="item5.name"
+                                                                                       @click="orgSelectItem($event,item5.type)">
+                                                                                        {{ item5.name }}
+                                                                            <span @click.stop.prevent="orgSelectAdd($event,item5.id,item5.name)"
+                                                                                  v-if="item5.type == 'member'">添加</span>
+                                                                                    </a>
+                                                                                    <ul aria-expanded="false"
+                                                                                        v-if="item5.child">
+                                                                                        <li v-for="(item6, index) in item5.child">
+                                                                                            <a :class="item6.child && 'has-arrow'"
+                                                                                               href="javascript:;"
+                                                                                               aria-expanded="false"
+                                                                                               :data-id="item6.id" :data-type="item6.type"
+                                                                                               :data-text="item6.name"
+                                                                                               @click="orgSelectItem($event,item6.type)">
+                                                                                                {{ item6.name }}
+                                                                                    <span @click.stop.prevent="orgSelectAdd($event,item6.id,item6.name)"
+                                                                                          v-if="item6.type == 'member'">添加</span>
+                                                                                            </a>
+                                                                                            <ul aria-expanded="false"
+                                                                                                v-if="item6.child">
+                                                                                                <!--暂时支持7层-->
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="choose-people">
+                                        <h2>已选负责人：{{ selectedOrgUsr.length }}</h2>
+                                        <ul>
+                                            <li v-for="item in selectedOrgUsr">{{ item.department_name }} <i @click="delChoose()"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="organize-bth">
+                                    <button class="cancel" @click="showpop = false">取消</button>
+                                    <button class="ensure" @click="addConditonsOrg($event)">确定
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 组织架构 end-->
+                    </div>
+                    <!-- 建议话术 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">建议话术</label>
+                        <div class="layui-input-block">
+                            <textarea name="stock_suggestcontent" placeholder="请输入建议话术" class="layui-textarea" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    <!-- 操作理由 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">操作理由</label>
+                        <div class="layui-input-block">
+                            <textarea name="stock_info" placeholder="请输入操作理由" class="layui-textarea" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    <!-- 保存与取消 -->
+                    <div class="examine">
+                        <div class="example-handle">
+                            <button class="examine-reset">取消</button><a lay-submit lay-filter="stockForm" class="examine-query">保存内容</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/signManageAdd.js"></script>
+{include file="common/footer_bottom"/}

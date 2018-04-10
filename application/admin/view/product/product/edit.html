@@ -1,0 +1,203 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/product-add.css" /> {include file="common/header_bottom"/}
+
+<div class="container add-product-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main clearfix">
+            <h2>产品基本资料</h2>
+            <form class="layui-form clearfix form">
+                <div class="form-content clearfix">
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">
+                            <span>*</span>产品名称</label>
+                        <div class="layui-input-block layui-col-md4 input-block">
+                            <input type="text" name="product_name" placeholder="请输入产品名称" class="layui-input" maxlength="30" lay-verify="required" v-model="productData.product_name">
+                        </div>
+                        <span class="prompt" v-if="productData.product_name && productData.product_name.length == 30">已达最大输入长度30个字符</span>
+                    </div>
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">产品简介</label>
+                        <div class="layui-input-block layui-col-md4 input-block">
+                            <textarea name="product_introduce" placeholder="请输入产品介绍内容" class="layui-textarea" v-model="productData.product_introduce"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">
+                            <span>*</span>开始时间</label>
+                        <div class="layui-input-block layui-col-md4 input-block">
+                            <!-- <span>{{productData.start_time}}</span> -->
+                            <input type="text" class="layui-input"  :value="productData.start_time" disabled="true">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">
+                            <span>*</span>结束时间</label>
+                        <div class="layui-input-block layui-col-md4 input-block">
+                            <input type="text" name="product_end_time" class="layui-input" id="end-time" placeholder="yyyy-MM-dd HH:mm:ss" lay-verify="required" v-model="productData.end_time">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12 form-item product-inline">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">
+                                <span>*</span>产品负责人</label>
+                            <div class="layui-input-block layui-col-md4 input-block">
+                                <!--<input type="text" name="stock_teacher_id" class="layui-input" readonly>-->
+                                <input type="hidden" name="product_person_leader" v-model="readerOrgUsr.id">
+                                <p class="layui-input department" @click="showpop = !showpop"
+                                   :class="{'place': !readerOrgUsr.department_name}">{{readerOrgUsr.department_name ?
+                                    readerOrgUsr.department_name : '请选择'}}</p>
+                            </div>
+                        </div>
+                        <!-- 组织架构 start-->
+                        <div class="examine-filter" v-show="showpop">
+                            <div class="organize-framework">
+                                <h2 class="organize-nav">组织架构</h2>
+                                <div class="organize-content">
+                                    <div class="customer-group">
+                                        <div class="layui-inline group-line">
+                                            <div class="layui-input-inline">
+                                                <select  lay-filter="search-org" lay-search="">
+                                                    <option value="">请输入或选择产品负责人</option>
+                                                    <option :value="item.id + ','+item.name"
+                                                            v-for="item in OrgSearchArr">{{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <nav class="sidebar-nav">
+                                            <ul class="metismenu" id="org-framework">
+                                                <!-- BasicDepartment -->
+                                                <li v-for="(item, index) in BasicDepartment">
+                                                    <a :class="item.child && 'has-arrow'" href="javascript:;"
+                                                       aria-expanded="false" :data-id="item.id" :data-type="item.type"
+                                                       :data-text="item.name"
+                                                       @click="orgSelectItem($event,item.type)">
+                                                        {{ item.name }}
+                                                        <span @click.stop.prevent="orgSelectAdd($event,item.id,item.name)"
+                                                              v-if="item.type == 'member'">添加</span>
+                                                    </a>
+                                                    <ul aria-expanded="false" v-if="item.child">
+                                                        <li v-for="(item2, index) in item.child">
+                                                            <a :class="item2.child && 'has-arrow'" href="javascript:;"
+                                                               aria-expanded="false" :data-id="item2.id"
+                                                               :data-type="item2.type"
+                                                               :data-text="item2.name"
+                                                               @click="orgSelectItem($event,item2.type)">
+                                                                {{ item2.name }}
+                                                                <span @click.stop.prevent="orgSelectAdd($event,item2.id,item2.name)"
+                                                                      v-if="item2.type == 'member'">添加</span>
+                                                            </a>
+                                                            <ul aria-expanded="false" v-if="item2.child">
+                                                                <li v-for="(item3, index) in item2.child">
+                                                                    <a :class="item3.child && 'has-arrow'"
+                                                                       href="javascript:;" aria-expanded="false"
+                                                                       :data-type="item3.type"
+                                                                       :data-id="item3.id" :data-text="item3.name"
+                                                                       @click="orgSelectItem($event,item3.type)">
+                                                                        {{ item3.name }}
+                                                                        <span @click.stop.prevent="orgSelectAdd($event,item3.id,item3.name)"
+                                                                              v-if="item3.type == 'member'">添加</span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" v-if="item3.child">
+                                                                        <li v-for="(item4, index) in item3.child">
+                                                                            <a :class="item4.child && 'has-arrow'"
+                                                                               href="javascript:;" aria-expanded="false"
+                                                                               :data-id="item4.id"
+                                                                               :data-type="item4.type"
+                                                                               :data-text="item4.name"
+                                                                               @click="orgSelectItem($event,item4.type)">
+                                                                                {{ item4.name }}
+                                                                                <span @click.stop.prevent="orgSelectAdd($event,item4.id,item4.name)"
+                                                                                      v-if="item4.type == 'member'">添加</span>
+                                                                            </a>
+                                                                            <ul aria-expanded="false"
+                                                                                v-if="item4.child">
+                                                                                <li v-for="(item5, index) in item4.child">
+                                                                                    <a :class="item5.child && 'has-arrow'"
+                                                                                       href="javascript:;"
+                                                                                       aria-expanded="false"
+                                                                                       :data-id="item5.id"
+                                                                                       :data-type="item5.type"
+                                                                                       :data-text="item5.name"
+                                                                                       @click="orgSelectItem($event,item5.type)">
+                                                                                        {{ item5.name }}
+                                                                                        <span @click.stop.prevent="orgSelectAdd($event,item5.id,item5.name)"
+                                                                                              v-if="item5.type == 'member'">添加</span>
+                                                                                    </a>
+                                                                                    <ul aria-expanded="false"
+                                                                                        v-if="item5.child">
+                                                                                        <li v-for="(item6, index) in item5.child">
+                                                                                            <a :class="item6.child && 'has-arrow'"
+                                                                                               href="javascript:;"
+                                                                                               aria-expanded="false"
+                                                                                               :data-id="item6.id"
+                                                                                               :data-type="item6.type"
+                                                                                               :data-text="item6.name"
+                                                                                               @click="orgSelectItem($event,item6.type)">
+                                                                                                {{ item6.name }}
+                                                                                                <span @click.stop.prevent="orgSelectAdd($event,item6.id,item6.name)"
+                                                                                                      v-if="item6.type == 'member'">添加</span>
+                                                                                            </a>
+                                                                                            <ul aria-expanded="false"
+                                                                                                v-if="item6.child">
+                                                                                                <!--暂时支持7层-->
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="choose-people">
+                                        <h2>已选部门：{{ selectedOrgUsr.length }}</h2>
+                                        <ul>
+                                            <li v-for="item in selectedOrgUsr">{{ item.department_name }} <i
+                                                    @click="delChoose()"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="organize-bth">
+                                    <a class="cancel layui-btn layui-btn-primary" @click="showpop = false">取消</a>
+                                    <a class="ensure layui-btn" @click="addConditonsOrg($event)">确定
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 组织架构 end-->
+                    </div>
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">
+                            <span>*</span>产品创建人</label>
+                        <div class="layui-input-block layui-col-md4 input-block">
+                            <input type="text"  class="layui-input" maxlength="30" lay-verify="required" :value="productData.operate_real_name" disabled="true">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">
+                            <span>*</span>状态</label>
+                        <div class="layui-input-block layui-col-md4 input-block">
+                            <input type="text"  class="layui-input" :value="productData.status == 1 ?'正常' : '已出局'" disabled="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12 form-item btn-box">
+                    <a class="layui-btn layui-btn-primary" @click="cancel">取消</a>
+                    <button class="layui-btn" lay-filter="editOk" lay-submit>保存内容</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/productEdit.js"></script>
+{include file="common/footer_bottom"/}

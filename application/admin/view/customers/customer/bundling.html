@@ -1,0 +1,94 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/bundling.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<div class="container add-client-container">
+    <div class="main-wrap" id="app" v-cloak>
+
+        <!--搜索手机号-->
+        <div class="layui-row add-remark-title">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="examine-search layui-col-md6">
+                        <div class="layui-input-inline">
+                            <form class="layui-form" action="">
+                                <input name="phone"
+                                       v-model="searchVal"
+                                       lay-verify="search"
+                                       autocomplete="off"
+                                       maxlength="30"
+                                       placeholder="请输入手机号"
+                                       class="layui-input"
+                                >
+                                <button class="layui-btn iconfont icon-search search-icon"
+                                        :class="{'available':available}"
+                                        lay-submit
+                                        lay-filter="formSearch"
+                                ></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <!--基本信息-->
+            <div class="layui-row head-row" v-show="showResult">
+                <!--头像(暂不展示)-->
+                <div class="client-icon pull-left" style="display: none;">
+                    <img src="/assets/images/calluser0.png">
+                </div>
+                <div class="basic-info layui-col-md11">
+                    <!--姓名-->
+                    <div class="layui-col-md12 clearfix">
+                        <div class="pull-left">
+                            <span class="pull-left client-name">{{ info.real_name }}</span>
+                        </div>
+                    </div>
+                    <!--电话-->
+                    <div class="layui-col-md12 phone-row">
+                        <div class="phone-row-list">
+                            <label>电话 : </label>
+                            <span v-for="phone in info.mobile">{{ phone }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--绑定关系-->
+            <div class="layui-row" v-show="info">
+                <div class="remarks-list">
+                    <h3>绑定关系</h3>
+                    <ul>
+                        <li class="list-item" v-for="(item, index) in relationArr">
+                            {{ item.username }}
+                            {{ item.department_name ? '(' : ''}}
+                            {{ item.department_name }}
+                            {{ item.department_name ? ')' : '' }}
+                            <i @click="deleteRemark(item.customer_id, item.employee_id, index)"></i>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--未搜索到绑定关系-->
+                <div class="no-result searched" v-show="!relationArr.length">
+                    <p>暂无绑定关系！</p>
+                </div>
+
+            </div>
+
+
+            <!--默认展示提示-->
+            <div class="no-result" v-show="!showResult">
+                <p>暂无数据，请左上角搜索手机号！</p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/bundling.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,56 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css"/>
+{include file="common/header_bottom"/}
+
+<!-- 帐号列表 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row common-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">路由管理</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <form action="" class="layui-form">
+                    <div class="example-handle" style="text-align: right;">
+                        <a href="add" data-type="tab" title="新增账号" class="examine-query" style="margin-top: 20px;"></i>新增</a>
+                    </div>
+                </form>
+            </div>
+            <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <thead>
+                <tr align="center">
+                    <th>PID</th>
+                    <th>URL</th>
+                    <th>NAME</th>
+                    <th>是否在首页显示</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr align="center">
+                    <td>{$vo.pid}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.title}</td>
+                    <td>{$vo.ismenu}</td>
+                    <td>{$vo.status}</td>
+                    <td>{$vo.createtime|date="Y-m-d H:i",###}</td>
+                    <td><a href="role/edit?id={$vo.id}">修改</a>&nbsp;&nbsp;&nbsp;<a href="de"></td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/accountsManage.js"></script>
+{include file="common/footer_bottom"/}

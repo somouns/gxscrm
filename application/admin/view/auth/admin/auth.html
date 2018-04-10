@@ -1,0 +1,109 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINJS__/libs/jsTree/css/style.min.css?v=__VERSION__"/>
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 帐号列表 -->
+<div class="container add-account-container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row accounts-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">权限设置</h2>
+                </div>
+                <form class="layui-form jur-add-form">
+                    <div class="layui-form-item account-item" pane="">
+                        <!-- 头像和用户名 -->
+                        <div class="layui-form-item account-pho">
+                            <span class="jur-add-photo"><img :src="dataLists.avatar"  onerror="this.src='/assets/images/avatar2.png'"></span>
+                            <span class="jur-add-name">用户名: {{dataLists.username}}</span>
+                            <span class="jur-add-name">真实姓名: {{dataLists.nickname}}</span>
+                        </div>
+                        <div class="client-nav">
+                            <ul id="navigation">
+                                <div class="data-jur">
+                                    <h2>权限组：</h2>
+                                    <li class="open pull-left account-titles" v-for="items in dataLists.role">
+                                        <div class="squaredFour squares">
+                                            <input type="checkbox" checked disabled value="None" :data-type="items.id" :id="items.id + 1" name="check"/>
+                                            <label :for="items.id + 1" class="child-select"></label>
+                                        </div>
+                                        <label :for="items.id + 1">{{items.name}}</label>
+                                    </li>
+                                </div>
+                                <div class="data-jur">
+                                    <h2 class="clearfix">数据权限配置：</h2>
+                                    <li class="open" v-for="items in dataLists.datas">
+                                        <div class="squaredFour" :class="[items.selected == 1 ? 'squares' : '']">
+                                            <input type="checkbox" :checked="items.selected == 1 || items.special == 1" :disabled="items.selected == 1" value="None" :data-type="items.id" :id="items.id + 1" name="check"/>
+                                            <label :for="items.id + 1" class="child-select"></label>
+                                        </div>
+                                        <label :for="items.id + 1">{{items.name}}</label>
+                                        <ul>
+                                            <li class="open end-li clearfix" v-for="lists in items.child">
+                                                <div class="squaredFour" :class="[lists.selected == 1 ? 'squares' : '']">
+                                                    <input type="checkbox" :checked="lists.selected == 1 || lists.special == 1" :disabled="lists.selected == 1" value="None" :data-type="lists.id" :id="lists.id + 1" name="check"/>
+                                                    <label :for="lists.id + 1" class="child-select"></label>
+                                                </div>
+                                                <label :for="lists.id + 1">{{lists.name}}</label>
+                                                <ul>
+                                                    <li v-for="listLasts in lists.child" class="pull-left end-li">
+                                                        <div class="squaredFour" :class="[listLasts.selected == 1 ? 'squares' : '']">
+                                                            <input type="checkbox" :checked="listLasts.selected == 1 || listLasts.special == 1" :disabled="listLasts.selected == 1" value="None" :data-type="listLasts.id" :id="listLasts.id + 1" name="check"/>
+                                                            <label :for="listLasts.id + 1" class="child-select"></label>
+                                                        </div>
+                                                        <label :for="listLasts.id + 1">{{listLasts.name}}</label>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </div>
+                                <div class="rule-jur">
+                                    <h2>功能权限配置：</h2>
+                                    <li class="open" v-for="item in dataLists.rules">
+                                        <div class="squaredFour"  :class="[item.selected == 1 ? 'squares' : '']">
+                                            <input type="checkbox" :checked="item.selected == 1 || item.special == 1" :disabled="item.selected == 1" value="None" :data-type="item.id" :id="item.id + 100" name="check"/>
+                                            <label :for="item.id + 100"></label>
+                                        </div>
+                                        <label :for="item.id + 100">{{item.title}}</label>
+                                        <ul>
+                                            <li class="open clearfix end-li" v-for="list in item.child">
+                                                <div class="squaredFour"  :class="[list.selected == 1 ? 'squares' : '']">
+                                                    <input type="checkbox" :checked="list.selected == 1 || list.special == 1" :disabled="list.selected == 1" value="None" :data-type="list.id" :id="list.id + 100" name="check"/>
+                                                    <label :for="list.id + 100"></label>
+                                                </div>
+                                                <label :for="list.id + 100">{{list.title}}</label>
+                                                <ul>
+                                                    <li v-for="listLast in list.child" class="pull-left end-li">
+                                                        <div class="squaredFour" :class="[listLast.selected == 1 ? 'squares' : '']">
+                                                            <input type="checkbox" :checked="listLast.selected == 1 || listLast.special == 1" :disabled="listLast.selected == 1" value="None" :data-type="listLast.id" :id="listLast.id + 100" name="check"/>
+                                                            <label :for="listLast.id + 100"></label>
+                                                        </div>
+                                                        <label :for="listLast.id + 100">{{listLast.title}}</label>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine examine-follow">
+                <div class="example-handle">
+                    <a class="examine-query add-jur-save" @click="saveAccount">保存</a><a @click="cancel" class="examine-reset">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/accountsManageSet.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

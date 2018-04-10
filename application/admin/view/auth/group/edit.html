@@ -1,0 +1,105 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINJS__/libs/jsTree/css/style.min.css?v=__VERSION__"/>
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 编辑权限组 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <div class="layui-container">
+            <div class="layui-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">编辑权限</h2>
+                </div>
+                <div class="jur-row">
+                    <div class="layui-form">
+                        <!-- 名称和描述 -->
+                        <div class="layui-form-item custom-label">
+                            <label class="layui-form-label"><span class="jur-label">* </span>权限组名称：</label>
+                            <div class="layui-input-block">
+                                <input type="text" :value="dataList.name" placeholder="请输入权限组名称" autocomplete="off" class="layui-input username">
+                            </div>
+                        </div>
+                        <div class="layui-form-item custom-label">
+                            <label class="layui-form-label">描述：</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="请输入100个字符以内的描述" :value="dataList.describe" class="layui-textarea description" maxlength="100"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="client-nav">
+                        <ul id="navigation">
+                            <div class="data-jur">
+                                <h2>数据权限配置：</h2>
+                                <li class="open" v-for="items in dataList.datas">
+                                    <div class="squaredFour">
+                                        <input type="checkbox" :checked="items.selected == 1" value="None" :data-type="items.id" :id="items.id + 1" name="check"/>
+                                        <label :for="items.id + 1" class="child-select"></label>
+                                    </div>
+                                    <label :for="items.id + 1">{{items.name}}</label>
+                                    <ul v-if="items.child">
+                                        <li class="open end-li clearfix" v-for="lists in items.child">
+                                            <div class="squaredFour">
+                                                <input type="checkbox" :checked="lists.selected == 1" value="None" :data-type="lists.id" :id="lists.id + 1" name="check"/>
+                                                <label :for="lists.id + 1" class="child-select"></label>
+                                            </div>
+                                            <label :for="lists.id + 1">{{lists.name}}</label>
+                                            <ul v-if="lists.child">
+                                                <li v-for="listLasts in lists.child" class="pull-left end-li">
+                                                    <div class="squaredFour">
+                                                        <input type="checkbox" :checked="listLasts.selected == 1" value="None" :data-type="listLasts.id" :id="listLasts.id + 1" name="check"/>
+                                                        <label :for="listLasts.id + 1" class="child-select"></label>
+                                                    </div>
+                                                    <label :for="listLasts.id + 1">{{listLasts.name}}</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                            <div class="rule-jur">
+                                <h2>功能权限配置：</h2>
+                                <li class="open" v-for="item in dataList.rules">
+                                    <div class="squaredFour">
+                                        <input type="checkbox" :checked="item.selected == 1" value="None" :data-type="item.id" :id="item.id + 100" name="check"/>
+                                        <label :for="item.id + 100"></label>
+                                    </div>
+                                    <label :for="item.id + 100">{{item.title}}</label>
+                                    <ul v-if="item.child">
+                                        <li class="open clearfix end-li" v-for="list in item.child">
+                                            <div class="squaredFour">
+                                                <input type="checkbox" :checked="list.selected == 1" value="None" :data-type="list.id" :id="list.id + 100" name="check"/>
+                                                <label :for="list.id + 100"></label>
+                                            </div>
+                                            <label :for="list.id + 100">{{list.title}}</label>
+                                            <ul v-if="list.child">
+                                                <li v-for="listLast in list.child" class="pull-left end-li">
+                                                    <div class="squaredFour">
+                                                        <input type="checkbox" :checked="listLast.selected == 1" value="None" :data-type="listLast.id" :id="listLast.id + 100" name="check"/>
+                                                        <label :for="listLast.id + 100"></label>
+                                                    </div>
+                                                    <label :for="listLast.id + 100">{{listLast.title}}</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine examine-follow">
+                <div class="example-handle">
+                    <a class="examine-query add-jur-save" @click="jurEditSave">保存</a><a @click="cancel" class="examine-reset">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/jurisdictionListEdit.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

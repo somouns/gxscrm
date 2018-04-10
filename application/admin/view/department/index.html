@@ -1,0 +1,92 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 部门列表 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row common-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">部门管理</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <div class="layui-col-md12 jur-top fl">
+                    <div class="layui-form juf-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">公司名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="department_name" required  lay-verify="" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系人</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="linkman" required  lay-verify="" placeholder="请输入联系人" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="example-handle">
+                            <button class="examine-query" @click="departmentQuery" lay-submit lay-filter="formSelect">查询</button>
+                        </div>
+                        <div class="example-handle handle-add">
+                            {if condition="checkAuth('/admin/department/addbranch') eq 'true'"}
+                            <button class="examine-query" @click="addDepartment">新增公司</button>
+                            {else /}
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="jur-total clear">共<span class="jur-number">{{getAllListTotal}}</span>个公司</div>
+                </div>
+                <!-- 表格部分 -->
+                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                    <thead>
+                    <tr align="center">
+                        <th>公司名称</th>
+                        <th>联系人</th>
+                        <th>联系电话</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr align="center" v-for="(item, index) in tableDataAll">
+                        <td>{{item.department_name}}</td>
+                        <td>{{item.linkman}}</td>
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.createtime}}</td>
+                        <td>
+                            {if condition="checkAuth('/admin/department/editbranch') eq 'true'"}
+                            <a class="audit-skip" href="javascript:;" @click="editDepartment(item.id, index)">编辑</a>
+                            {else /}
+                            {/if}
+                            {if condition="checkAuth('/admin/department/selectdown') eq 'true'"}
+                            <a class="audit-skip" data-type="tab" data-title="部门结构" :href='"/admin/department/editbranch?id=" + item.id'>部门结构</a>
+                            {else /}
+                            {/if}
+                            {if condition="checkAuth('/admin/department/delbranch') eq 'true'"}
+                            <a class="audit-skip" href="javascript:;" @click="delDepartment(item.id)" :data-id="item.id">删除</a>
+                            {else /}
+                            {/if}
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="tableDataAll.length == 0" class="no-result">
+                <p>暂无数据</p>
+            </div>
+            <!-- 分页 S-->
+            <div class="page" v-if="tableDataAll.length != 0">
+                <div id="test2"></div>
+            </div>
+            <!-- 分页 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/departmentManage.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

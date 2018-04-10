@@ -1,0 +1,61 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/add-group.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 职位列表 -->
+<div class="container add-group-container">
+    <div id="app" v-cloak class="main-wrap">
+        <div class="layui-container">
+            <!-- 权限组列表主内容区域 -->
+            <div class="main-group group-title">
+                <h2>查看群组</h2>
+                <div class="layui-form layui-col-md12 group-list">
+                    <!-- 群组名称 -->
+                    <div class="layui-form-item layui-col-md12 form-item group-first">
+                        <label class="layui-form-label">群组名称：</label>
+                        <div class="layui-input-block layui-col-md4">
+                            <input type="text" :value="dataLists.group_name" disabled placeholder="请输入群组名称" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 管理员 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">管理员：</label>
+
+                    </div>
+                    <!-- 管理员人员数量 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">人员数量( <span class="group-nums">{{dataLists.administrator_num}}</span>)</label>
+                        <div class="layui-input-block layui-col-md8">
+                            <ul>
+                                <li v-for="item in dataLists.administrator">{{item.employee_name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 群组成员 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label"> 群组成员：</label>
+                    </div>
+                    <!-- 群组成员人员数量 -->
+                    <div class="layui-form-item layui-col-md12 form-item">
+                        <label class="layui-form-label">人员数量( <span class="group-nums">{{dataLists.member_num}}</span>)</label>
+                        <div class="layui-input-block layui-col-md8">
+                            <ul>
+                                <li v-for="item in dataLists.member">{{item.employee_name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine examine-follow">
+                <div class="example-handle">
+                    <a class="examine-query" @click="cancel">返回上一页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/groupManageLook.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,40 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/configure-edit.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+<!-- 跟进类型： -->
+<div class="container my-client-container">
+  <div  id="app" class="main-wrap" v-cloak>
+    <!--收款账号：-->
+    <div class="main payee">
+      <h2>收款账号：</h2>
+    	<div class="layui-col-md12 formbar">
+    		<form class="layui-form" action="">
+				<!--跟进类型：  -->
+				<dl>
+				  <dd class="payeebox" v-for="(item,index) in payeeInfo">
+				    <div class="layui-input-block name">
+				     	<input type="text" lay-verify="title" :name='"name["+index+"]"' :value="item.name" autocomplete="off" placeholder="请输入收款方！" class="layui-input" v-model = "item.name" maxlength="30" @blur="checkCustomer($event,item.name,index)">
+				     	<a href="javascript:;" class="del del-btn" @click="removePayee($event,index,item.name)">删除收款方</a>
+				    </div>
+				    <div class="layui-input-block account" :key="index" v-for="(items,indexs) in item.temp">
+				     	<input type="text"  autocomplete="off" v-model="items.name"  :name='"acc["+index+"]["+indexs+"]"' class="layui-input"   @blur="checkCustomer($event,items.name,index,indexs)"  :value="items.name" maxlength="30"placeholder="请输入收款账号！"> 
+				     	<a href="javascript:;" class="del del-btn"  @click="removeMobile($event,index,indexs)">删除</a>
+				    </div>
+				    <div class="add"><a href="javascript:;" class="layui-btn" @click="addInput
+				    ($event,index)"><i class="iconfont icon-add"></i>新增收款账号</a></div>
+				  </dd>
+				</dl>
+				<div class="addname add"><a href="javascript:;" class="layui-btn" @click="addPayee"><i class="iconfont icon-add"></i>新增收款方</a></div>
+			 	<div class="btn-wrap layui-col-md12">
+			 		<button lay-submit lay-filter="formAddRemark" class="layui-btn">确定</button>
+			 		<button type="reset" class="layui-btn layui-btn-primary" @click="cancelAdd">取消</button>
+			 	</div>
+			</form>
+    	</div>
+		</div>
+  </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/configure-payee.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

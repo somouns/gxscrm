@@ -1,0 +1,131 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/index.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+
+{include file="common/bread_nav"/}
+<div class="global-head">
+    <ul class="pull-left tab-list page-tabs-content">
+        <li class="layui-elip first-item active" data-id="/">
+            <a href="javascript:;">首页</a>
+        </li>
+    </ul>
+    <ul class="operate-list">
+        <li>
+            <a href="/admin/sms/sms/index" data-title="消息管理" class="J_menuItem" data-type="tab">
+                <i class="iconfont icon-email"></i>
+            </a>
+        </li>
+        <li class="layui-elip refresh-tab">刷新</li>
+        <li class="layui-elip J_tabCloseAll">关闭所有</li>
+    </ul>
+</div>
+<div class="iframe-wrap layui-hide J_mainContent"></div>
+<!--首页模块列表-->
+<div id="app" class="index" v-cloak>
+    <div class="layui-container index-container">
+        <!-- 通知列表 -->
+        <div class="layui-row clearfix">
+            <div class="layui-col-md4 layui-col-sm4 layui-col-xs12 home-title">
+                <div class="home-box">
+                    <h3 class="header-title">Athena场景化</br>金融云数据交易链系统</h3>
+                    <div class="header-right">
+                        <a href="/admin/user/showIndex?user=my" data-type="tab" data-title="查看账号" class="user-photo J_menuItem" >
+                            <img :src="userinfo.avatar" onerror="this.src='/assets/images/avatar2.png'">
+                        </a>
+                        <div class="user-data">
+                            <div class="examine-filter">
+                                <a class="filter-a" @click="menu">{{userinfo.nickname}}</a>
+                            </div>
+                            <ul class="filter-ul" :class="{'open':menubar}">
+                                <li><a class="J_menuItem" data-type="tab" href="/admin/user/editUserIndex?user=my" data-title="编辑账号">修改资料</a></li>
+                                <li><a href="javascript:void(0);" @click="cPassword">修改密码</a></li>
+                                <li><a href="javascript:void(0);" @click="logout">退出登录</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 待处理提醒 -->
+            <div class="layui-col-md4 layui-col-sm4 layui-col-xs12 home-title">
+                <div class="home-dispose">
+                    <div class="dispose-cont">
+                        <div class="row dispose-list">
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>{{CustomerTote.all_total}}</h3>
+                                    <p>我的档案客户</p>
+                                </div>
+                            </div>
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>{{CustomerTote.today_total}}</h3>
+                                    <p>今日新增档案客户</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row dispose-list">
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>{{allview.all}}</h3>
+                                    <p>我的未读信息</p>
+                                </div>
+                            </div>
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>{{allview.today}}</h3>
+                                    <p>今日新增未读信息</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 消息中心 -->
+            <div class="layui-col-md4 layui-col-sm4 layui-col-xs12 home-message">
+                <div class="row list-classify">
+                    <div class="layui-col-md12 list-title">消息中心
+                        <a href="/admin/sms/sms/index"
+                           data-type="tab"
+                           data-title="消息管理"
+                           class="title-more">更多
+                        </a>
+                    </div>
+                    <div class="layui-col-md12 list-news">
+                        <ul>
+                            <li class="classify-li" v-for='(item, index) in newsView' v-if="item != ''">
+                                <a :href="'/admin/sms/sms?type='+item.type+'&sontype='+item.sontype"
+                                   data-title="消息管理"
+                                   data-type="tab"
+                                   class="J_menuItem"
+                                >
+                                    <div class="explainBox"><span class="explain">{{item.sonname}}</span></div>
+                                    <span class="details layui-elip" v-html="item.content"></span>
+                                    <span class="date">{{item.createtime}}</span>
+                                </a>
+                            </li>
+                            <li class="noNewsPc" v-else >
+                                暂无消息  
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 主内容分类导航 -->
+        <div class="layui-row home-cont clearfix">
+            {volist name="auth" id="vo" key="k" }
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav J_menuItem"  data-type="tab" data-title="{$vo.title}" href="{$vo.url}">
+                    <img src="{$vo.icon}" alt="{$vo.title}">
+                    <p>{$vo.title}</p>
+                </a>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/index.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

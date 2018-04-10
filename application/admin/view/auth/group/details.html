@@ -1,0 +1,105 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINJS__/libs/jsTree/css/style.min.css?v=__VERSION__"/>
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 查看权限组 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <div class="layui-container">
+            <div class="layui-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">查看权限</h2>
+                </div>
+                <div class="jur-row">
+                    <form class="layui-form">
+                        <!-- 名称和描述 -->
+                        <div class="layui-form-item custom-label">
+                            <label class="layui-form-label">权限组名称：</label>
+                            <div class="layui-input-block">
+                                <input type="text" :value="dataLists.name" disabled placeholder="权限组名称" autocomplete="off" class="layui-input username">
+                            </div>
+                        </div>
+                        <div class="layui-form-item custom-label">
+                            <label class="layui-form-label">描述：</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="描述内容" :value="dataLists.describe" disabled="" class="layui-textarea description"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="client-nav">
+                        <ul id="navigation">
+                            <div class="data-jur">
+                                <h2>数据权限配置：</h2>
+                                <li class="open" v-for="items in dataLists.datas">
+                                    <div class="squaredFour squares">
+                                        <input type="checkbox" checked value="None" disabled name="check"/>
+                                        <label></label>
+                                    </div>
+                                    <label :for="items.id + 1">{{items.name}}</label>
+                                    <ul>
+                                        <li class="open end-li clearfix" v-for="lists in items.child">
+                                            <div class="squaredFour squares">
+                                                <input type="checkbox" checked value="None" disabled name="check"/>
+                                                <label></label>
+                                            </div>
+                                            <label :for="lists.id + 1">{{lists.name}}</label>
+                                            <ul>
+                                                <li v-for="listLasts in lists.child" class="pull-left end-li">
+                                                    <div class="squaredFour squares">
+                                                        <input type="checkbox" checked value="None" disabled name="check"/>
+                                                        <label></label>
+                                                    </div>
+                                                    <label :for="listLasts.id + 1">{{listLasts.name}}</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                            <div class="rule-jur">
+                                <h2>功能权限配置：</h2>
+                                <li class="open" v-for="item in dataLists.rules">
+                                    <div class="squaredFour squares">
+                                        <input type="checkbox" checked value="None" disabled name="check"/>
+                                        <label></label>
+                                    </div>
+                                    <label :for="item.id + 100">{{item.title}}</label>
+                                    <ul>
+                                        <li class="open clearfix end-li" v-for="list in item.child">
+                                            <div class="squaredFour squares">
+                                                <input type="checkbox" checked value="None" disabled name="check"/>
+                                                <label></label>
+                                            </div>
+                                            <label :for="list.id + 100">{{list.title}}</label>
+                                            <ul>
+                                                <li v-for="listLast in list.child" class="pull-left end-li">
+                                                    <div class="squaredFour squares">
+                                                        <input type="checkbox" checked value="None" disabled name="check"/>
+                                                        <label></label>
+                                                    </div>
+                                                    <label :for="listLast.id + 100">{{listLast.title}}</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine examine-follow">
+                <div class="example-handle">
+                    <a class="examine-query" @click="cancel">返回上一页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/jurisdictionListLook.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,42 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/configure-edit.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+<!-- 跟进类型： -->
+<div class="container my-client-container">
+  <div  id="app" class="main-wrap" v-cloak>
+    <!--跟进类型：-->
+    <div class="main followup">
+      <h2>跟进类型：</h2>
+    	<div class="layui-form layui-col-md12 formbar">
+    		<form class="layui-form" action="">
+				<!--跟进类型：  -->
+				<dl>
+					<dt>
+						<div class="tit type" >类型</div>
+						<div class="tit name" >显示名称</div>
+						<div class="tit sort" >排序</div>
+					</dt>
+				    <dd v-for = "(item,index) in followInfo" class="datas">
+					    <div class="layui-input-block type">{{item.type}}</div>
+					    <div class="layui-input-block name">
+					     	<input type="text"  :value="item.name" class="layui-input"   @blur="checkCustomer($event,item.name,index)"placeholder="请输入内容！" :name='index' v-model="item.name" maxlength="15">
+					     	<input type="checkbox"  :name='"reul["+index+"]"'  v-model="item.type" :value="item.type" >
+					    </div>
+					    <div class="layui-input-block sort">
+					     	<input type="number"  :value="item.num" class="layui-input num"   @blur="checkCustomer($event,item.num,index)"placeholder="请输入排序！" :name='"value["+index+"]"' v-model="item.num">
+					    </div>
+				    </dd>
+				</dl>
+			 	<div class="btn-wrap layui-col-md12">
+			 		<button lay-submit lay-filter="formAddRemark" class="layui-btn">确定</button>
+			 		<button type="reset" class="layui-btn layui-btn-primary"  @click="cancelAdd">取消</button>
+			 	</div>
+			</form>
+    	</div>
+		</div>
+  </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/configure-follow.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

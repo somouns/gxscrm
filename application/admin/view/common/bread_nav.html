@@ -1,0 +1,30 @@
+<!--面包屑导航-->
+<div class="header" id="header" v-cloak>
+    <!--<div class="nav">
+        <div class="arrow left-arrow" @click="moveLeft"><i class="iconfont icon-left-arrow"></i></div>
+        <ul class="tabs">
+            <li><a href="/admin/index/index">首页</a></li>
+            <li v-for="(item, index) in tabs"
+                :class="['tabs-item', item.active && 'tabs-item-active']"
+                v-bind="{'data-index': index}"
+            >
+                <a :href="item.url" @click="switchTabs">{{item.name}}</a>
+                <i class="iconfont icon-delete" @click.stop="closeCurTab(index)">&nbsp;</i>
+            </li>
+        </ul>
+        <div class="arrow right-arrow">
+            <a href="javascript:;" @click="moveRight"><i class="iconfont icon-right-arrow"></i></a>
+            <div :class="['btn-group', closeBarShow && 'open']" @click="openCloseBar">
+                <button>关闭操作<i class="iconfont icon-down-arrow"></i></button>
+                <ul>
+                    <li><a href="JavaScript:;" @click="delAllTab">关闭全部选项卡</a></li>
+                    <li><a href="JavaScript:;" @click="closeOtherTab">关闭其它选项卡</a></li>
+                </ul>
+            </div>
+            <a href="javascript:;" @click="logout"><i class="iconfont icon-back"></i>退出</a>
+        </div>
+    </div>-->
+    {include file="common/side_menu"/}
+    {include file="common/global_message"/}
+    {include file="common/player"/}
+</div>

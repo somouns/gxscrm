@@ -1,0 +1,50 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/configure-edit.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+<!-- 线上 -->
+<div class="container my-client-container">
+     <div  id="app" class="main-wrap" v-cloak>
+          <!--线上-->
+          <div class="main online">
+          	<h2>线上投顾计划：</h2>
+          	<div class="layui-form layui-col-md12 formbar">
+          		<form class="layui-form" action="">
+								<!-- 表格start -->
+		            <div class="tableBar"> 
+		            <div class="layui-form">
+				   				<table class="layui-table" align="center">
+								    <thead>
+								      <tr align="center">
+	                      <th class="name">机构名称</th>
+	                      <th class="name">服务名称</th>
+								      </tr> 
+								    </thead>
+								    <tbody>
+                      <tr v-for="(item,index) in onlineInfo" :data-type = "item.agency_id">
+                          <td class="name" :data-type="item.agency_id">{{item.agency_name}}</td>
+                          <td class="val">
+												      <span class="layui-input-block">
+			                            <input type="checkbox" v-for="(items,indexs) in item.agency_service"  
+			                            :name='"value["+indexs+index+"]"' lay-skin="primary" :value="item.agency_id+'|'+item.agency_name+'|'+items.asc_id+'|'+items.asc_title+'|'+items.service_code" v-model="items.active" :title="items.asc_title">
+			                        </span>
+                          </td>
+                          <div class="layui-form-item" pane="">
+                       </tr>
+                    </tbody>
+								  </table>
+								</div>
+		            </div>
+		            <!-- 表格end -->
+							  <div class="btn-wrap layui-col-md12">
+							 		<button lay-submit lay-filter="formAddRemark" class="layui-btn">确定</button>
+							 		<button type="reset" class="layui-btn layui-btn-primary" @click="cancelAdd">取消</button>
+							  </div>
+							</form>
+          	</div>
+					</div>
+     </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/configure-online.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

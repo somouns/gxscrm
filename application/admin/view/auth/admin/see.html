@@ -1,0 +1,143 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/accountManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 帐号列表 -->
+<div class="container add-account-container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="main">
+            <form action="" class="layui-form">
+            <div class="layui-row">
+                <div class="layui-row-title">
+                    查看账号
+                </div>
+                <div class="layui-form">
+                    <!-- 用户名 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>用户名：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="username" disabled v-model="BasicInfo.username" maxlength="30" minlength="4" lay-verify="required|uPattern" autocomplete="off" placeholder="4~30个字符；可使用字母、数字或下划线" class="layui-input" >
+                            <i class="err-prompt"></i>
+                        </div>
+                    </div>
+                    <!-- 密码 -->
+                    <div class="layui-form-item layui-hide">
+                        <label class="layui-form-label"><span>*</span>密码：</label>
+                        <div class="layui-input-block phone-box">
+                            <div class="input-item">
+                                <input type="password" name="password" disabled v-model="BasicInfo.password" maxlength="30" minlength="6" lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input" >
+                                <i class="err-prompt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 手机号 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>手机号：</label>
+                        <div class="layui-input-block phone-box">
+                            <div class="input-item">
+                                <input type="text" name="mobile" v-model="BasicInfo.mobile" disabled maxlength="11" lay-verify="required|tPattern" autocomplete="off" placeholder="请输入手机号" class="layui-input" >
+                                <i class="err-prompt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 真实姓名 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>真实姓名：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="nickname" v-model="BasicInfo.nickname" disabled maxlength="10" autocomplete="off" lay-verify="required" placeholder="请输入真实姓名" class="layui-input" >
+                            <i class="err-prompt"></i>
+                        </div>
+                    </div>
+                    <!-- 微信号 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">微信号：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="wechat" v-model="BasicInfo.wechat" disabled placeholder="请输入微信号" maxlength="20" autocomplete="off" class="layui-input">
+                            <i class="err-prompt"></i>
+                        </div>
+                    </div>
+                    <!-- 部门 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">上级部门：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="department" v-model="readerOrgUsr.department_name" disabled placeholder="请选择" maxlength="20" autocomplete="off" class="layui-input">
+                            <!-- <select name="department" disabled>
+                                <option value=""></option>
+                                <option :value="item.id" :selected="BasicInfo.department == item.id" v-for="item in BasicDepartment">{{item.department_name}}</option>
+                            </select> -->
+                        </div>
+                    </div>
+                    <!-- 职位 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">职位：</label>
+                        <div class="layui-input-block">
+                            <select name="position" disabled>
+                                <option value=""></option>
+                                <option :value="item.id" :selected="BasicInfo.position == item.id" v-for="item in BasicPosition">{{item.position_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- 职级 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">职级：</label>
+                        <div class="layui-input-block">
+                            <select name="level" disabled>
+                                <option value=""></option>
+                                <option :value="item.id" :selected="BasicInfo.level == item.id" v-for="item in BasicGrade">{{item.grade_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所属楼栋：</label>
+                        <div class="layui-input-block">
+                            <select name="build_room" disabled>
+                                <option value=""></option>
+                                <option :value="item.id" :selected="BasicInfo.build_room == item.id" v-for="item in BasicRoom">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--  坐席号 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">坐席号：</label>
+                        <div class="layui-input-block">
+                            <input type="text" placeholder="请输入坐席号" v-model="BasicInfo.seat_number" disabled name="seat_number" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <!-- 上传图片按钮 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">头像：</label>
+                        <div class="layui-input-block">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" v-show="!1" id="uploadImg">上传图片</button>
+                                <div class="layui-upload-list" v-show="showavatar">
+                                    <img class="layui-upload-img" width="150" height="150" id="avatar" onerror="this.src='/assets/images/avatar2.png'">
+                                    <p id="errorText"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 权限组复选框 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">权限组：</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" disabled :checked="item.checked" v-for="(item,index) in BasicRule" :name='"rules[" + index + "]"' lay-skin="primary" :value="item.id" :title="item.name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine">
+                <div class="example-handle">
+                    <button type="reset" @click="cancelAdd" class="layui-btn layui-btn-primary">返回</button>
+                    <!-- <button class="layui-btn" lay-submit lay-filter="formSave">保存</button> -->
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/accountsManageLook.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

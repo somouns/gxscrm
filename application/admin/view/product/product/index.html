@@ -1,0 +1,133 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/product-list.css" /> 
+{include file="common/header_bottom"/}
+
+<div class="container product-list-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main clearfix">
+            <div class="layui-form layui-col-md12 form">
+                <div class="layui-form-item">
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">产品名称</label>
+                        <input type="text"
+                               name="product_name"
+                               placeholder="请输入产品名称"
+                               class="layui-input product-input"
+                               v-model="filterData.product_name"
+                        >
+                    </div>
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">产品负责人</label>
+                        <input type="text"
+                               name="product_person_leader"
+                               placeholder="请输入产品负责人"
+                               class="layui-input product-input product-name"
+                               v-model="filterData.product_person_leader"
+                        >
+                    </div>
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">创建时间</label>
+                        <input type="text"
+                               name="product_create_time_start"
+                               id="product_create_time_start"
+                               placeholder="yyyy-MM-dd HH:mm:ss"
+                               class="layui-input product-input time-input"
+                               v-model="filterData.product_create_time_start"
+                        >
+                        <span class="horizontal-line">-</span>
+                        <input type="text"
+                               name="product_create_time_end"
+                               id="product_create_time_end"
+                               placeholder="yyyy-MM-dd HH:mm:ss"
+                               class="layui-input product-input time-input last-time-input"
+                               v-model="filterData.product_create_time_end"
+                        >
+                    </div>
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">开始时间</label>
+                        <input type="text" name="product_start_time_start" id="product_start_time_start" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input product-input time-input"
+                            v-model="filterData.product_start_time_start">
+                        <span class="horizontal-line">-</span>
+                        <input type="text" name="product_start_time_end" id="product_start_time_end" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input product-input time-input last-time-input"
+                            v-model="filterData.product_start_time_end">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom:0">
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">结束时间</label>
+                        <input type="text" name="product_end_time_start" id="product_end_time_start" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input product-input time-input"
+                            v-model="filterData.product_end_time_start">
+                        <span class="horizontal-line">-</span>
+                        <input type="text" name="product_end_time_end" id="product_end_time_end" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input product-input time-input last-time-input"
+                            v-model="filterData.product_end_time_end">
+                    </div>
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">产品状态</label>
+                        <div class="layui-input-block select-block">
+                            <select name="product_status" lay-filter="status" lay-verify="required">
+                                <option value=" ">全部</option>
+                                <option value="1">未出局</option>
+                                <option value="2">已出局</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="product-item-inline pull-left">
+                        <button class="layui-btn pull-left" @click="inquire">查询</button>
+                        <button class="layui-btn layui-btn-primary pull-left" @click="reset">重置</button>
+                    </div>
+                    <a href="/admin/product/product/add" class='layui-btn add-btn' data-type="tab" data-title="新增产品">新增产品</a>
+                </div>
+            </div>
+            <div class="main-table layui-col-md12" v-show="productsData.list && productsData.list.length">
+                <p class="layui-table-title" v-if="productsData.total_num">共
+                    <span>{{productsData.total_num}}</span> 个项目
+                </p>
+                <table class="layui-table layui-col-md12">
+                    <thead class="layui-col-md12">
+                        <tr class="layui-col-md12 first-tr">
+                            <td class="layui-col-md2 layui-elip">产品名称</td>
+                            <td class="layui-col-md1 layui-elip">产品负责人</td>
+                            <td class="layui-col-md2 layui-elip icon-td" @click="sort($event,'create_time')">创建时间
+                                <i data-type='0'></i>
+                            </td>
+                            <td class="layui-col-md2 layui-elip icon-td" @click="sort($event,'start_time')">开始时间
+                                <i data-type='0'></i>
+                            </td>
+                            <td class="layui-col-md2 layui-elip icon-td" @click="sort($event,'end_time')">结束时间
+                                <i data-type='0'></i>
+                            </td>
+                            <td class="layui-col-md1">状态</td>
+                            <td class="layui-col-md2">操作</td>
+                        </tr>
+                        <tr class="layui-col-md12" v-for="(i,index) in productsData.list">
+                            <td class="layui-col-md2 layui-elip">{{i.product_name}}</td>
+                            <td class="layui-col-md1 layui-elip">{{i.product_leader_name || '--'}}</td>
+                            <td class="layui-col-md2 layui-elip">{{i.create_time}}</td>
+                            <td class="layui-col-md2 layui-elip">{{i.start_time}}</td>
+                            <td class="layui-col-md2 layui-elip">{{i.end_time}}</td>
+                            <td class="layui-col-md1">{{i.status == 1 ? '进行中' :'已结束'}}</td>
+                            <td class="layui-col-md2">
+                                <a :href='"/admin/product/product/detail?product_id=" + i.id' data-type="tab" :data-title="i.product_name +'详情'">查看</a>
+                                <a :href='"/admin/product/product/edit?product_id=" + i.id' data-type="tab" :data-title="'编辑' + i.product_name +'产品'" v-if="i.status == 1">编辑</a>
+                                <a href="javascript:;" @click.stop="delProduct(index,i.id)">删除</a>
+                                <a href="javascript:;" v-if="i.status == 1" @click.stop="outProduct(index,i.id)">出局</a>
+                                <a :href='"/admin/product/product_stock/add?product_id=" + i.id' data-type="tab" data-title="新增标的" v-if="i.status == 1">新增标的</a>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="page-box clearfix">
+                    <div id="product-page" class="product-page pull-right"></div>
+                    <!-- <span class="pull-right amount">共有{{productsData.total_num}}条记录</span> (产品说可以去掉)-->
+                </div>
+            </div>
+            <div class="noData layui-col-md12" v-if='!productsData.list || productsData.list.length == 0'></div>
+        </div>
+    </div>
+</div>
+
+
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/productList.js"></script>
+{include file="common/footer_bottom"/}

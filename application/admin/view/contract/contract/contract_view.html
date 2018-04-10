@@ -1,0 +1,84 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/financeManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 财务审核 -->
+<div class="container">
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container finance-container">
+            <div class="example-handle">
+                <button v-if="contractList.is_audit == 1" class="examine-operate examine-other">审核</button>
+                <button v-else class="examine-operate" @click="contractAudit">审核</button>
+                <!--<button class="examine-operate" @click="contractAudit">审核</button>-->
+                <button class="examine-operate" @click="editRemark">编辑备注</button>
+            </div>
+            <!-- 客户信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">客户信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item" v-if="contractList.customer_name != 'hide'"><span class="sign-name">客户姓名：</span><span>{{contractList.customer_name}}</span></li>
+                    <li class="sign-item" v-if="contractList.goods_name != 'hide'"><span class="sign-name">购买产品：</span><span>{{contractList.goods_name}}</span></li>
+                    <li class="sign-item" v-if="contractList.pay_num != 'hide'"><span class="sign-name">购买数量：</span><span>{{contractList.pay_num}}</span></li>
+                    <li class="sign-item" v-if="contractList.pay_money != 'hide'"><span class="sign-name">付费金额：</span><span>{{contractList.pay_money}} 元</span></li>
+                    <li class="sign-item" v-if="contractList.pay_time != 'hide'"><span class="sign-name">付费日期：</span><span>{{contractList.pay_time}}</span></li>
+                    <li class="sign-item" v-if="contractList.days != 'hide'"><span class="sign-name">服务期限：</span><span>{{contractList.days}} 个自然日</span></li>
+                    <li class="sign-item"><span class="sign-name">销售人员：</span><span>{{contractList.salesman}}</span></li>
+                </ul>
+            </div>
+            <!-- 客户信息 S-->
+            <div class="example-handle">
+                <button :disabled="contractList.is_contract == 1" :class="{'examine-other': contractList.is_contract == 1}" class="examine-operate" @click="addContract">添加合同信息</button>
+                <button :disabled="contractList.is_contract == 2" :class="{'examine-other': contractList.is_contract == 2}" class="examine-operate" @click="editContract($event)">编辑合同信息</button>
+            </div>
+            <!-- 合同信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">合同信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item">
+                        <span class="sign-name">合同编号：</span><span>{{contractList.contract_sn}}</span>
+                    </li>
+                    <li class="sign-item">
+                        <span class="sign-name">合同图片：</span>
+                        <div class="sign-imgs" id="edit-sing-imgs" class="sign-span" style="margin-left: 140px;">
+                            <a :href="item.image" v-for="item in contractList.contract_images"><img class="finance-img" :src="item.thumb_image" alt=""></a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">合同邮寄信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item">
+                        <span class="sign-name">邮寄时间：</span><span>{{contractList.post_time}}</span>
+                    </li>
+                    <li class="sign-item">
+                        <span class="sign-name">运单号：</span><span>{{contractList.delivery_number}}</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- 合同信息 S-->
+            <!-- 审核信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">审核信息</h2>
+                </div>
+                <ul class="sign-list clearfix" v-for="item in contractList.audit_info">
+                    <li class="sign-item"><span class="sign-name">审核人：</span><span>{{item.financial_real}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核时间：</span><span>{{item.financial_time}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核结果：</span><span class="finance-reject">{{item.financial_action}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核说明：</span><span class="sign-span">{{item.financial_reason | isMaxLen(100)}}</span></li>
+                </ul>
+            </div>
+            <!-- 审核信息 S-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/contractManageAudit.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,52 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/tags-manage.css"/>
+{include file="common/header_bottom"/}
+
+<div class="container add-client-container">
+	<div class="main-wrap" id="app" v-cloak>
+        <div class="main">
+
+            <!--全局全选/取消已选-->
+            <div class="check-btn">
+                <p>
+                    <a href="javascript:void(0);" class="cancel" @click="cancelAll" v-show="choiceLens">取消已选</a>
+                    <a href="javascript:void(0);" @click="choiceAll">全选</a>
+                </p>
+            </div>
+
+            <!--标签 Item-->
+            <div class="layui-collapse">
+                <div class="layui-colla-item clearfix" v-for="(item, index) in list" v-show="item.child.length">
+                    <h2 class="layui-colla-title">{{item.tag_name}}</h2>
+                    <span class="inner-check-btn pull-right">
+                        <a href="javascript:void(0);" class="cancel" @click="itemCancelAll(index)" v-show="item.groupSelectAll">取消已选</a>
+                        <a href="javascript:void(0);" @click="itemChoiceAll(index)">全选</a>
+                    </span>
+                    <div class="layui-colla-content layui-show">
+                        <div class="layui-row">
+                            <div class="remarks-list">
+                                <ul>
+                                    <li :class="['list-item', child.active && 'active']"
+                                        v-for="child in item.child"
+                                        @click="choice($event, child.tag_code, child.pid, index)"
+                                    >{{child.tag_name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--返回/确定-->
+            <div class="btn-box" v-show="list.length">
+                <a class="layui-btn layui-btn-primary" href="/admin/customers/customer">返回</a>
+                <button class="layui-btn" :disabled="addTagBtn" @click="addTag">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/tagsManage.js"></script>
+{include file="common/footer_bottom"/}

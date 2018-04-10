@@ -1,0 +1,84 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/project-statistics.css"/>
+{include file="common/header_bottom"/}
+
+<div class="container project-statistics-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main clearfix">
+            <div class="layui-row stat-row">
+                <h1 class="layui-col-md12">项目（标的）运营情况统计</h1>
+                <div class="statistics highcharts-box">
+                    <div class="item-statistics" id="product"></div>
+                    <div class="item-statistics" id="product-stock"></div>
+                </div>
+            </div>
+            <div class="layui-row stat-row">
+                <h1 class="layui-col-md12">操盘新增数量统计</h1>
+                <div class="product-item-inline clearfix">
+                    <label class="pull-left">操盘新增时间</label>
+                    <input type="text"
+                           name="product_create_time_start"
+                           id="operate_time_start"
+                           placeholder="yyyy-MM-dd"
+                           class="layui-input product-input time-input">
+                    <span class="horizontal-line">-</span>
+                    <input type="text"
+                           name="product_create_time_end"
+                           id="operate_time_end"
+                           placeholder="yyyy-MM-dd"
+                           class="layui-input product-input time-input last-time-input">
+                    <button class="layui-btn">查询</button>
+                    <button class="layui-btn layui-btn-primary">重置</button>
+                </div>
+                <div class="statistics">
+                    <div style="width:100%">
+                        <div class="operate" id="operate"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row stat-row stat-table">
+                <h1 class="layui-col-md12">操盘信息统计</h1>
+                <div class="statistics layui-col-md12">
+                    <table class="layui-table layui-col-md12">
+                        <tbody class="layui-col-md12">
+                        <tr class="layui-col-md12 first-tr">
+                            <td class="layui-col-md1">序号</td>
+                            <td class="layui-col-md2">项目名称</td>
+                            <td class="layui-col-md2">标的名称</td>
+                            <td class="layui-col-md2">投顾老师</td>
+                            <td class="layui-col-md3">最近一次操作时间</td>
+                            <td class="layui-col-md2">近7天更新次数</td>
+                        </tr>
+                        <tr class="layui-col-md12">
+                            <td class="layui-col-md1">序号</td>
+                            <td class="layui-col-md2">项目名称</td>
+                            <td class="layui-col-md2">标的名称</td>
+                            <td class="layui-col-md2">投顾老师</td>
+                            <td class="layui-col-md3">最近一次操作时间</td>
+                            <td class="layui-col-md2">近7天更新次数</td>
+                        </tr>
+                        <tr class="layui-col-md12">
+                            <td class="layui-col-md1">序号</td>
+                            <td class="layui-col-md2">项目名称</td>
+                            <td class="layui-col-md2">标的名称</td>
+                            <td class="layui-col-md2">投顾老师</td>
+                            <td class="layui-col-md3">最近一次操作时间</td>
+                            <td class="layui-col-md2">近7天更新次数</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="stat-page layui-col-md12">
+                    <div class="page" id="stat-page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/projectStatistics.js"></script>
+<script src="__ADMINJS__/libs/highcharts/highcharts.js"></script>
+{include file="common/footer_bottom"/}
+

@@ -1,0 +1,5595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="php-apidoc - apid documenation generator">
+    <meta name="author" content="Calin Rada">
+    <title>CRM-Auth-接口文档</title>
+    <link href="com/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body      { padding-top: 70px; margin-bottom: 15px; }
+        .tab-pane { padding-top: 10px; }
+        .mt0      { margin-top: 0px; }
+        .footer   { font-size: 12px; color: #666; }
+        .label    { display: inline-block; min-width: 65px; padding: 0.3em 0.6em 0.3em; }
+        .string   { color: green; }
+        .number   { color: darkorange; }
+        .boolean  { color: blue; }
+        .null     { color: magenta; }
+        .key      { color: red; }
+        .popover  { max-width: 400px; max-height: 400px; overflow-y: auto;}
+    </style>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CRM-Auth-接口文档</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" enctype ="multipart/form-data">
+                <div class="form-group">
+                    Api key: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="Api key header with api key (key) and api key value (value) "><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="key" id="apikey_key">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="value" id="apikey_value">
+                </div>
+                <div class="form-group" style="margin-left: 10px;">
+                    Basic Auth: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="If needed"><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="Username" id="basic_auth_username">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="Password" id="basic_auth_password">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success btn-sm tooltipP" data-toggle="tooltip" title="Save API key and Basic Auth data in localstorage" id="save_auth_data">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Api URL</h5>
+                <input id="apiUrl" type="text" class="form-control input-sm" placeholder="http://api.mydomain.tld">
+            </div>
+        </div>
+        <hr>
+        <div class="panel-group" id="accordion">
+            <h2>CRM系统登录接口</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion0" href="#collapseOne0"> http://crm.guxiansheng.cn/admin/index/login</a>
+        </h4>
+    </div>
+    <div id="collapseOne0" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab0">
+                <li class="active"><a href="#info0" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox0" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample0" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info0">
+                    <div class="well">
+                    登录
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>loginusername</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>用户名</td>
+</tr>
+
+<tr>
+    <td>loginpassword</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>密码</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox0">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/index/login" method="post" name="form0" id="form0">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="loginusername" placeholder="loginusername" name="loginusername">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="loginpassword" placeholder="loginpassword" name="loginpassword">
+</div>
+    <button type="submit" class="btn btn-success send" rel="0">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers0"></pre>
+                                <pre id="response0"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response0">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1"> http://crm.guxiansheng.cn/admin/index/logout</a>
+        </h4>
+    </div>
+    <div id="collapseOne1" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab1">
+                <li class="active"><a href="#info1" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox1" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample1" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info1">
+                    <div class="well">
+                    退出
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox1">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/index/logout" method="post" name="form1" id="form1">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="1">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers1"></pre>
+                                <pre id="response1"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response1">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>CRM系统权限组接口</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2"> http://crm.guxiansheng.cn/admin/auth/group/addGroup</a>
+        </h4>
+    </div>
+    <div id="collapseOne2" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab2">
+                <li class="active"><a href="#info2" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox2" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample2" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info2">
+                    <div class="well">
+                    添加权限组
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>权限名称</td>
+</tr>
+
+<tr>
+    <td>describe</td>
+    <td>string</td>
+    <td>No</td>
+    <td>权限描述</td>
+</tr>
+
+<tr>
+    <td>rules</td>
+    <td>array</td>
+    <td>No</td>
+    <td>操作权限id</td>
+</tr>
+
+<tr>
+    <td>datas</td>
+    <td>array</td>
+    <td>No</td>
+    <td>数据权限id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox2">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/addGroup" method="post" name="form2" id="form2">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="name" placeholder="name" name="name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="describe" placeholder="describe" name="describe">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="rules" placeholder="rules" name="rules">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="datas" placeholder="datas" name="datas">
+</div>
+    <button type="submit" class="btn btn-success send" rel="2">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers2"></pre>
+                                <pre id="response2"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response2">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3"> http://crm.guxiansheng.cn/admin/auth/group/dataTree</a>
+        </h4>
+    </div>
+    <div id="collapseOne3" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab3">
+                <li class="active"><a href="#info3" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox3" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample3" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info3">
+                    <div class="well">
+                    数据权限点
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox3">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/dataTree" method="post" name="form3" id="form3">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="3">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers3"></pre>
+                                <pre id="response3"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response3">{
+
+        code: 1,
+        data: [
+            {
+            id: 1,
+            pid: 0,
+            name: 客户资料,
+            child: [
+                {
+                id: 2,
+                pid: 1,
+                name: 基本信息,
+                child: [
+                    {
+                    id: 3,
+                    pid: 2,
+                    name: 姓名
+                    },
+                    {
+                    id: 4,
+                    pid: 2,
+                    name: 身份证
+                    },
+            }]
+        }],
+     }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4"> http://crm.guxiansheng.cn/admin/auth/group/ruleTree</a>
+        </h4>
+    </div>
+    <div id="collapseOne4" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab4">
+                <li class="active"><a href="#info4" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox4" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample4" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info4">
+                    <div class="well">
+                    操作权限点
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox4">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/ruleTree" method="post" name="form4" id="form4">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="4">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers4"></pre>
+                                <pre id="response4"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response4">{
+            code: 1,
+            data: [
+                {
+                id: 1,
+                pid: 0,
+                name: 客户资料,
+                child: [
+                {
+                    id: 2,
+                    pid: 1,
+                    name: 基本信息,
+                    child: [
+                        {
+                        id: 3,
+                        pid: 2,
+                        name: 姓名
+                        },
+                        {
+                        id: 4,
+                        pid: 2,
+                        name: 身份证
+                        },
+                 }]
+            }],
+     }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5"> http://crm.guxiansheng.cn/admin/auth/group/delGroup</a>
+        </h4>
+    </div>
+    <div id="collapseOne5" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab5">
+                <li class="active"><a href="#info5" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox5" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample5" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info5">
+                    <div class="well">
+                    删除权限组
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox5">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/delGroup" method="post" name="form5" id="form5">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="5">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers5"></pre>
+                                <pre id="response5"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response5">{
+        code:返回是否成功标识code,-1为失败，1为成功
+        message:返回成功失败的描述,
+          }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6"> http://crm.guxiansheng.cn/admin/auth/group/selectOneGroup</a>
+        </h4>
+    </div>
+    <div id="collapseOne6" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab6">
+                <li class="active"><a href="#info6" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox6" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample6" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info6">
+                    <div class="well">
+                    查询单个权限
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>权限id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox6">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/selectOneGroup" method="post" name="form6" id="form6">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="6">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers6"></pre>
+                                <pre id="response6"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response6">{
+    code:1成功，0失败
+    data:
+    name 权限名称
+    describe 权限描述
+    datas 数据权限
+    rules 操作权限
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7"> http://crm.guxiansheng.cn/admin/auth/group/index</a>
+        </h4>
+    </div>
+    <div id="collapseOne7" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab7">
+                <li class="active"><a href="#info7" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox7" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample7" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info7">
+                    <div class="well">
+                    权限列表带查询条件
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>name</td>
+    <td>string</td>
+    <td>No</td>
+    <td>权限名称</td>
+</tr>
+
+<tr>
+    <td>start_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>创建时间的开始时间</td>
+</tr>
+
+<tr>
+    <td>stop_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>创建时间的结束时间</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox7">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/index" method="post" name="form7" id="form7">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="name" placeholder="name" name="name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="start_time" placeholder="start_time" name="start_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="stop_time" placeholder="stop_time" name="stop_time">
+</div>
+    <button type="submit" class="btn btn-success send" rel="7">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers7"></pre>
+                                <pre id="response7"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample7">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response7">{
+            code:1成功，0失败
+            data: {
+                total: 总条数,
+                per_page: 每页多少条,
+                current_page: 当前页,
+                last_page: 总页数,
+                data: [
+                    {
+                        id: 342,
+                        name: dddd,
+                        describe: ,
+                        createtime: 2017-11-03 10:43:11
+                    },
+                    {
+                        id: 341,
+                        name: 阿尔法狗,
+                        describe: ,
+                        createtime: 2017-11-03 09:35:07
+                    },
+                }]
+            }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion8" href="#collapseOne8"> http://crm.guxiansheng.cn/admin/auth/group/editGroup</a>
+        </h4>
+    </div>
+    <div id="collapseOne8" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab8">
+                <li class="active"><a href="#info8" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox8" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample8" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info8">
+                    <div class="well">
+                    编辑权限
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>权限id</td>
+</tr>
+
+<tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>权限名称</td>
+</tr>
+
+<tr>
+    <td>describe</td>
+    <td>string</td>
+    <td>No</td>
+    <td>权限描述</td>
+</tr>
+
+<tr>
+    <td>rules</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>操作权限id</td>
+</tr>
+
+<tr>
+    <td>datas</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>数据权限id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox8">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/editGroup" method="post" name="form8" id="form8">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="name" placeholder="name" name="name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="describe" placeholder="describe" name="describe">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="rules" placeholder="rules" name="rules">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="datas" placeholder="datas" name="datas">
+</div>
+    <button type="submit" class="btn btn-success send" rel="8">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers8"></pre>
+                                <pre id="response8"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response8">{
+    code:1为成功，0为失败
+    message:1修改成功 0修改失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion9" href="#collapseOne9"> http://crm.guxiansheng.cn/admin/auth/group/limitUser</a>
+        </h4>
+    </div>
+    <div id="collapseOne9" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab9">
+                <li class="active"><a href="#info9" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox9" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample9" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info9">
+                    <div class="well">
+                    权限组用户管理列表
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>gid</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>权限组id</td>
+</tr>
+
+<tr>
+    <td>nickname</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户真实姓名</td>
+</tr>
+
+<tr>
+    <td>username</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户昵称</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户电话号码</td>
+</tr>
+
+<tr>
+    <td>department</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户部门名称</td>
+</tr>
+
+<tr>
+    <td>position</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户职位id</td>
+</tr>
+
+<tr>
+    <td>level</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户职级id</td>
+</tr>
+
+<tr>
+    <td>build_room</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户所属楼栋号</td>
+</tr>
+
+<tr>
+    <td>status</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户状态（1：正常，2停用）</td>
+</tr>
+
+<tr>
+    <td>start_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>搜索开始时间</td>
+</tr>
+
+<tr>
+    <td>end_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>搜索结束时间</td>
+</tr>
+
+<tr>
+    <td>pagesize</td>
+    <td>int</td>
+    <td>No</td>
+    <td>分页大小（默认10）</td>
+</tr>
+
+<tr>
+    <td>page</td>
+    <td>int</td>
+    <td>No</td>
+    <td>当前页</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox9">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/limitUser" method="post" name="form9" id="form9">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="gid" placeholder="gid" name="gid">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="nickname" placeholder="nickname" name="nickname">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="username" placeholder="username" name="username">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department" placeholder="department" name="department">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="position" placeholder="position" name="position">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="level" placeholder="level" name="level">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="build_room" placeholder="build_room" name="build_room">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="status" placeholder="status" name="status">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="start_time" placeholder="start_time" name="start_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="end_time" placeholder="end_time" name="end_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pagesize" placeholder="pagesize" name="pagesize">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="page" placeholder="page" name="page">
+</div>
+    <button type="submit" class="btn btn-success send" rel="9">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers9"></pre>
+                                <pre id="response9"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample9">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response9">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    data:
+        total: 数据总量,
+        per_page: 分页大小,
+        current_page: 当前页,
+        last_page: 总页数,
+        data: [
+                {
+                nickname: 用户真实姓名,
+                username: 用户昵称,
+                mobile: 用户电话号码,
+                department: 用户部门,
+                position: 用户职位,
+                level: 用户职级,
+                build_room: 用户所属楼栋,
+                status: 用户状态（1：正常，2：停用）
+                }]
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion10" href="#collapseOne10"> http://crm.guxiansheng.cn/admin/auth/group/rmLimit</a>
+        </h4>
+    </div>
+    <div id="collapseOne10" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab10">
+                <li class="active"><a href="#info10" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox10" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample10" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info10">
+                    <div class="well">
+                    权限组用户管理移除用户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>group_id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>权限组id</td>
+</tr>
+
+<tr>
+    <td>employee_id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>用户id（例如：1,2,3,4,5）</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox10">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/rmLimit" method="post" name="form10" id="form10">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="group_id" placeholder="group_id" name="group_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="employee_id" placeholder="employee_id" name="employee_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="10">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers10"></pre>
+                                <pre id="response10"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample10">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response10">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion11" href="#collapseOne11"> http://crm.guxiansheng.cn/admin/auth/group/addLimit</a>
+        </h4>
+    </div>
+    <div id="collapseOne11" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab11">
+                <li class="active"><a href="#info11" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox11" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample11" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info11">
+                    <div class="well">
+                    权限组用户管理添加用户
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>group_id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>权限组id</td>
+</tr>
+
+<tr>
+    <td>employee_id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>用户id（例如：1,2,3,4,5）</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox11">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/auth/group/addLimit" method="post" name="form11" id="form11">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="group_id" placeholder="group_id" name="group_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="employee_id" placeholder="employee_id" name="employee_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="11">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers11"></pre>
+                                <pre id="response11"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample11">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response11">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>CRM系统员工接口</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion12" href="#collapseOne12"> http://crm.guxiansheng.cn/admin/user/addUser</a>
+        </h4>
+    </div>
+    <div id="collapseOne12" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab12">
+                <li class="active"><a href="#info12" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox12" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample12" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info12">
+                    <div class="well">
+                    新增员工账号
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>username</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>password</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>密码</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>手机号</td>
+</tr>
+
+<tr>
+    <td>nickname</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>wechat</td>
+    <td>string</td>
+    <td>No</td>
+    <td>微信号</td>
+</tr>
+
+<tr>
+    <td>department</td>
+    <td>int</td>
+    <td>No</td>
+    <td>部门</td>
+</tr>
+
+<tr>
+    <td>position</td>
+    <td>int</td>
+    <td>No</td>
+    <td>职位</td>
+</tr>
+
+<tr>
+    <td>level</td>
+    <td>int</td>
+    <td>No</td>
+    <td>职级</td>
+</tr>
+
+<tr>
+    <td>avatar</td>
+    <td>sting</td>
+    <td>No</td>
+    <td>头像</td>
+</tr>
+
+<tr>
+    <td>build_room</td>
+    <td>int</td>
+    <td>No</td>
+    <td>楼栋</td>
+</tr>
+
+<tr>
+    <td>seat_number</td>
+    <td>string</td>
+    <td>No</td>
+    <td>座席号</td>
+</tr>
+
+<tr>
+    <td>rules</td>
+    <td>array</td>
+    <td>No</td>
+    <td>权限组</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox12">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/addUser" method="post" name="form12" id="form12">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="username" placeholder="username" name="username">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="password" placeholder="password" name="password">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="nickname" placeholder="nickname" name="nickname">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="wechat" placeholder="wechat" name="wechat">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department" placeholder="department" name="department">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="position" placeholder="position" name="position">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="level" placeholder="level" name="level">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="avatar" placeholder="avatar" name="avatar">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="build_room" placeholder="build_room" name="build_room">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="seat_number" placeholder="seat_number" name="seat_number">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="rules" placeholder="rules" name="rules">
+</div>
+    <button type="submit" class="btn btn-success send" rel="12">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers12"></pre>
+                                <pre id="response12"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response12">{
+    code:1为成功，0为失败
+    message:1添加成功 0添加失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion13" href="#collapseOne13"> http://crm.guxiansheng.cn/admin/user/getBasic</a>
+        </h4>
+    </div>
+    <div id="collapseOne13" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab13">
+                <li class="active"><a href="#info13" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox13" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample13" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info13">
+                    <div class="well">
+                    添加用户的基础数据
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox13">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/getBasic" method="post" name="form13" id="form13">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="13">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers13"></pre>
+                                <pre id="response13"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample13">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response13">{
+            code:返回是否成功标识code,-1为失败，1为成功
+            data:
+                list[
+                    position{
+                    [
+                        id :1,
+                        position_name :职位
+                    ],
+                    [
+                        id :2,
+                        position_name :职位
+                    ]
+                },
+                grade{
+                    [
+                        id :1,
+                        grade_name :职级
+                    ],
+                    [
+                        id :2,
+                        grade_name :职级
+                    ]
+                },
+                rule{
+                    [
+                        id :1,
+                        name :超级管理员
+                    ],
+                    [
+                        id :2,
+                        name :管理员
+                    ]
+                },
+                department{
+                    [
+                        id :1,
+                        name :股先生
+                        pid :0
+                    ],
+                    [
+                        id :2,
+                        name :开发部
+                        pid :1
+                    ]
+                    }
+               ]
+            }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion14" href="#collapseOne14"> http://crm.guxiansheng.cn/admin/user/editUser</a>
+        </h4>
+    </div>
+    <div id="collapseOne14" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab14">
+                <li class="active"><a href="#info14" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox14" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample14" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info14">
+                    <div class="well">
+                    编辑员工账号
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>用户id</td>
+</tr>
+
+<tr>
+    <td>username</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>password</td>
+    <td>string</td>
+    <td>No</td>
+    <td>密码</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>手机号</td>
+</tr>
+
+<tr>
+    <td>nickname</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>wechat</td>
+    <td>string</td>
+    <td>No</td>
+    <td>微信号</td>
+</tr>
+
+<tr>
+    <td>department</td>
+    <td>int</td>
+    <td>No</td>
+    <td>部门</td>
+</tr>
+
+<tr>
+    <td>position</td>
+    <td>int</td>
+    <td>No</td>
+    <td>职位</td>
+</tr>
+
+<tr>
+    <td>level</td>
+    <td>int</td>
+    <td>No</td>
+    <td>职级</td>
+</tr>
+
+<tr>
+    <td>avatar</td>
+    <td>string</td>
+    <td>No</td>
+    <td>头像</td>
+</tr>
+
+<tr>
+    <td>seat_number</td>
+    <td>string</td>
+    <td>No</td>
+    <td>座席号</td>
+</tr>
+
+<tr>
+    <td>build_room</td>
+    <td>int</td>
+    <td>No</td>
+    <td>楼栋</td>
+</tr>
+
+<tr>
+    <td>rules</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>权限组id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox14">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/editUser" method="post" name="form14" id="form14">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="username" placeholder="username" name="username">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="password" placeholder="password" name="password">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="nickname" placeholder="nickname" name="nickname">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="wechat" placeholder="wechat" name="wechat">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department" placeholder="department" name="department">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="position" placeholder="position" name="position">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="level" placeholder="level" name="level">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="avatar" placeholder="avatar" name="avatar">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="seat_number" placeholder="seat_number" name="seat_number">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="build_room" placeholder="build_room" name="build_room">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="rules" placeholder="rules" name="rules">
+</div>
+    <button type="submit" class="btn btn-success send" rel="14">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers14"></pre>
+                                <pre id="response14"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample14">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response14">{
+    code:1为成功，0为失败
+    message:1编辑成功 0编辑失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion15" href="#collapseOne15"> http://crm.guxiansheng.cn/admin/user/selectOneUser</a>
+        </h4>
+    </div>
+    <div id="collapseOne15" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab15">
+                <li class="active"><a href="#info15" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox15" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample15" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info15">
+                    <div class="well">
+                    查询单个员工账号
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>用户id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox15">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/selectOneUser" method="post" name="form15" id="form15">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="15">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers15"></pre>
+                                <pre id="response15"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample15">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response15">{
+    code:1为成功，-1为失败
+    date:
+    id 员工id
+    username 用户名
+    mobile 手机号
+    name 真实姓名
+    wechat 微信号
+    department 部门id
+    position 职位id
+    level 职级id
+    avatar 头像
+    build_room 楼栋id
+    rules 权限组
+    seat_number 座席号
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion16" href="#collapseOne16"> http://crm.guxiansheng.cn/admin/user/stopUser</a>
+        </h4>
+    </div>
+    <div id="collapseOne16" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab16">
+                <li class="active"><a href="#info16" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox16" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample16" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info16">
+                    <div class="well">
+                    停用账号
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>员工id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox16">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/stopUser" method="post" name="form16" id="form16">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="16">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers16"></pre>
+                                <pre id="response16"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample16">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response16">{
+            code:1成功，-1失败
+            message:1停用成功 -1停用失败
+          }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion17" href="#collapseOne17"> http://crm.guxiansheng.cn/admin/user/delUser</a>
+        </h4>
+    </div>
+    <div id="collapseOne17" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab17">
+                <li class="active"><a href="#info17" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox17" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample17" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info17">
+                    <div class="well">
+                    删除员工
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>员工id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox17">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/delUser" method="post" name="form17" id="form17">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="17">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers17"></pre>
+                                <pre id="response17"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample17">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response17">{
+            code:1为成功，-1为失败
+            message:1删除成功 -1删除失败
+        }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion18" href="#collapseOne18"> http://crm.guxiansheng.cn/admin/user/startUser</a>
+        </h4>
+    </div>
+    <div id="collapseOne18" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab18">
+                <li class="active"><a href="#info18" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox18" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample18" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info18">
+                    <div class="well">
+                    启用账号
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>员工id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox18">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/startUser" method="post" name="form18" id="form18">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="18">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers18"></pre>
+                                <pre id="response18"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample18">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response18">{
+        code:1为成功，-1为失败
+        message:1启用成功 -1启用失败
+        }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion19" href="#collapseOne19"> http://crm.guxiansheng.cn/admin/user/editPassword</a>
+        </h4>
+    </div>
+    <div id="collapseOne19" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab19">
+                <li class="active"><a href="#info19" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox19" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample19" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info19">
+                    <div class="well">
+                    修改密码
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>员工id</td>
+</tr>
+
+<tr>
+    <td>newpassword</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>新密码</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox19">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/editPassword" method="post" name="form19" id="form19">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="newpassword" placeholder="newpassword" name="newpassword">
+</div>
+    <button type="submit" class="btn btn-success send" rel="19">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers19"></pre>
+                                <pre id="response19"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample19">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response19">{
+            code:1为成功，-1为失败
+    `       message:1修改密码成功 -1修改密码失败
+        }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion20" href="#collapseOne20"> http://crm.guxiansheng.cn/admin/user/index</a>
+        </h4>
+    </div>
+    <div id="collapseOne20" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab20">
+                <li class="active"><a href="#info20" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox20" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample20" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info20">
+                    <div class="well">
+                    员工列表带查询条件
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>username</td>
+    <td>string</td>
+    <td>No</td>
+    <td>用户名</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>int</td>
+    <td>No</td>
+    <td>手机号</td>
+</tr>
+
+<tr>
+    <td>nickname</td>
+    <td>string</td>
+    <td>No</td>
+    <td>真实姓名</td>
+</tr>
+
+<tr>
+    <td>department</td>
+    <td>string</td>
+    <td>No</td>
+    <td>部门</td>
+</tr>
+
+<tr>
+    <td>position</td>
+    <td>string</td>
+    <td>No</td>
+    <td>职位</td>
+</tr>
+
+<tr>
+    <td>level</td>
+    <td>string</td>
+    <td>No</td>
+    <td>职级</td>
+</tr>
+
+<tr>
+    <td>seat_number</td>
+    <td>string</td>
+    <td>No</td>
+    <td>座席号</td>
+</tr>
+
+<tr>
+    <td>status</td>
+    <td>string</td>
+    <td>No</td>
+    <td>状态1正常2已停用</td>
+</tr>
+
+<tr>
+    <td>start_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>最后登录时间的开始时间</td>
+</tr>
+
+<tr>
+    <td>stop_time</td>
+    <td>string</td>
+    <td>No</td>
+    <td>最后登录时间的结束时间</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox20">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/index" method="post" name="form20" id="form20">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="username" placeholder="username" name="username">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="nickname" placeholder="nickname" name="nickname">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department" placeholder="department" name="department">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="position" placeholder="position" name="position">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="level" placeholder="level" name="level">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="seat_number" placeholder="seat_number" name="seat_number">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="status" placeholder="status" name="status">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="start_time" placeholder="start_time" name="start_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="stop_time" placeholder="stop_time" name="stop_time">
+</div>
+    <button type="submit" class="btn btn-success send" rel="20">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers20"></pre>
+                                <pre id="response20"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample20">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response20">{
+    code:1为成功，-1为失败
+        data:
+        total: 总条数,
+        per_page: 每页多少条,
+        current_page: 当前页,
+        last_page: 总页数,
+            data:[
+                    avatar :url,
+                    id :`,
+                    username :admin,
+                    mobile :18600981250,
+                    name :肖辉,
+                    wechat 123654,
+                    department :11,
+                    position :12,
+                    level :12,
+                    status :停用or启动,
+                    end_time :2017-10-10 16:20:27,
+                    ogin_number :1,
+                    seat_number :123
+                },
+                {
+                    avatar :url,
+                    id :`,
+                    username :admin,
+                    mobile :18600981250,
+                    name :肖辉,
+                    wechat 123654,
+                    department :11,
+                    position :12,
+                    level :12,
+                    status :停用or启动,
+                    end_time :2017-10-10 16:20:27,
+                    ogin_number :1,
+                    seat_number :123
+                }
+     }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion21" href="#collapseOne21"> http://crm.guxiansheng.cn/admin/user/addUserAuth</a>
+        </h4>
+    </div>
+    <div id="collapseOne21" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab21">
+                <li class="active"><a href="#info21" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox21" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample21" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info21">
+                    <div class="well">
+                    单设置用户权限只可以在原先基础上添加不得删除
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>员工id</td>
+</tr>
+
+<tr>
+    <td>rules</td>
+    <td>array</td>
+    <td>No</td>
+    <td>操作权限id</td>
+</tr>
+
+<tr>
+    <td>datas</td>
+    <td>array</td>
+    <td>No</td>
+    <td>数据权限id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox21">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/user/addUserAuth" method="post" name="form21" id="form21">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="rules" placeholder="rules" name="rules">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="datas" placeholder="datas" name="datas">
+</div>
+    <button type="submit" class="btn btn-success send" rel="21">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers21"></pre>
+                                <pre id="response21"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample21">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response21">{
+                code:1为成功，-1为失败
+    `           message:1修改成功 -1修改失败
+            }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>CRM职位管理接口</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion22" href="#collapseOne22"> http://crm.guxiansheng.cn/admin/Position/addPosition</a>
+        </h4>
+    </div>
+    <div id="collapseOne22" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab22">
+                <li class="active"><a href="#info22" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox22" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample22" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info22">
+                    <div class="well">
+                    职位添加
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>position_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职位名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox22">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Position/addPosition" method="post" name="form22" id="form22">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="position_name" placeholder="position_name" name="position_name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="22">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers22"></pre>
+                                <pre id="response22"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample22">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response22">{
+            code:1为成功，-1为失败
+    `      message:1添加成功 -1添加失败
+     }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion23" href="#collapseOne23"> http://crm.guxiansheng.cn/admin/Position/editPosition</a>
+        </h4>
+    </div>
+    <div id="collapseOne23" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab23">
+                <li class="active"><a href="#info23" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox23" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample23" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info23">
+                    <div class="well">
+                    职位修改
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职位id</td>
+</tr>
+
+<tr>
+    <td>position_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职位名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox23">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Position/editPosition" method="post" name="form23" id="form23">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="position_name" placeholder="position_name" name="position_name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="23">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers23"></pre>
+                                <pre id="response23"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample23">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response23">{
+            data:
+                code:1为成功，-1为失败
+    `           message:1修改成功 -1修改失败
+     }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion24" href="#collapseOne24"> http://crm.guxiansheng.cn/admin/Position/delPosition</a>
+        </h4>
+    </div>
+    <div id="collapseOne24" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab24">
+                <li class="active"><a href="#info24" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox24" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample24" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info24">
+                    <div class="well">
+                    职位删除
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职位id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox24">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Position/delPosition" method="post" name="form24" id="form24">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="24">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers24"></pre>
+                                <pre id="response24"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample24">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response24">{
+    code:1为成功，-1为失败
+    message:1删除成功 -1删除失败
+     }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion25" href="#collapseOne25"> http://crm.guxiansheng.cn/admin/Position/index</a>
+        </h4>
+    </div>
+    <div id="collapseOne25" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab25">
+                <li class="active"><a href="#info25" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox25" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample25" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info25">
+                    <div class="well">
+                    职位列表
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox25">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Position/index" method="post" name="form25" id="form25">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="25">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers25"></pre>
+                                <pre id="response25"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample25">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response25">{
+        code:1为成功，-1为失败
+`           data:
+            total: 总条数,
+            per_page: 每页多少条,
+            current_page: 当前页,
+            last_page: 总页数,
+            data[
+                {
+                    id :12,
+                    position_name :经理
+                },
+                {
+                    id :13
+                    position_name :总经理
+                }
+     ]
+                }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion26" href="#collapseOne26"> http://crm.guxiansheng.cn/admin/Position/selectOnePosition</a>
+        </h4>
+    </div>
+    <div id="collapseOne26" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab26">
+                <li class="active"><a href="#info26" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox26" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample26" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info26">
+                    <div class="well">
+                    查询单个
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox26">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Position/selectOnePosition" method="post" name="form26" id="form26">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="26">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers26"></pre>
+                                <pre id="response26"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample26">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response26">{
+        code:1为成功，-1为失败
+         data:
+            id 职位id
+    `       position_name 职位名称
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>CRM职级管理接口</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion27" href="#collapseOne27"> http://crm.guxiansheng.cn/admin/Grade/addGrade</a>
+        </h4>
+    </div>
+    <div id="collapseOne27" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab27">
+                <li class="active"><a href="#info27" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox27" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample27" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info27">
+                    <div class="well">
+                    职级添加
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>grade_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职级名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox27">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Grade/addGrade" method="post" name="form27" id="form27">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="grade_name" placeholder="grade_name" name="grade_name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="27">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers27"></pre>
+                                <pre id="response27"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample27">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response27">{
+             code:1为成功，-1为失败
+    `        message:1添加成功 -1添加失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion28" href="#collapseOne28"> http://crm.guxiansheng.cn/admin/Grade/editGrade</a>
+        </h4>
+    </div>
+    <div id="collapseOne28" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab28">
+                <li class="active"><a href="#info28" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox28" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample28" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info28">
+                    <div class="well">
+                    职级修改
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职级id</td>
+</tr>
+
+<tr>
+    <td>grade_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职级名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox28">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Grade/editGrade" method="post" name="form28" id="form28">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="grade_name" placeholder="grade_name" name="grade_name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="28">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers28"></pre>
+                                <pre id="response28"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample28">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response28">{
+              code:1为成功，-1为失败
+    `         message:1修改成功 -1修改失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion29" href="#collapseOne29"> http://crm.guxiansheng.cn/admin/Grade/delGrade</a>
+        </h4>
+    </div>
+    <div id="collapseOne29" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab29">
+                <li class="active"><a href="#info29" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox29" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample29" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info29">
+                    <div class="well">
+                    职级删除
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职级id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox29">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Grade/delGrade" method="post" name="form29" id="form29">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="29">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers29"></pre>
+                                <pre id="response29"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample29">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response29">{
+            code:1为成功，-1为失败
+    `       message:1删除成功 -1删除失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion30" href="#collapseOne30"> http://crm.guxiansheng.cn/admin/Grade/index</a>
+        </h4>
+    </div>
+    <div id="collapseOne30" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab30">
+                <li class="active"><a href="#info30" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox30" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample30" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info30">
+                    <div class="well">
+                    职级列表
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox30">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Grade/index" method="post" name="form30" id="form30">
+    
+    Parameters
+    <hr/>
+    
+    <button type="submit" class="btn btn-success send" rel="30">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers30"></pre>
+                                <pre id="response30"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample30">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response30">{
+        code:1为成功，-1为失败
+        data:
+            total: 总条数,
+            per_page: 每页多少条,
+            current_page: 当前页,
+            last_page: 总页数,
+            data[
+                {
+                    id :12,
+                    grade_name :p1
+                },
+                {
+                    id :13
+                    grade_name :p2
+                }
+            ]
+        }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion31" href="#collapseOne31"> http://crm.guxiansheng.cn/admin/Grade/selectOneGrade</a>
+        </h4>
+    </div>
+    <div id="collapseOne31" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab31">
+                <li class="active"><a href="#info31" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox31" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample31" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info31">
+                    <div class="well">
+                    查询单个列表
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>职级id</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox31">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Grade/selectOneGrade" method="post" name="form31" id="form31">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="31">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers31"></pre>
+                                <pre id="response31"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample31">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response31">{
+            code:1为成功，-1为失败
+    `        data:
+                id 职位id
+    `           grade_name 职级名称
+        }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>CRM系统部门管理</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion32" href="#collapseOne32"> http://crm.guxiansheng.cn/admin/Department/addBranch</a>
+        </h4>
+    </div>
+    <div id="collapseOne32" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab32">
+                <li class="active"><a href="#info32" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox32" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample32" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info32">
+                    <div class="well">
+                    添加公司
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>department_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>公司名称</td>
+</tr>
+
+<tr>
+    <td>linkman</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>联系人</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>联系电话</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox32">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Department/addBranch" method="post" name="form32" id="form32">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department_name" placeholder="department_name" name="department_name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="linkman" placeholder="linkman" name="linkman">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+    <button type="submit" class="btn btn-success send" rel="32">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers32"></pre>
+                                <pre id="response32"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample32">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response32">{
+        code:1为成功，-1为失败
+        message:1添加成功 -1添加失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion33" href="#collapseOne33"> http://crm.guxiansheng.cn/admin/Department/selectDepartment</a>
+        </h4>
+    </div>
+    <div id="collapseOne33" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab33">
+                <li class="active"><a href="#info33" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox33" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample33" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info33">
+                    <div class="well">
+                    添加公司
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>department_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>部门名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox33">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Department/selectDepartment" method="post" name="form33" id="form33">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department_name" placeholder="department_name" name="department_name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="33">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers33"></pre>
+                                <pre id="response33"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample33">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response33">{
+            code:1为成功，-1为失败
+            message:1添加成功 -1添加失败
+            data:[
+                id :1,
+                name :股先生,
+                pid :0
+            ]
+        }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion34" href="#collapseOne34"> http://crm.guxiansheng.cn/admin/Department/editBranch</a>
+        </h4>
+    </div>
+    <div id="collapseOne34" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab34">
+                <li class="active"><a href="#info34" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox34" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample34" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info34">
+                    <div class="well">
+                    修改公司
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>公司id</td>
+</tr>
+
+<tr>
+    <td>department_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>公司名称</td>
+</tr>
+
+<tr>
+    <td>linkman</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>联系人</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>联系电话</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox34">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Department/editBranch" method="post" name="form34" id="form34">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department_name" placeholder="department_name" name="department_name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="linkman" placeholder="linkman" name="linkman">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+    <button type="submit" class="btn btn-success send" rel="34">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers34"></pre>
+                                <pre id="response34"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample34">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response34">{
+    code:1为成功，-1为失败
+    message:1修改成功 -1修改失败
+ }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion35" href="#collapseOne35"> http://crm.guxiansheng.cn/admin/Department/index</a>
+        </h4>
+    </div>
+    <div id="collapseOne35" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab35">
+                <li class="active"><a href="#info35" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox35" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample35" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info35">
+                    <div class="well">
+                    部门列表带搜索条件
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>department_name</td>
+    <td>string</td>
+    <td>No</td>
+    <td>公司名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox35">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Department/index" method="post" name="form35" id="form35">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department_name" placeholder="department_name" name="department_name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="35">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers35"></pre>
+                                <pre id="response35"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample35">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response35">{
+    code:1为成功，-1为失败
+    date:
+    id 部门id
+    department_name 公司名称
+    linkman 联系人
+    mobile 联系人电话
+    createtime 创建时间
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion36" href="#collapseOne36"> http://crm.guxiansheng.cn/admin/Department/selectDown</a>
+        </h4>
+    </div>
+    <div id="collapseOne36" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab36">
+                <li class="active"><a href="#info36" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox36" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample36" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info36">
+                    <div class="well">
+                    查询下级部门
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>pid</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>部门ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox36">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Department/selectDown" method="post" name="form36" id="form36">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pid" placeholder="pid" name="pid">
+</div>
+    <button type="submit" class="btn btn-success send" rel="36">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers36"></pre>
+                                <pre id="response36"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample36">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response36">{
+    code:1为成功，-1为失败
+    date:
+    list[
+    {
+    id :12,
+    department_name :股先生
+    },
+    {
+    id :13,
+    department_name :财学堂
+    }
+    ]
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion37" href="#collapseOne37"> http://crm.guxiansheng.cn/admin/Department/delBranch</a>
+        </h4>
+    </div>
+    <div id="collapseOne37" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab37">
+                <li class="active"><a href="#info37" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox37" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample37" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info37">
+                    <div class="well">
+                    删除部门
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>公司ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox37">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Department/delBranch" method="post" name="form37" id="form37">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="37">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers37"></pre>
+                                <pre id="response37"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample37">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response37">{
+    code:1为成功，-1为失败
+    message:1删除成功 -1删除失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion38" href="#collapseOne38"> http://crm.guxiansheng.cn/admin/Department/addDown</a>
+        </h4>
+    </div>
+    <div id="collapseOne38" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab38">
+                <li class="active"><a href="#info38" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox38" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample38" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info38">
+                    <div class="well">
+                    添加下级部门
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>pid</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>父级部门ID</td>
+</tr>
+
+<tr>
+    <td>department_name</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>子级部门名称</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox38">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/Department/addDown" method="post" name="form38" id="form38">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pid" placeholder="pid" name="pid">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="department_name" placeholder="department_name" name="department_name">
+</div>
+    <button type="submit" class="btn btn-success send" rel="38">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers38"></pre>
+                                <pre id="response38"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample38">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response38">{
+    code:1为成功，-1为失败
+    message:1添加成功 -1添加失败
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+        </div>
+        <hr>
+
+        <div class="row mt0 footer">
+            <div class="col-md-6" align="left">
+                Generated on 2017-12-12, 09:42:33
+            </div>
+            <div class="col-md-6" align="right">
+                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.3.4</a>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+    <script src="com/jquery.min.js"></script>
+    <script src="com/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+            json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+
+    var storage = (function() {
+        var uid = new Date;
+        var storage;
+        var result;
+        try {
+            (storage = window.localStorage).setItem(uid, uid);
+            result = storage.getItem(uid) == uid;
+            storage.removeItem(uid);
+            return result && storage;
+        } catch (exception) {}
+    }());
+
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if(!this.value) {
+                return;
+            }
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    $(document).ready(function() {
+
+        $('form').attr('enctype' ,"multipart/form-data");
+        $('#answer_entrance_content').attr('type','file');
+        if (storage) {
+            $('#basic_auth_username').val(storage.getItem('basicAuthUsername'));
+            $('#basic_auth_password').val(storage.getItem('basicAuthPassword'));
+            $('#apikey_key').val(storage.getItem('apiKey'));
+            $('#apikey_value').val(storage.getItem('apiKeyValue'));
+        }
+
+        $('#php-apidoctab a').click(function(e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+
+        $('.tooltipP').tooltip({
+            placement: 'bottom'
+        });
+
+        $('code[id^=response]').hide();
+
+        $.each($('pre[id^=sample_response],pre[id^=sample_post_body]'), function() {
+            if ($(this).html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($(this).html().replace(/'/g, '"')), undefined, 2);
+            $(this).html(syntaxHighlight(str));
+        });
+
+        $("[data-toggle=popover]").popover({placement:'right'});
+
+        $('body').on('shown.bs.popover', function() {
+            var $sample = $(this).find(".popover-content");
+            if ($sample.html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($sample.html().replace(/'/g, '"')), undefined, 2);
+            $sample.html('<pre>' + syntaxHighlight(str) + '</pre>');
+        });
+
+        $('body').on('click', '#save_auth_data', function(e) {
+            if (storage) {
+                storage.setItem('basicAuthUsername', $('#basic_auth_username').val());
+                storage.setItem('basicAuthPassword', $('#basic_auth_password').val());
+                storage.setItem('apiKey', $('#apikey_key').val());
+                storage.setItem('apiKeyValue', $('#apikey_value').val());
+            } else {
+                alert('Your browser does not support local storage');
+            }
+        });
+
+        $('body').on('click', '.send', function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+            //added /g to get all the matched params instead of only first
+            var matchedParamsInRoute = $(form).attr('action').match(/[^{]+(?=\})/g);
+            var theId = $(this).attr('rel');
+            //keep a copy of action attribute in order to modify the copy
+            //instead of the initial attribute
+            var url = $(form).attr('action');
+
+            //get form serialized data in order to remove matchedParams
+            var serializedData = $(form).serializeObject();
+
+            var index, key, value;
+
+            if(matchedParamsInRoute) {
+                for (index = 0; index < matchedParamsInRoute.length; ++index) {
+                    try {
+                        key = matchedParamsInRoute[index];
+                        value = serializedData[key];
+                        if (typeof value == "undefined") value ="";
+                        url = url.replace("{" + key + "}", value);
+                        delete serializedData[key];
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
+
+            var st_headers = {};
+
+            var basicAuthUsername = $('#basic_auth_username').val();
+            var basicAuthPassword = $('#basic_auth_password').val();
+            var apiKey = $('#apikey_key').val();
+            var apiKeyValue = $('#apikey_value').val();
+
+            if(apiKey.length > 0 && apiKeyValue.length > 0) {
+                st_headers[apiKey] = apiKeyValue;
+            }
+
+            if (basicAuthUsername != '' && basicAuthPassword != '') {
+                st_headers['Authorization'] = "Basic " + btoa(basicAuthUsername + ":" + basicAuthPassword);
+            }
+
+            $("#sandbox" + theId + " .headers input[type=text]").each(function() {
+                val = $(this).val();
+                if(val.length > 0) {
+                    st_headers[$(this).prop('name')] = val;
+                }
+            });
+
+            /*$.ajax({
+                url: $('#apiUrl').val() + url,
+                data: serializedData,
+                type: $(form).attr('method') + '',
+                dataType: 'json',
+                headers: st_headers,
+                success: function(data, textStatus, xhr) {
+                    if (typeof data === 'object') {
+                        var str = JSON.stringify(data, null, 2);
+                        $('#response' + theId).html(syntaxHighlight(str));
+                    } else {
+                        $('#response' + theId).html(data);
+                    }
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
+                    $('#response' + theId).show();
+                },
+                error: function(xhr, textStatus, error) {
+                    var str = JSON.stringify($.parseJSON(xhr.responseText), null, 2);
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
+                    $('#response' + theId).html(syntaxHighlight(str));
+                    $('#response' + theId).show();
+
+                }
+            });*/
+            $(this).parent('form').submit();
+            return false;
+        });
+    });
+    </script>
+</body>
+</html>

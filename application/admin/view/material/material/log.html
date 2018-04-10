@@ -1,0 +1,159 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/materialLog.css"/>
+{include file="common/header_bottom"/}
+
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" class="main-wrap" v-cloak>
+
+        <div class="layui-container">
+            <!-- 搜索 -->
+            <div class="layui-form-item finance-search">
+                <div class="layui-input-block">
+                    <form action="" class="layui-form">
+                        <input name="title"
+                               lay-verify="keywords"
+                               @blur="searchBlur"
+                               autocomplete="off"
+                               placeholder="请输入操作人员姓名"
+                               class="layui-input"
+                        >
+                        <button lay-submit
+                                lay-filter="formSearchAll"
+                                class="layui-btn iconfont icon-search search-icon"
+                        >
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 标签/筛选 -->
+            <div class="finance-tag">
+                <div class="examine-tag clearfix">
+                    <span class="tag-title">操作类型：</span>
+                    <ul>
+                        <li>
+                            <a href="javascript:;"
+                               class="tag-a tag-active"
+                               @click="notLimitedRemark($event)"
+                            >不限
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="tag-a ">资料库</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="tag-a ">文档库</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="tag-a ">文档</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="examine-tag">
+                    <span class="tag-title">筛&emsp;&emsp;选：</span>
+                    <ul class="filter">
+                        <li v-for="(item, index) in condition">
+                            <a href="javascript:;"
+                               :class="['tag-a', item.show && 'show', item.active && 'tag-active']"
+                               @click="showCondition(index)">
+                                {{item.name}}<i class="iconfont icon-down-arrow"></i>
+                            </a>
+                            <div class="filter-time" v-if="index == 0">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">已合规</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">未合规</a>
+                                </div>
+                            </div>
+                            <div class="filter-time" v-if="index ==1 ">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">今天</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">昨天</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">最近7天</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">最近30天</a>
+                                    <a href="javascript:;" @click="setCondition($event, index, 1)">自定义</a>
+                                    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                                        <input :class="['layui-input', 'lay-date-a-' + index]" readonly="">
+                                        -
+                                        <input :class="['layui-input', 'lay-date-b-' + index]" readonly="">
+                                        <button @click="addConditons($event, index)">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter-time" v-if="index == 2">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">待审核</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">审核通过</a>
+                                    <a href="javascript:;" @click="setCondition($event, index)">审核拒绝</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--表格-->
+            <table class="common-table"
+                   cellpadding="0"
+                   cellspacing="0"
+                   border="0"
+                   width="100%"
+                   align="center"
+            >
+                <thead>
+                <tr align="center">
+                    <th>操作内容</th>
+                    <th>操作类型</th>
+                    <th>操作人</th>
+                    <th>操作时间</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr align="center" v-for="item in tableDataWait">
+                    <td>{{item.customer_name}}</td>
+                    <td>{{item.mobile }}</td>
+                    <td>{{item.goods_name}}</td>
+                    <td>{{item.product_type == 1 ? '线上产品' : (item.product_type == 2 ? '线下产品' : '******')
+                        }}
+                    </td>
+                    <td>{{item.risk_assessment }}</td>
+                    <td>{{item.appropriateness_assessment }}</td>
+                    <td>{{item.compliance_status == 1 ? '已合规' : (item.compliance_status == 0 ? '未合规' :
+                        '******') }}
+                    </td>
+                    <td>{{item.create_time}}</td>
+                    <td>{{item.salesman}}</td>
+                    <td>
+                        <a data-type="tab"
+                           data-title="质检审核"
+                           class="audit-skip"
+                           :href='"/admin/examine/examine/examine_view?id=" + item.cooper_id'
+                        >{{item.status}}
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div v-if="tableDataWait.length == 0" class="no-result">
+                <p>暂无数据</p>
+            </div>
+
+            <!-- 分页 -->
+            <div class="page">
+                <div class="page-choice">
+                    <div id="page"></div>
+                </div>
+                <p class="page-total">已选1条，共有<span>0</span>条记录</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/materialLog.js"></script>
+{include file="common/footer_bottom"/}

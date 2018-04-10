@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="php-apidoc - apid documenation generator">
+    <meta name="author" content="Calin Rada">
+    <title>crm客户合作情况</title>
+    <link href="com/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body      { padding-top: 70px; margin-bottom: 15px; }
+        .tab-pane { padding-top: 10px; }
+        .mt0      { margin-top: 0px; }
+        .footer   { font-size: 12px; color: #666; }
+        .label    { display: inline-block; min-width: 65px; padding: 0.3em 0.6em 0.3em; }
+        .string   { color: green; }
+        .number   { color: darkorange; }
+        .boolean  { color: blue; }
+        .null     { color: magenta; }
+        .key      { color: red; }
+        .popover  { max-width: 400px; max-height: 400px; overflow-y: auto;}
+    </style>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">crm客户合作情况</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" enctype ="multipart/form-data">
+                <div class="form-group">
+                    Api key: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="Api key header with api key (key) and api key value (value) "><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="key" id="apikey_key">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="value" id="apikey_value">
+                </div>
+                <div class="form-group" style="margin-left: 10px;">
+                    Basic Auth: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="If needed"><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="Username" id="basic_auth_username">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="Password" id="basic_auth_password">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success btn-sm tooltipP" data-toggle="tooltip" title="Save API key and Basic Auth data in localstorage" id="save_auth_data">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Api URL</h5>
+                <input id="apiUrl" type="text" class="form-control input-sm" placeholder="http://api.mydomain.tld">
+            </div>
+        </div>
+        <hr>
+        <div class="panel-group" id="accordion">
+            <h2>新增客户合作情况(提交数据格式参考详细接口返回的)</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion0" href="#collapseOne0"> http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=add</a>
+        </h4>
+    </div>
+    <div id="collapseOne0" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab0">
+                <li class="active"><a href="#info0" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox0" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample0" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info0">
+                    <div class="well">
+                    新增客户合作情况(提交数据格式参考详细接口返回的)
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>product_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>产品类型： 1 线上产品  2  线下产品</td>
+</tr>
+
+<tr>
+    <td>product_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>产品ID</td>
+</tr>
+
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>product_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>产品名称</td>
+</tr>
+
+<tr>
+    <td>product_code</td>
+    <td>string</td>
+    <td>No</td>
+    <td>产品code</td>
+</tr>
+
+<tr>
+    <td>pay_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>项目的支付方式： 1、  线上支付  2、线下支付</td>
+</tr>
+
+<tr>
+    <td>pay_num</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>购买数量</td>
+</tr>
+
+<tr>
+    <td>pay_mobile</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>购买电话</td>
+</tr>
+
+<tr>
+    <td>third_order_id</td>
+    <td>int</td>
+    <td>No</td>
+    <td>第三方的订单ID</td>
+</tr>
+
+<tr>
+    <td>is_trade_day</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>是否交易日： 1 交易日  2 自然日</td>
+</tr>
+
+<tr>
+    <td>days</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>服务时长</td>
+</tr>
+
+<tr>
+    <td>goods_price</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>商品价格</td>
+</tr>
+
+<tr>
+    <td>pay_money</td>
+    <td>decimal</td>
+    <td>Yes</td>
+    <td>支付金额</td>
+</tr>
+
+<tr>
+    <td>pay_time</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款日期</td>
+</tr>
+
+<tr>
+    <td>payer</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款人</td>
+</tr>
+
+<tr>
+    <td>pay_method</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>项目的线下支付方式：  1、线下银行卡转账  2、线下支付宝支付  3、 线下微信支付</td>
+</tr>
+
+<tr>
+    <td>pay_bank</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款银行</td>
+</tr>
+
+<tr>
+    <td>payment_account</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款帐号</td>
+</tr>
+
+<tr>
+    <td>payment_certificate</td>
+    <td>array</td>
+    <td>No</td>
+    <td>付款凭证</td>
+</tr>
+
+<tr>
+    <td>receive_bank</td>
+    <td>string</td>
+    <td>No</td>
+    <td>收款银行</td>
+</tr>
+
+<tr>
+    <td>receive_account</td>
+    <td>string</td>
+    <td>No</td>
+    <td>收款帐号</td>
+</tr>
+
+<tr>
+    <td>compliance_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>合规类型： 1 线上合规   2 线下合规</td>
+</tr>
+
+<tr>
+    <td>compliance_status</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>合规状态： 1 已合规  0  未合规</td>
+</tr>
+
+<tr>
+    <td>adapt</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>适当性测评</td>
+</tr>
+
+<tr>
+    <td>risk</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>风险测评</td>
+</tr>
+
+<tr>
+    <td>contract_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>合同类型： 1 电子合同  2  纸质合同</td>
+</tr>
+
+<tr>
+    <td>attachment</td>
+    <td>array</td>
+    <td>No</td>
+    <td>附件</td>
+</tr>
+
+<tr>
+    <td>remark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>备注</td>
+</tr>
+
+<tr>
+    <td>is_saleprocess</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>是否有销售过程 1 有 0 表示没有</td>
+</tr>
+
+<tr>
+    <td>cooper_situation_base</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>用来提交合作情况基本信息的参数，格式参考详细接口返回的该字段格式</td>
+</tr>
+
+<tr>
+    <td>sp_saleprocess</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>用来提交合作情况销售过程的参数，格式参考详细接口返回的该字段格式</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox0">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=add" method="post" name="form0" id="form0">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_type" placeholder="product_type" name="product_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_id" placeholder="product_id" name="product_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_name" placeholder="product_name" name="product_name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_code" placeholder="product_code" name="product_code">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_type" placeholder="pay_type" name="pay_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_num" placeholder="pay_num" name="pay_num">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_mobile" placeholder="pay_mobile" name="pay_mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="third_order_id" placeholder="third_order_id" name="third_order_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="is_trade_day" placeholder="is_trade_day" name="is_trade_day">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="days" placeholder="days" name="days">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="goods_price" placeholder="goods_price" name="goods_price">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_money" placeholder="pay_money" name="pay_money">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_time" placeholder="pay_time" name="pay_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="payer" placeholder="payer" name="payer">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_method" placeholder="pay_method" name="pay_method">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_bank" placeholder="pay_bank" name="pay_bank">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="payment_account" placeholder="payment_account" name="payment_account">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="payment_certificate" placeholder="payment_certificate" name="payment_certificate">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="receive_bank" placeholder="receive_bank" name="receive_bank">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="receive_account" placeholder="receive_account" name="receive_account">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="compliance_type" placeholder="compliance_type" name="compliance_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="compliance_status" placeholder="compliance_status" name="compliance_status">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="adapt" placeholder="adapt" name="adapt">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="risk" placeholder="risk" name="risk">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="contract_type" placeholder="contract_type" name="contract_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="attachment" placeholder="attachment" name="attachment">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="remark" placeholder="remark" name="remark">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="is_saleprocess" placeholder="is_saleprocess" name="is_saleprocess">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="cooper_situation_base" placeholder="cooper_situation_base" name="cooper_situation_base">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="sp_saleprocess" placeholder="sp_saleprocess" name="sp_saleprocess">
+</div>
+    <button type="submit" class="btn btn-success send" rel="0">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers0"></pre>
+                                <pre id="response0"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response0">{
+        code:返回是否成功标识code,-1为失败，1为成功
+        message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>客户合作情况列表</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1"> http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_list</a>
+        </h4>
+    </div>
+    <div id="collapseOne1" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab1">
+                <li class="active"><a href="#info1" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox1" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample1" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info1">
+                    <div class="well">
+                    客户合作情况列表
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox1">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_list" method="post" name="form1" id="form1">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="1">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers1"></pre>
+                                <pre id="response1"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response1">{
+    code: 1,
+    message: 'ok',
+    data: {
+        dataProduct: [
+            {
+                id: '客户合作情况ID',
+                product_id: '产品ID',
+                customer_id: '客户ID',
+                product_name: '产品名称',
+                product_type: '产品类型： 1 线上产品  2  线下产品',
+                pay_num: '购买数量',
+                pay_mobile: '购买电话',
+                pay_money: '支付金额',
+                third_order_id: '第三方的订单ID',
+                pay_time: '付款日期',
+                employee_nickname: '销售人员',
+                department: '销售人员部门'
+            },
+            {
+                id: '客户合作情况ID',
+                product_id: '产品ID',
+                customer_id: '客户ID',
+                product_name: '产品名称',
+                product_type: '产品类型： 1 线上产品  2  线下产品',
+                pay_num: '购买数量',
+                pay_mobile: '购买电话',
+                pay_money: '支付金额',
+                third_order_id: '第三方的订单ID',
+                pay_time: '付款日期',
+                employee_nickname: '销售人员',
+                department: '销售人员部门'
+            }
+        ],
+        onService:
+          [
+            {
+                id: '客户合作情况ID',
+                product_id: '产品ID',
+                product_name: '产品名称',
+                product_type: '产品类型： 1 线上产品  2  线下产品',
+                pay_num: '购买数量',
+                pay_mobile: '购买电话',
+                pay_money: '支付金额',
+                service_start_time: '服务开始时间',
+                service_end_time: '服务结束时间',
+            },
+            {
+                id: '客户合作情况ID',
+                product_id: '产品ID',
+                product_name: '产品名称',
+                product_type: '产品类型： 1 线上产品  2  线下产品',
+                pay_num: '购买数量',
+                pay_mobile: '购买电话',
+                pay_money: '支付金额',
+                service_start_time: '服务开始时间',
+                service_end_time: '服务结束时间',
+            }
+        ],
+
+    total_pay_num: '总的购买数量',
+    total_pay_money: '总的购买金额'
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>编辑客户合作情况(提交数据格式参考详细接口返回的)</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2"> http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=update</a>
+        </h4>
+    </div>
+    <div id="collapseOne2" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab2">
+                <li class="active"><a href="#info2" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox2" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample2" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info2">
+                    <div class="well">
+                    编辑客户合作情况(提交数据格式参考详细接口返回的)
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户合作情况ID</td>
+</tr>
+
+<tr>
+    <td>product_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>产品类型： 1 线上产品  2  线下产品</td>
+</tr>
+
+<tr>
+    <td>product_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>产品ID</td>
+</tr>
+
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>product_code</td>
+    <td>string</td>
+    <td>No</td>
+    <td>产品code</td>
+</tr>
+
+<tr>
+    <td>product_name</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>产品名称</td>
+</tr>
+
+<tr>
+    <td>pay_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>项目的支付方式： 1、  线上支付  2、线下支付</td>
+</tr>
+
+<tr>
+    <td>pay_num</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>购买数量</td>
+</tr>
+
+<tr>
+    <td>pay_mobile</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>购买电话</td>
+</tr>
+
+<tr>
+    <td>third_order_id</td>
+    <td>int</td>
+    <td>No</td>
+    <td>第三方的订单ID</td>
+</tr>
+
+<tr>
+    <td>is_trade_day</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>是否交易日： 1 交易日  2 自然日</td>
+</tr>
+
+<tr>
+    <td>days</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>服务时长</td>
+</tr>
+
+<tr>
+    <td>goods_price</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>商品价格</td>
+</tr>
+
+<tr>
+    <td>pay_money</td>
+    <td>decimal</td>
+    <td>Yes</td>
+    <td>支付金额</td>
+</tr>
+
+<tr>
+    <td>pay_time</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款日期</td>
+</tr>
+
+<tr>
+    <td>payer</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款人</td>
+</tr>
+
+<tr>
+    <td>pay_method</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>项目的线下支付方式：  1、线下银行卡转账  2、线下支付宝支付  3、 线下微信支付</td>
+</tr>
+
+<tr>
+    <td>pay_bank</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款银行</td>
+</tr>
+
+<tr>
+    <td>payment_account</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>付款帐号</td>
+</tr>
+
+<tr>
+    <td>payment_certificate</td>
+    <td>array</td>
+    <td>No</td>
+    <td>付款凭证</td>
+</tr>
+
+<tr>
+    <td>receive_bank</td>
+    <td>string</td>
+    <td>No</td>
+    <td>收款银行</td>
+</tr>
+
+<tr>
+    <td>receive_account</td>
+    <td>string</td>
+    <td>No</td>
+    <td>收款帐号</td>
+</tr>
+
+<tr>
+    <td>compliance_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>合规类型： 1 线上合规   2 线下合规</td>
+</tr>
+
+<tr>
+    <td>compliance_status</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>合规状态： 1 已合规  0  未合规</td>
+</tr>
+
+<tr>
+    <td>adapt</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>适当性测评</td>
+</tr>
+
+<tr>
+    <td>risk</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>风险测评</td>
+</tr>
+
+<tr>
+    <td>contract_type</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>合同类型： 1 电子合同  2  纸质合同</td>
+</tr>
+
+<tr>
+    <td>attachment</td>
+    <td>array</td>
+    <td>No</td>
+    <td>附件</td>
+</tr>
+
+<tr>
+    <td>remark</td>
+    <td>string</td>
+    <td>No</td>
+    <td>备注</td>
+</tr>
+
+<tr>
+    <td>is_saleprocess</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>是否有销售过程 1 有 0 表示没有</td>
+</tr>
+
+<tr>
+    <td>cooper_situation_base</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>用来提交合作情况基本信息的参数，格式参考详细接口返回的该字段格式</td>
+</tr>
+
+<tr>
+    <td>sp_saleprocess</td>
+    <td>array</td>
+    <td>Yes</td>
+    <td>用来提交合作情况销售过程的参数，格式参考详细接口返回的该字段格式</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox2">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=update" method="post" name="form2" id="form2">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_type" placeholder="product_type" name="product_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_id" placeholder="product_id" name="product_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_code" placeholder="product_code" name="product_code">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="product_name" placeholder="product_name" name="product_name">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_type" placeholder="pay_type" name="pay_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_num" placeholder="pay_num" name="pay_num">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_mobile" placeholder="pay_mobile" name="pay_mobile">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="third_order_id" placeholder="third_order_id" name="third_order_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="is_trade_day" placeholder="is_trade_day" name="is_trade_day">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="days" placeholder="days" name="days">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="goods_price" placeholder="goods_price" name="goods_price">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_money" placeholder="pay_money" name="pay_money">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_time" placeholder="pay_time" name="pay_time">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="payer" placeholder="payer" name="payer">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_method" placeholder="pay_method" name="pay_method">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="pay_bank" placeholder="pay_bank" name="pay_bank">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="payment_account" placeholder="payment_account" name="payment_account">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="payment_certificate" placeholder="payment_certificate" name="payment_certificate">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="receive_bank" placeholder="receive_bank" name="receive_bank">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="receive_account" placeholder="receive_account" name="receive_account">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="compliance_type" placeholder="compliance_type" name="compliance_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="compliance_status" placeholder="compliance_status" name="compliance_status">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="adapt" placeholder="adapt" name="adapt">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="risk" placeholder="risk" name="risk">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="contract_type" placeholder="contract_type" name="contract_type">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="attachment" placeholder="attachment" name="attachment">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="remark" placeholder="remark" name="remark">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="is_saleprocess" placeholder="is_saleprocess" name="is_saleprocess">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="cooper_situation_base" placeholder="cooper_situation_base" name="cooper_situation_base">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="sp_saleprocess" placeholder="sp_saleprocess" name="sp_saleprocess">
+</div>
+    <button type="submit" class="btn btn-success send" rel="2">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers2"></pre>
+                                <pre id="response2"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response2">{
+    code:返回是否成功标识code,-1为失败，1为成功
+    message:返回成功失败的描述,
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>客户合作情况详细</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3"> http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=detail</a>
+        </h4>
+    </div>
+    <div id="collapseOne3" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab3">
+                <li class="active"><a href="#info3" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox3" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample3" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info3">
+                    <div class="well">
+                    客户合作情况详细
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户合作情况ID</td>
+</tr>
+
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox3">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=detail" method="post" name="form3" id="form3">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="3">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers3"></pre>
+                                <pre id="response3"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response3">{
+    code: '返回是否成功标识code,-1为失败，1为成功',
+    message: '返回成功失败的描述',
+    data: {
+        cooper_situation_base: {
+            id: '客户合作情况ID',
+            product_type: '产品类型： 1 线上产品  2  线下产品',
+            product_id: '产品ID',
+            product_name: '产品名称',
+            customer_id: '客户ID',
+            pay_type: '项目的支付方式： 1、  线上支付  2、线下支付',
+            pay_num: '购买数量',
+            pay_mobile: '购买电话',
+            third_order_id: '第三方的订单ID',
+            is_trade_day: '是否交易日： 1 交易日  2 自然日',
+            days: '服务时长',
+            goods_price: '商品价格',
+            pay_money: '支付金额',
+            pay_time: '付款日期',
+            payer: '付款人',
+            pay_method: '项目的线下支付方式：  1、线下银行卡转账  2、线下支付宝支付  3、 线下微信支付',
+            pay_bank: '付款银行',
+            payment_account: '付款帐号',
+            payment_certificate: [
+                {
+                image: 'http://static.guxiansheng.cn/adv/201710100001.jpg',
+                thumb_image: 'http://static.guxiansheng.cn/adv/201710100001.jpg'
+                }
+            ],
+            receive_bank: '收款银行',
+            receive_account: '收款帐号',
+            compliance_type: '合规类型： 1 线上合规   2 线下合规',
+            compliance_status: '合规状态： 1 已合规  0  未合规',
+            adapt: '适当性测评',
+            risk: '风险测评',
+            contract_type: '合同类型： 1 电子合同  2  纸质合同',
+            attachment: {
+                voice: [
+                {
+                    url: 'http://wwewewewewew',
+                    name: '语音名字'
+                }
+                ],
+                image: [
+                {
+                    image: 'http://static.guxiansheng.cn/adv/201710100001.jpg',
+                    thumb_image: 'http://static.guxiansheng.cn/adv/201710100001.jpg'
+                }
+                ]
+            },
+            remark:'备注',
+            is_saleprocess:'是否有销售过程 1 有 0 表示没有',
+            cooper_situation_jjtag: [
+                'cwyjj(财务己拒绝)',
+                'zjyjj(质检己拒绝)',
+                'hfyjj(回访己拒绝)'
+            ],
+        },
+        sp_saleprocess: [
+            {
+                title: '配置项名称',
+                info: [
+                {
+                    customer_cooper_situation_saleprocess_id: '合作情况销售过程ID',
+                    sp_type: '2(销售过程类型:1销售过程,2跟进记录)',
+                    employee_id: '员工ID',
+                    employee_nickname: '销售人员',
+                    employee_department: '销售人员部门',
+                    text_record: '记录文字',
+                    create_time: '创建日期',
+                    product_info: [
+                    {
+                        product_id: '产品ID',
+                        product_name: '产品名称'
+                    },
+                    {
+                        product_id: '产品ID',
+                        product_name: '产品名称'
+                    }
+                    ],
+                    images: [
+                        {
+                            image:'http://static.guxiansheng.cn/adv/201710100001.jpg',
+                            thumb_image:'http://static.guxiansheng.cn/adv/201710100001.jpg'
+                        },
+                        {
+                            image:'http://static.guxiansheng.cn/adv/201710100001.jpg',
+                            thumb_image:'http://static.guxiansheng.cn/adv/201710100001.jpg'
+                        }
+                    ],
+                    voice_records: [
+                    {
+                        customer_real_name: '客户姓名',
+                        customer_mobile: '电话',
+                        call_time: '通话时间',
+                        talk_time: '通话时长',
+                        call_type: '通话类型',
+                        recfile: '录音地址'
+                    },
+                    {
+                        customer_real_name: '客户姓名',
+                        customer_mobile: '电话',
+                        call_time: '通话时间',
+                        talk_time: '通话时长',
+                        call_type: '通话类型',
+                        recfile: '录音地址'
+                    }
+                    ]
+                }
+                ]
+            }
+        ],
+
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>根据订单ID和手机号码获取用户三方合规评测</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4"> http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_member_compliance</a>
+        </h4>
+    </div>
+    <div id="collapseOne4" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab4">
+                <li class="active"><a href="#info4" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox4" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample4" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info4">
+                    <div class="well">
+                    根据订单ID和手机号码获取用户三方合规评测
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>order_id</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>订单ID</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>手机号码</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox4">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_member_compliance" method="post" name="form4" id="form4">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="order_id" placeholder="order_id" name="order_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+    <button type="submit" class="btn btn-success send" rel="4">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers4"></pre>
+                                <pre id="response4"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response4">{
+    code: '1',
+    message: 'ok',
+    data: {
+        list: {
+            order_id: '订单ID',
+            mobile: '17780510690',
+            is_identity: '1 已合规 0 未合规',
+            is_contract: '是否已经签订合同  1 是, 0 否',
+            adapt: {
+                verify_code: 'adapt(适当性测评)',
+                verify_info: '文字介绍',
+                verify_status: '状态 -1 待审核，0 待修改（未通过），1 已通过，2 已失效，3 已跳过，4 已过期，10评级等级，100 初始状态'
+            },
+            risk: {
+                verify_code: 'risk(风险测评)',
+                verify_info: '文字介绍',
+                verify_status: '状态 -1 待审核，0 待修改（未通过），1 已通过，2 已失效，3 已跳过，4 已过期，10评级等级，100 初始状态'
+            }
+        }
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>根据手机号码获取用户三方合规信息</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5"> http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_compliance_status</a>
+        </h4>
+    </div>
+    <div id="collapseOne5" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab5">
+                <li class="active"><a href="#info5" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox5" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample5" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info5">
+                    <div class="well">
+                    根据手机号码获取用户三方合规信息
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox5">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_compliance_status" method="post" name="form5" id="form5">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+    <button type="submit" class="btn btn-success send" rel="5">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers5"></pre>
+                                <pre id="response5"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response5">{
+    code: '1',
+    message: 'ok',
+    data: {
+        customer_id: '客户ID 247',
+        is_identity: '1 已合规 0 未合规',
+        risk: '风险测评 已完成',
+        adapt: '适当性测评 已完成'
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div><h2>根据购买电话和服务包ID获取购买的订单</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6"> http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_order_list</a>
+        </h4>
+    </div>
+    <div id="collapseOne6" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab6">
+                <li class="active"><a href="#info6" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox6" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample6" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info6">
+                    <div class="well">
+                    根据购买电话和服务包ID获取购买的订单
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr>
+    <td>asc_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>服务包ID</td>
+</tr>
+
+<tr>
+    <td>customer_id</td>
+    <td>int</td>
+    <td>Yes</td>
+    <td>客户ID</td>
+</tr>
+
+<tr>
+    <td>mobile</td>
+    <td>string</td>
+    <td>Yes</td>
+    <td>购买电话</td>
+</tr>
+    </tbody>
+</table>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        
+                      </div>
+                    </div>
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox6">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    
+    </div>
+    </div>
+    <div class="col-md-6">
+<form enctype="application/x-www-form-urlencoded" role="form" action="http://crm.guxiansheng.cn/admin/cooper/customer_cooper_situation/crmAdmin?c=customer_cooper_situation&a=get_order_list" method="post" name="form6" id="form6">
+    
+    Parameters
+    <hr/>
+    
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="asc_id" placeholder="asc_id" name="asc_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="customer_id" placeholder="customer_id" name="customer_id">
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="mobile" placeholder="mobile" name="mobile">
+</div>
+    <button type="submit" class="btn btn-success send" rel="6">Send</button>
+</form></div>
+                        </div>
+                        <div class="col-md-12">
+                            Response
+                            <hr>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response_headers6"></pre>
+                                <pre id="response6"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+
+<hr>
+<pre id="sample_response6">{
+    code: 1,
+    message: 'ok',
+    data: {
+        list: [
+            {
+            order_id: '订单ID',
+            buyer_mobile: '购买电话',
+            payment_time: '支付时间',
+            order_amount: '订单金额（0.01）',
+            agency_start_time: '订单购买的服务的开始时间',
+            agency_time: '该订单购买的三方服务的到期时间',
+            is_identity: '1 已合规 0 未合规',
+            is_contract: '是否已经签订合同  1 是, 0 否',
+            goods_name: '商品名称（涨停风云）',
+            price: '商品价格（0.01）',
+            agency_status: '15交易日',
+            is_trade_day: '是否交易日： 1 交易日  2 自然日',
+            days: '服务时长（15）',
+            object_id: '服务包ID'
+            },
+            {
+            order_id: '订单ID',
+            buyer_mobile: '购买电话',
+            payment_time: '支付时间',
+            order_amount: '订单金额（0.01）',
+            agency_start_time: '订单购买的服务的开始时间',
+            agency_time: '该订单购买的三方服务的到期时间',
+            is_identity: '1 已合规 0 未合规',
+            is_contract: '是否已经签订合同  1 是, 0 否',
+            goods_name: '商品名称（涨停风云）',
+            price: '商品价格（0.01）',
+            agency_status: '15交易日',
+            is_trade_day: '是否交易日： 1 交易日  2 自然日',
+            days: '服务时长（15）',
+            object_id: '服务包ID'
+            }
+        ]
+    }
+    }</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>
+        </div>
+        <hr>
+
+        <div class="row mt0 footer">
+            <div class="col-md-6" align="left">
+                Generated on 2018-01-02, 09:43:25
+            </div>
+            <div class="col-md-6" align="right">
+                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.3.4</a>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+    <script src="com/jquery.min.js"></script>
+    <script src="com/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+            json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+
+    var storage = (function() {
+        var uid = new Date;
+        var storage;
+        var result;
+        try {
+            (storage = window.localStorage).setItem(uid, uid);
+            result = storage.getItem(uid) == uid;
+            storage.removeItem(uid);
+            return result && storage;
+        } catch (exception) {}
+    }());
+
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if(!this.value) {
+                return;
+            }
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    $(document).ready(function() {
+
+        $('form').attr('enctype' ,"multipart/form-data");
+        $('#answer_entrance_content').attr('type','file');
+        if (storage) {
+            $('#basic_auth_username').val(storage.getItem('basicAuthUsername'));
+            $('#basic_auth_password').val(storage.getItem('basicAuthPassword'));
+            $('#apikey_key').val(storage.getItem('apiKey'));
+            $('#apikey_value').val(storage.getItem('apiKeyValue'));
+        }
+
+        $('#php-apidoctab a').click(function(e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+
+        $('.tooltipP').tooltip({
+            placement: 'bottom'
+        });
+
+        $('code[id^=response]').hide();
+
+        $.each($('pre[id^=sample_response],pre[id^=sample_post_body]'), function() {
+            if ($(this).html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($(this).html().replace(/'/g, '"')), undefined, 2);
+            $(this).html(syntaxHighlight(str));
+        });
+
+        $("[data-toggle=popover]").popover({placement:'right'});
+
+        $('body').on('shown.bs.popover', function() {
+            var $sample = $(this).find(".popover-content");
+            if ($sample.html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($sample.html().replace(/'/g, '"')), undefined, 2);
+            $sample.html('<pre>' + syntaxHighlight(str) + '</pre>');
+        });
+
+        $('body').on('click', '#save_auth_data', function(e) {
+            if (storage) {
+                storage.setItem('basicAuthUsername', $('#basic_auth_username').val());
+                storage.setItem('basicAuthPassword', $('#basic_auth_password').val());
+                storage.setItem('apiKey', $('#apikey_key').val());
+                storage.setItem('apiKeyValue', $('#apikey_value').val());
+            } else {
+                alert('Your browser does not support local storage');
+            }
+        });
+
+        $('body').on('click', '.send', function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+            //added /g to get all the matched params instead of only first
+            var matchedParamsInRoute = $(form).attr('action').match(/[^{]+(?=\})/g);
+            var theId = $(this).attr('rel');
+            //keep a copy of action attribute in order to modify the copy
+            //instead of the initial attribute
+            var url = $(form).attr('action');
+
+            //get form serialized data in order to remove matchedParams
+            var serializedData = $(form).serializeObject();
+
+            var index, key, value;
+
+            if(matchedParamsInRoute) {
+                for (index = 0; index < matchedParamsInRoute.length; ++index) {
+                    try {
+                        key = matchedParamsInRoute[index];
+                        value = serializedData[key];
+                        if (typeof value == "undefined") value ="";
+                        url = url.replace("{" + key + "}", value);
+                        delete serializedData[key];
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
+
+            var st_headers = {};
+
+            var basicAuthUsername = $('#basic_auth_username').val();
+            var basicAuthPassword = $('#basic_auth_password').val();
+            var apiKey = $('#apikey_key').val();
+            var apiKeyValue = $('#apikey_value').val();
+
+            if(apiKey.length > 0 && apiKeyValue.length > 0) {
+                st_headers[apiKey] = apiKeyValue;
+            }
+
+            if (basicAuthUsername != '' && basicAuthPassword != '') {
+                st_headers['Authorization'] = "Basic " + btoa(basicAuthUsername + ":" + basicAuthPassword);
+            }
+
+            $("#sandbox" + theId + " .headers input[type=text]").each(function() {
+                val = $(this).val();
+                if(val.length > 0) {
+                    st_headers[$(this).prop('name')] = val;
+                }
+            });
+
+            /*$.ajax({
+                url: $('#apiUrl').val() + url,
+                data: serializedData,
+                type: $(form).attr('method') + '',
+                dataType: 'json',
+                headers: st_headers,
+                success: function(data, textStatus, xhr) {
+                    if (typeof data === 'object') {
+                        var str = JSON.stringify(data, null, 2);
+                        $('#response' + theId).html(syntaxHighlight(str));
+                    } else {
+                        $('#response' + theId).html(data);
+                    }
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
+                    $('#response' + theId).show();
+                },
+                error: function(xhr, textStatus, error) {
+                    var str = JSON.stringify($.parseJSON(xhr.responseText), null, 2);
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
+                    $('#response' + theId).html(syntaxHighlight(str));
+                    $('#response' + theId).show();
+
+                }
+            });*/
+            $(this).parent('form').submit();
+            return false;
+        });
+    });
+    </script>
+</body>
+</html>

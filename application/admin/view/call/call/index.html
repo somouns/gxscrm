@@ -1,0 +1,238 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/callRecords.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<div class="container add-client-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main">
+            <div class="layui-row condition">
+                <!-- 筛选 S-->
+                <div class="examine-tag">
+                    <span class="tag-title">员工：</span>
+                    <ul class="lists">
+                        <li>
+                            <a href="javascript:;" @click="noPlace" class="tag-a no-place">不限</a>
+                        </li>
+                        <li @click="showpop = !showpop">
+                            <a class="tag-a" :class="{'tag-active': showpopActive}" href="javascript:;">筛选<i class="iconfont icon-down-arrow"></i></a>
+                        </li>
+                        <li v-for="(item, index) in selectedOrgUsrShow">
+                            <a href="javascript:;" class="tag-a tag-active">{{item.name}}<i @click.stop.prevent="delUsr(index)" class="layui-icon fontIcon">&#x1007;</i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="examine-tag">
+                    <span class="tag-title">筛选：</span>
+                    <ul class="lists">
+                        <li id="filtrate" class="filter-rate">
+                            <a class="tag-a" @click="showDate = !showDate" :class="{'tag-active': showDateActive}" href="javascript:;">{{dateName}}<i class="iconfont icon-down-arrow"></i></a>
+                            <!-- 日期筛选 E -->
+                            <div class="filter-time filter-select-call" v-show="showDate">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="cancelCondition($event)">不限</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">今天</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">昨天</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">最近7天</a>
+                                    <a href="javascript:;" @click="choiceTime($event)">最近30天</a>
+                                    <a href="javascript:;" @click="choiceTime($event,1)">自定义</a>
+                                    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                                        <input :class="['layui-input', 'lay-date-a']" readonly>
+                                        -
+                                        <input :class="['layui-input', 'lay-date-b']" readonly>
+                                        <button @click="addConditons($event)">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 日期筛选 E -->
+                        </li>
+                    </ul>
+                    <div class="example-handle sort-down">
+                        <a v-if="callRecord.length != 0" class="examine-query" :href='"/admin/call/call/get?c=call&a=getCallRecordCount&s_start_time=" + filterTime[0] + "&e_start_time=" + filterTime[1] + "&find_employee_id=" + employeeAndDep + "&pagesize=" + page_limit + "&page=" + page + "&order=" + order + "&asc=" + sort + "&csv=123"'>下载表格</a>
+                        <a v-else class="examine-query gray-down">下载表格</a>
+                    </div>
+                </div>
+                <!-- 筛选 E-->
+                <!-- 组织架构 S-->
+                <div class="examine-filter call-filter-call" v-show="showpop">
+                    <div class="organize-framework">
+                        <h2 class="organize-nav">组织架构<a href="JavaScript:;" @click="cancel()"></a></h2>
+                        <div class="organize-content">
+                            <div class="customer-group">
+                                <form class="layui-form" action="">
+                                    <div class="layui-inline">
+                                        <div class="layui-input-inline">
+                                            <select name="modules" lay-filter="search-org" lay-search="">
+                                                <option value="">请输入用户姓名、账号</option>
+                                                <option :value="item.id + ','+item.name" v-for="item in OrgSearchArr">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <nav class="sidebar-nav">
+                                    <ul class="metismenu" id="org-framework">
+                                        <li v-for="(item, index) in epartment">
+                                            <a :class="!item.type && 'has-arrow'" href="javascript:;"
+                                               aria-expanded="false" :data-id="item.id" :data-text="item.name"
+                                               @click="orgSelectItem">
+                                                {{ item.name }}
+                                                <span @click.stop="orgSelectAll($event,item.id)"
+                                                      v-if="!item.type">全选</span>
+                                            </a>
+                                            <ul aria-expanded="false" v-if="item.child">
+                                                <li v-for="(item2, index) in item.child">
+                                                    <a :class="!item2.type && 'has-arrow'" href="javascript:;"
+                                                       aria-expanded="false" :data-id="item2.id"
+                                                       :data-text="item2.name" @click="orgSelectItem">
+                                                        {{ item2.name }}
+                                                        <span @click.stop="orgSelectAll"
+                                                              v-if="!item2.type">全选</span>
+                                                    </a>
+                                                    <ul aria-expanded="false" v-if="item2.child">
+                                                        <li v-for="(item3, index) in item2.child">
+                                                            <a :class="!item3.type && 'has-arrow'"
+                                                               href="javascript:;" aria-expanded="false"
+                                                               :data-id="item3.id" :data-text="item3.name"
+                                                               @click="orgSelectItem">
+                                                                {{ item3.name }}
+                                                                <span @click.stop="orgSelectAll"
+                                                                      v-if="!item3.type">全选</span>
+                                                            </a>
+                                                            <ul aria-expanded="false" v-if="item3.child">
+                                                                <li v-for="(item4, index) in item3.child">
+                                                                    <a :class="!item4.type && 'has-arrow'"
+                                                                       href="javascript:;" aria-expanded="false"
+                                                                       :data-id="item4.id"
+                                                                       :data-text="item4.name"
+                                                                       @click="orgSelectItem">
+                                                                        {{ item4.name }}
+                                                                        <span @click.stop="orgSelectAll"
+                                                                              v-if="!item4.type">全选</span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false"
+                                                                        v-if="item4.child">
+                                                                        <li v-for="(item5, index) in item4.child">
+                                                                            <a :class="!item5.type && 'has-arrow'"
+                                                                               href="javascript:;"
+                                                                               aria-expanded="false"
+                                                                               :data-id="item5.id"
+                                                                               :data-text="item5.name"
+                                                                               @click="orgSelectItem">
+                                                                                {{ item5.name }}
+                                                                                <span @click.stop="orgSelectAll"
+                                                                                      v-if="!item5.type">全选</span>
+                                                                            </a>
+                                                                            <ul aria-expanded="false"
+                                                                                v-if="item5.child">
+                                                                                <li v-for="(item6, index) in item5.child">
+                                                                                    <a :class="!item6.type && 'has-arrow'"
+                                                                                       href="javascript:;"
+                                                                                       aria-expanded="false"
+                                                                                       :data-id="item6.id"
+                                                                                       :data-text="item6.name"
+                                                                                       @click="orgSelectItem">
+                                                                                        {{ item6.name }}
+                                                                                        <span @click.stop="orgSelectAll"
+                                                                                              v-if="!item6.type">全选</span>
+                                                                                    </a>
+                                                                                    <ul aria-expanded="false"
+                                                                                        v-if="item6.child">
+                                                                                        <!--暂时支持7层-->
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="choose-people">
+                                <h2>已选客户：{{ selectedOrgUsr.length }}</h2>
+                                <ul>
+                                    <li v-for="(item, index) in selectedOrgUsr" :data-id="item.id">{{ item.name }} <i
+                                          @click="delChoose(index)"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="organize-bth">
+                            <button class="cancel" @click="cancel">取消</button>
+                            <button class="ensure" @click="addConditonsOrg($event)">确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 组织架构 E-->
+
+                <!-- 通话统计 S -->
+                <ul class="holder-ul">
+                    <li>电话总计：<span>{{callRecordHeadLength == 0 ? "0" : callRecordHead.send_give}}个</span></li>
+                    <li>统计人数：<span>{{callRecordHeadLength == 0 ? "0" : callRecordHead.p_count}}人</span></li>
+                    <li>接通次数：<span>{{callRecordHeadLength == 0 ? "0" : callRecordHead.giveok_count}}次</span></li>
+                    <li>通话总时长：<span>{{callRecordHeadLength == 0 ? "0" : callRecordHead.totaltalk_count}}分钟</span></li>
+                    <li>平均每人通话时长：<span>{{callRecordHeadLength == 0 ? "0" : callRecordHead.avgtalk_p_count}}分钟</span></li>
+                </ul>
+                <!-- 通话统计 E -->
+
+                <!-- table S -->
+                <div class="table-box">
+                    <div class="table-container">
+                        <table class="m-table" cellpadding="0" cellspacing="0" border="0" width="100%" v-if="callRecord.length != 0">
+                            <thead>
+                            <tr align="center">
+                                <th>员工姓名</th>
+                                <th>部门</th>
+                                <th class="recent-contact">
+                                    <a href="javascript:;" data-type="0" @click="callLenght">拨号次数 <i></i></a>
+                                </th>
+                                <th>接通次数</th>
+                                <th>通话总时长（分钟）</th>
+                                <th>平均通话时长（分钟）</th>
+                                <th>呼通次数</th>
+                                <th>客户主动呼入次数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="item in callRecord" align="center">
+                                <td>{{item.employee_name}}</td>
+                                <td>{{item.department_name}}</td>
+                                <td>{{item.send_count}}</td>
+                                <td>{{item.giveok_count}}</td>
+                                <td>{{item.totaltalk_count}}</td>
+                                <td>{{item.avgtalk_count}}</td>
+                                <td>{{item.sendok_count}}</td>
+                                <td>{{item.give_count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="no-result" v-if="callRecord.length == 0">
+                            <p>暂无数据</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- table E -->
+                <!-- 分页 S -->
+                <div class="callpage" v-if="callRecord.length != 0">
+                    <div class="page-select">
+                        <span>每页展示</span>
+                        <a href="javascript:;" @click="choiceLimit(index, item.id)" :class="{'tag-active': item.active}" v-for="(item,index) in page_limit_arr">{{item.id}}</a>
+                    </div>
+                    <div class="page-choice">
+                        <span class="page-total">共有{{total_num}}条记录</span>
+                        <div class="page-boxs" id="callpages"></div>
+                    </div>
+                </div>
+                <!-- 分页 E -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/callStatistics.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

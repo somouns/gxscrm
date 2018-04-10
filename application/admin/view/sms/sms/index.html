@@ -1,0 +1,78 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/message-reminder.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+
+<div class="container my-client-container">
+    <div  class="sms" id="app" v-cloak>
+    	<!--侧栏-->
+    	<div class="sidebar-collapse">
+        	<ul class="sibNav" id="side-menu" >
+            	<li v-for="(item, index) in navData" @click.capture="getType(item.id,item.name)" :class="index == 0 ? 'active':''" :data-type="item.id">
+               	    <a href="javascript:;" >
+                    	<span class="nav-label" v-cloak>{{item.name}}
+                            <i class="nav-num" v-if="item.noread != 0">{{item.noread}}</i>
+                        </span>
+                	</a>
+            	</li>
+        	</ul>
+    	</div>
+        <!--// 侧栏-->
+        <!--正文-->
+    	<div class="main-wrap">
+            <!--头部/清空按钮-->
+                <div class="layui-row header-top">
+                    <div class="main-top">
+                        <div class="top-tit layui-col-md4">
+                           消息
+                        </div>
+                        <div class="top-but layui-col-md8">
+                            <a href="javascript:;" class="layui-btn layui-btn-big"   @click="clearallNews()" v-if="newsData.list==undefined ">清空消息</a>
+                            <a href="javascript:;" class="layui-btn layui-btn-big layui-btn-no"  v-if="newsData.list == ''">无清空消息</a>
+                        </div>
+                    </div>
+                </div>
+            <!--// 头部/清空按钮-->
+            <div class="main">
+    			<div class="layui-tab layui-tab-card">
+    			  <ul class="layui-tab-title">
+    			    <li  @click="getSontype(00)" class="sm-active" class="noactive" :data-type="00">全部<span class="main-num" v-if="allnewsNum !=0">({{allnewsNum}})</span></li>
+    			    <li v-for = "item in TypeData" @click="getSontype(item.id)" :data-type="item.id">{{item.name}}<span class="main-num" :data-type="item.id" v-if="item.noread != 0">({{item.noread}})</span></li>
+    			  </ul>
+    			  <div class="layui-tab-content" style="">
+    			    <div class="layui-tab-item layui-show">
+    			    		<ul class="news-list">
+    			    			<li v-for="item in newsData" v-if="item != ''">
+    			    				<p class="list-text" v-html='item.content'></p>
+    			    				<div class="list-bot"><span class="time">{{item.createtime}}</span><span class="btn">{{item.sonname}}</span><a href="javascript:;" class="del-btn" @click="delOneNews(item.sms_id)">删除</a></div>
+    			    			</li>
+                                <li class="noNewsPc"v-else>
+                                    
+                                </li>
+    			    		</ul>
+    			    </div>
+    			  </div>
+    			</div>
+                <div class="bottom-page">
+                    <div class="site-page pull-left">
+                        <label>每页展示客户</label>
+                        <a href="javascript:;"  @click="onpageSize($event,'10')" class="active">10</a>
+                        <a href="javascript:;"  @click="onpageSize($event,'20')">20</a>
+                        <a href="javascript:;"  @click="onpageSize($event,'50')">50</a>
+                    </div>
+                    <div class="pull-right">
+                        <span class="pull-left recording">共有{{count}}条记录</span>
+                        <div id="follow-page" class="pull-left">
+                            <div id="demo"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--// 正文-->
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/message.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

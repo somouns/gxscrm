@@ -1,0 +1,206 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/financeManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 调仓记录详情页(临时财务管理列表) -->
+<div class="container">
+    <div id="app" class="main-wrap" v-cloak>
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-tab">
+                <ul class="layui-tab-title init-tab">
+                    {if condition="checkAuth('/admin/financial/financial/financial_lists') eq 'true'"}
+                    <li class="layui-this">待财务审核</li>
+                    {/if}
+                    {if condition="checkAuth('/admin/financial/financial/financial_record_list') eq 'true'"}
+                    <li>全部审核记录</li>
+                    {/if}
+                </ul>
+                <div class="layui-tab-content init-content">
+                    {if condition="checkAuth('/admin/financial/financial/financial_lists') eq 'true'"}
+                    <!-- 待财务审核 S-->
+                    <div class="layui-tab-item content-list layui-show">
+                        <!-- 头部 -->
+                        <div class="layui-form-item finance-search">
+                            <div class="layui-input-block">
+                                <form action="" class="layui-form">
+                                    <input type="text" name="title" lay-verify="" @blur="searchBlur" autocomplete="off" placeholder="请输入客户姓名、电话号码、产品名称或所属销售" class="layui-input">
+                                    <button lay-submit lay-filter="formSearchWait" class="layui-btn iconfont icon-search search-icon"></button>
+                                </form>
+                            </div>
+                        </div>
+                        <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                            <thead>
+                            <tr align="center">
+                                <th v-if="tableDataAllPower.customer_name != 'hide'">客户姓名</th>
+                                <th v-if="tableDataAllPower.goods_name != 'hide'">购买产品</th>
+                                <th v-if="tableDataAllPower.pay_num != 'hide'">购买数量</th>
+                                <th v-if="tableDataAllPower.pay_money != 'hide'">付费金额（元）</th>
+                                <th>移交时间</th>
+                                <th>销售人员</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr align="center" v-for="item in tableDataAll">
+                                <td v-if="tableDataAllPower.customer_name != 'hide'">{{item.customer_name}}</td>
+                                <td v-if="tableDataAllPower.goods_name != 'hide'">{{item.goods_name}}</td>
+                                <td v-if="tableDataAllPower.pay_num != 'hide'">{{item.pay_num}}</td>
+                                <td v-if="tableDataAllPower.pay_money != 'hide'">{{item.pay_money}}</td>
+                                <td>{{item.create_time}}</td>
+                                <td>{{item.salesman}}</td>
+                                <td>
+                                    {if condition="checkAuth('/admin/financial/financial/financial_view') eq 'true'"}
+                                    <a data-type="tab" data-title="财务审核" class="audit-skip" :href='"/admin/financial/financial/financial_view?id=" + item.cooper_id'>审核</a>
+                                    {/if}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="tableDataAll.length == 0" class="no-result">
+                            <p>暂无数据</p>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataAll.length != 0">
+                            <div class="page-select">
+                                <span class="page-title">每页展示客户</span>
+                                <ul>
+                                    <li><a href="javascript:;" @click="pageNumAll($event)">1000</a></li>
+                                    <li><a href="javascript:;" @click="pageNumAll($event)">500</a></li>
+                                    <li><a href="javascript:;" @click="pageNumAll($event)">300</a></li>
+                                </ul>
+                            </div>
+                            <div class="page-choice">
+                                <div id="test3"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getWaitListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 待财务审核 E-->
+                    {/if}
+                    {if condition="checkAuth('/admin/financial/financial/financial_record_list') eq 'true'"}
+                    <!-- 全部审核记录 S-->
+                    <div class="layui-tab-item content-list">
+                        <!-- 头部 -->
+                        <div class="layui-form-item finance-search finance-all">
+                            <div class="layui-input-block">
+                                <form action="" class="layui-form">
+                                    <input type="text" name="title" v-model="keywords" lay-verify="keywords" @blur="searchBlur" autocomplete="off" placeholder="请输入客户姓名、电话号码、产品名称或所属销售" class="layui-input">
+                                    <button lay-submit lay-filter="formSearchAll" class="layui-btn iconfont icon-search search-icon"></button>
+                                </form>
+                            </div>
+                            <div class="example-handle">
+                                {if condition="checkAuth('/admin/financial/financial/export_csv') eq 'true'"}
+                                <a href="javascript:;" @click="exportFinancial" class="examine-operate">导出财务数据</a>
+                                {/if}
+                                <a href="/admin/customers/remarks/index" title="备注管理" data-type="tab" class="examine-operate">备注管理</a>
+                            </div>
+                        </div>
+                        <!-- 标签 -->
+                        <div class="finance-tag">
+                            <div class="examine-tag clearfix">
+                                <span class="tag-title">备注：</span>
+                                <ul>
+                                    <li><a href="javascript:;" :class="['tag-a', checkedMarkList.length == 0 && 'tag-active']" @click="notLimitedRemark($event)">不限</a>
+                                    </li>
+                                    <li v-for="item in markList">
+                                        <a href="javascript:;" class="tag-a " @click="checkRemark($event, item.id)">{{item.mark_name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="examine-tag">
+                                <span class="tag-title">筛选：</span>
+                                <ul class="filter">
+                                    <li v-for="(item, index) in condition">
+                                        <a href="javascript:;"
+                                           :class="['tag-a', item.show && 'show', item.active && 'tag-active']"
+                                           @click="showCondition(index)">
+                                            {{item.name}}<i class="iconfont icon-down-arrow"></i>
+                                        </a>
+                                        <div class="filter-time" v-if="index == 0">
+                                            <div class="choose-icon">
+                                                <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">待处理</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">审核通过</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">审核拒绝</a>
+                                            </div>
+                                        </div>
+                                        <div class="filter-time" v-if="index != 0">
+                                            <div class="choose-icon">
+                                                <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">今天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">昨天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">最近7天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">最近30天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index, 1)">自定义</a>
+                                                <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                                                    <input :class="['layui-input', 'lay-date-a-' + index]" readonly="">
+                                                    -
+                                                    <input :class="['layui-input', 'lay-date-b-' + index]" readonly="">
+                                                    <button @click="addConditons($event, index)">确定</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                            <thead>
+                            <tr align="center">
+                                <th v-if="tableDataAllPower.customer_name != 'hide'">客户姓名</th>
+                                <th v-if="tableDataAllPower.goods_name != 'hide'">购买产品</th>
+                                <th v-if="tableDataAllPower.pay_num != 'hide'">购买数量</th>
+                                <th v-if="tableDataAllPower.pay_money != 'hide'">付费金额（元）</th>
+                                <th>移交时间</th>
+                                <th>销售人员</th>
+                                <th>审核状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr align="center" v-for="item in tableDataWait">
+                                <td v-if="tableDataAllPower.customer_name != 'hide'">{{item.customer_name}}</td>
+                                <td v-if="tableDataAllPower.goods_name != 'hide'">{{item.goods_name}}</td>
+                                <td v-if="tableDataAllPower.pay_num != 'hide'">{{item.pay_num}}</td>
+                                <td v-if="tableDataAllPower.pay_money != 'hide'">{{item.pay_money}}</td>
+                                <td>{{item.create_time}}</td>
+                                <td>{{item.salesman}}</td>
+                                <td>
+                                    <a data-type="tab" data-title="财务审核" class="audit-skip" :href='"/admin/financial/financial/financial_view?id=" + item.cooper_id'>{{item.status}}</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="tableDataWait.length == 0" class="no-result">
+                            <p>暂无数据</p>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataWait.length != 0">
+                            <div class="page-select">
+                                <span class="page-title">每页展示客户</span>
+                                <ul>
+                                    <li><a href="javascript:;" @click="pageNumWait($event)">1000</a></li>
+                                    <li><a href="javascript:;" @click="pageNumWait($event)">500</a></li>
+                                    <li><a href="javascript:;" @click="pageNumWait($event)">300</a></li>
+                                </ul>
+                            </div>
+                            <div class="page-choice">
+                                <div id="test2"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getAllListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 全部审核记录 E-->
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/financeManage.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

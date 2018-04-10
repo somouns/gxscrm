@@ -1,0 +1,161 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINJS__/libs/jsTree/css/style.min.css?v=__VERSION__"/>
+<link rel="stylesheet" href="__ADMINCSS__/page/departmentManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 部门列表 -->
+<div class="container">
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row structure-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head depart-head" style="padding-left: 0;">{{dataName.name}}</h2>
+                </div>
+                <div class="layui-col-xs6 sturcture-title">部门结构</div>
+                <div class="layui-col-xs6 sturcture-title">下级部门</div>
+            </div>
+            <div class="layui-row structure-row">
+                <!-- jstree-open 默认展开 在li里面加类 -->
+                <div class="layui-col-md5">
+                    <p class="depment-tips"><span class="confirm-warn">*</span>需要添加一级部门请在不选中部门的情况下直接添加（单击编辑部门）</p>
+
+                    <div id="jstree">
+                        <ul class="jstree-ul">
+                            <li :data-id="item.id" class="jstree-open" v-for="(item, index) in dataParent">
+                                <span class="tree-partment" :data-id="item.id">{{item.name}}</span>
+                                <span class="tree-editor" :data-pid="item.pid">编辑</span>
+                                <span class="tree-delete" :data-id="item.id">删除</span>
+                                <ul class="jstree-ul">
+                                    <li :data-id="list.id" class="jstree-open" v-for="(list, index) in item.child">
+                                        <span class="tree-partment" :data-id="list.id">{{list.name}}</span>
+                                        <span class="tree-editor" :data-pid="list.pid">编辑</span>
+                                        <span class="tree-delete" :data-id="list.id">删除</span>
+                                        <ul class="jstree-ul">
+                                            <li :data-id="lastList.id" class="jstree-open" v-for="(lastList, index) in list.child">
+                                                <span class="tree-partment" :data-id="lastList.id">{{lastList.name}}</span>
+                                                <span class="tree-editor" :data-pid="lastList.pid">编辑</span>
+                                                <span class="tree-delete" :data-id="lastList.id">删除</span>
+                                                <ul class="jstree-ul">
+                                                    <li :data-id="itemFour.id" class="jstree-open" v-for="(itemFour, index) in lastList.child">
+                                                        <span class="tree-partment" :data-id="itemFour.id">{{itemFour.name}}</span>
+                                                        <span class="tree-editor" :data-pid="itemFour.pid">编辑</span>
+                                                        <span class="tree-delete" :data-id="itemFour.id">删除</span>
+                                                        <ul class="jstree-ul">
+                                                            <li :data-id="itemFive.id" class="jstree-open" v-for="(itemFive, index) in itemFour.child">
+                                                                <span class="tree-partment" :data-id="itemFive.id">{{itemFive.name}}</span>
+                                                                <span class="tree-editor" :data-pid="itemFive.pid">编辑</span>
+                                                                <span class="tree-delete" :data-id="itemFive.id">删除</span>
+                                                                <ul class="jstree-ul">
+                                                                    <li :data-id="itemSix.id" class="jstree-open" v-for="(itemSix, index) in itemFive.child">
+                                                                        <span class="tree-partment" :data-id="itemSix.id">{{itemSix.name}}</span>
+                                                                        <span class="tree-editor" :data-pid="itemSix.pid">编辑</span>
+                                                                        <span class="tree-delete" :data-id="itemSix.id">删除</span>
+                                                                        <ul class="jstree-ul">
+                                                                            <li :data-id="itemSeven.id" class="jstree-open" v-for="(itemSeven, index) in itemSix.child">
+                                                                                <span class="tree-partment" :data-id="itemSeven.id">{{itemSeven.name}}</span>
+                                                                                <span class="tree-editor" :data-pid="itemSeven.pid">编辑</span>
+                                                                                <span class="tree-delete" :data-id="itemSeven.id">删除</span>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--<div v-if="dataParent.length == 0">暂无部门信息，请先在右侧增加部门信息</div>-->
+                    <div v-if="dataParent.length == 0" class="no-result">
+                        <p>暂无数据</p>
+                    </div>
+                </div>
+                <div class="layui-col-md5 pull-right">
+                    <form class="layui-form form-list" action="">
+                        <div class="form-item">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example-handle">
+                            <a class="examine-query save-name depart-save" @click="saveDepartment($event)">保存</a>
+                            <a class="examine-query add-client" @click="addClient">新增下级部门</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-col-md2 group-arrows pull-right">
+                    <a href="javascript:;">父级名称 &gt;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/departmentManageEdit.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

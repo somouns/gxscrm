@@ -1,0 +1,253 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/jurisdication.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 帐号列表 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row common-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">权限组名称: {{limitGname}}</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <form action="" class="layui-form">
+                    <div class="layui-col-md12 jur-top jur-depart fl">
+                        <div class="layui-form juf-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">真实姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="nickname" v-model="data.nickname"  lay-verify="" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">手机号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="mobile" v-model="data.mobile" lay-verify="" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="username" v-model="data.username" lay-verify="" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="department" v-model="data.department" lay-verify="" placeholder="请输入部门" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">状态</label>
+                                <div class="layui-input-block">
+                                    <select name="status" lay-filter="status">
+                                        <option value="">请选择</option>
+                                        <option value="1">正常</option>
+                                        <option value="2">已停用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">职级</label>
+                                <div class="layui-input-block">
+                                    <select name="level" lay-filter="level">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="(item, index) in gradeDataAll">{{item.grade_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">职位</label>
+                                <div class="layui-input-block">
+                                    <select name="position" lay-filter="position">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="(item, index) in positionDataAll">{{item.position_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">所属楼栋</label>
+                                <div class="layui-input-block">
+                                    <select name="build_room" lay-filter="buildRoom">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for="(item, index) in buildRoomDataAll">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">创建时间</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="start_time" class="layui-input" id="test-start" placeholder="yyyy-MM-dd">
+                                    </div>
+                                </div>
+                                <span class="jur-line">-</span>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="end_time" class="layui-input" id="test-stop" placeholder="yyyy-MM-dd">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example-handle">
+                                <button class="examine-query limit-querys" lay-submit lay-filter="formSelect">查询</button>
+                                <button @click="reset" type="reset" class="examine-reset pull-left">重置</button>
+                            </div>
+                            <div class="example-handle pull-right">
+                                <a href="javascript:;" class="examine-query" @click="limitAdd"><span class="iconfont icon-add icon-add-user"></span>增加用户</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--组织架构-->
+                <div class="organize-framework" v-show="limitShow">
+                    <h2 class="organize-nav">增加用户<a href="JavaScript:;"></a></h2>
+                    <div class="organize-content">
+                        <div class="customer-group">
+                            <form class="layui-form" action="">
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <select name="modules" lay-filter="search-org" lay-search="">
+                                            <option value="">请输入姓名查找</option>
+                                            <option :value="item.id + ','+item.name" v-for="item in OrgSearchArr">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                            <nav class="sidebar-nav">
+                                <ul class="metismenu" id="menu1">
+                                    <li v-for="(item, index) in groupList">
+                                        <a :class="!item.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item.id" :data-text="item.name" @click="orgSelectItem">
+                                            {{ item.name }}
+                                            <span @click.stop="orgSelectAll($event,item.id)" v-if="!item.type">全选</span>
+                                        </a>
+                                        <ul aria-expanded="false" v-if="item.child">
+                                            <li v-for="(item2, index) in item.child">
+                                                <a :class="!item2.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item2.id" :data-text="item2.name" @click="orgSelectItem">
+                                                    {{ item2.name }}
+                                                    <span @click.stop="orgSelectAll" v-if="!item2.type">全选</span>
+                                                </a>
+                                                <ul aria-expanded="false" v-if="item2.child">
+                                                    <li v-for="(item3, index) in item2.child">
+                                                        <a :class="!item3.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item3.id" :data-text="item3.name" @click="orgSelectItem">
+                                                            {{ item3.name }}
+                                                            <span @click.stop="orgSelectAll" v-if="!item3.type">全选</span>
+                                                        </a>
+                                                        <ul aria-expanded="false" v-if="item3.child">
+                                                            <li v-for="(item4, index) in item3.child">
+                                                                <a :class="!item4.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item4.id" :data-text="item4.name" @click="orgSelectItem">
+                                                                    {{ item4.name }}
+                                                                    <span @click.stop="orgSelectAll" v-if="!item4.type">全选</span>
+                                                                </a>
+                                                                <ul aria-expanded="false" v-if="item4.child">
+                                                                    <li v-for="(item5, index) in item4.child">
+                                                                        <a :class="!item5.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item5.id" :data-text="item5.name" @click="orgSelectItem">
+                                                                            {{ item5.name }}
+                                                                            <span @click.stop="orgSelectAll" v-if="!item5.type">全选</span>
+                                                                        </a>
+                                                                        <ul aria-expanded="false" v-if="item5.child">
+                                                                            <li v-for="(item6, index) in item5.child">
+                                                                                <a :class="!item6.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item6.id" :data-text="item6.name" @click="orgSelectItem">
+                                                                                    {{ item6.name }}
+                                                                                    <span @click.stop="orgSelectAll" v-if="!item6.type">全选</span>
+                                                                                </a>
+                                                                                <ul aria-expanded="false" v-if="item6.child">
+                                                                                    <li v-for="(item7, index) in item6.child">
+                                                                                        <a :class="!item7.type && 'has-arrow'" href="javascript:;" aria-expanded="false" :data-id="item7.id" :data-text="item7.name" @click="orgSelectItem">
+                                                                                            {{ item7.name }}
+                                                                                            <span @click.stop="orgSelectAll" v-if="!item7.type">全选</span>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="choose-people">
+                            <h2>已选客户：{{ selectedOrgUsr.length }}</h2>
+                            <ul>
+                                <li v-for="(item, index) in selectedOrgUsr" :data-id="item.id">{{ item.name }} <i @click="delChoose(index)"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="organize-bth">
+                        <button class="cancel" @click="groupCancel">取消</button>
+                        <button class="ensure" @click="groupSure($event)">确定</button>
+                    </div>
+                </div>
+            </div>
+            <div class="jur-total clear">共<span class="jur-number">{{getAllListTotal}}</span>个用户</div>
+            <table class="common-table wait-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                <thead>
+                <tr align="center">
+                    <th>
+
+                    </th>
+                    <th>真实姓名</th>
+                    <th>用户名</th>
+                    <th>手机号</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>职级</th>
+                    <th>所属楼栋</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center" v-for="(item, index) in tableDataAll">
+                    <td class="limit-td">
+                        <div class="squaredFour">
+                            <input type="checkbox" value="None" :data-id="item.id" :id='"check" + index' name="check" class="child-input"/>
+                            <label class="child-select" :for='"check" + index'></label>
+                        </div>
+                    </td>
+                    <td>{{item.nickname}}</td>
+                    <td>{{item.username}}</td>
+                    <td>{{item.mobile}}</td>
+                    <td>{{item.department}}</td>
+                    <td>{{item.position}}</td>
+                    <td>{{item.level}}</td>
+                    <td>{{item.build_room}}</td>
+                    <td>{{item.status == 1 ? '正常' : '已停用'}}</td>
+                    <td><a class="audit-skip" href="javascript:;" :data-id="item.id"  @click="limitRemove(item.id)">移除</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 全选用户 S-->
+            <div class="example-handle pull-left limit-handle" v-show="tableDataAll.length != 0">
+                <div class="squaredFour">
+                    <input type="checkbox" value="None" id="check-all" name="checks" class="checkAll"/>
+                    <label class="child-select" for="check-all"></label>
+                </div>
+                <label for="check-all">全选</label>
+                <button href="javascript:;" class="examine-query limit-query" @click="totalRemove">批量移除</button>
+            </div>
+            <!-- 全选用户 E-->
+            <div v-if="tableDataAll.length == 0" class="no-result">
+                <p>暂无数据</p>
+            </div>
+            <!-- 分页 S-->
+            <div class="page" v-show="tableDataAll.length != 0">
+                <div id="test2"></div>
+            </div>
+            <!-- 分页 E-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/limitManage.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

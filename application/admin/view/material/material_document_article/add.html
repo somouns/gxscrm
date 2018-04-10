@@ -1,0 +1,151 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/materialAdd.css"/>
+{include file="common/header_bottom"/}
+
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main">
+            <div class="layui-row edit-info">
+                <div class="layui-row-title">新建文档</div>
+
+                <!--新建文档表单-->
+                <div class="layui-form">
+
+                    <!--文档标题-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>文档标题：</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <input placeholder="请输入文档标题"
+                                       name="real_name"
+                                       autocomplete="off"
+                                       maxlength="6"
+                                       class="layui-input"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--分档分类-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">文档分类：</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <select name="interest" lay-filter="aihao">
+                                    <option value=""></option>
+                                    <option value="0">市场类</option>
+                                    <option value="0">行政类</option>
+                                    <option value="0">其它</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--关键词-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">关键词：</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <input class="layui-input"
+                                       placeholder="请输入关键词"
+                                       maxlength="30"
+                                       autocomplete="off"
+                                >
+                                <p class="keyword-tip">以“、”作为分隔</p>
+                            </div>
+                            <div class="err layui-col-md3">
+                                <i class="err-prompt"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--富文本编辑器-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">文档内容：</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md6">
+                                <textarea id="inputContent" style="display: none;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--附件-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">附件：</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md6 file-group">
+                                <ul>
+                                    <li>
+                                        <dl class="clearfix">
+                                            <dd class="upload-file-mock">
+                                                <button>上传</button>
+                                                <span class="file-name">未选择任何文件</span>
+                                                <input class="upload-file" type="file" name="file">
+                                            </dd>
+                                            <dd class="file-title">
+                                                <span>附件标题：</span>
+                                                <input class="layui-input" placeholder="请输入关键词">
+                                                <span class="err">标题已存在，请重新输入</span>
+                                            </dd>
+                                            <dd class="file-group-btn">
+                                                <a href="javascript:;" title="删除"> <i class="iconfont icon-shanchu"></i></a>
+                                                <a href="javascript:;" title="新增"> <i class="iconfont icon-add"></i></a>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <dl class="clearfix">
+                                            <dd class="upload-file-mock">
+                                                <button>上传</button>
+                                                <span class="file-name">未选择任何文件</span>
+                                                <input class="upload-file" type="file" name="file">
+                                            </dd>
+                                            <dd class="file-title">
+                                                <span>附件标题：</span>
+                                                <input class="layui-input" placeholder="请输入关键词">
+                                                <span class="err" style="display: none;">标题已存在，请重新输入</span>
+                                            </dd>
+                                            <dd class="file-group-btn">
+                                                <a href="javascript:;" title="删除"> <i class="iconfont icon-shanchu"></i></a>
+                                                <!--<a href="javascript:;" title="新增"> <i class="iconfont icon-add"></i></a>-->
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--访问控制-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">访问控制：</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <input type="radio" name="sex" value="公开" title="公开" checked="">
+                                <input type="radio" name="sex" value="自定义" title="自定义">
+                                <input type="radio" name="sex" value="私有" title="私有">
+                                <div class="select-usr-wrap" style="display: none;">
+                                    <p class="select-usr"><a class="layui-btn" href="javascript:;">请选择自定义用户</a></p>
+                                    <p>已选择：0 人</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--// 新建文档表单-->
+            </div>
+
+            <div class="btn-box">
+                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                <button class="layui-btn">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/materialAdd.js"></script>
+{include file="common/footer_bottom"/}

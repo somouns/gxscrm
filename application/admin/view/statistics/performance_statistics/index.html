@@ -1,0 +1,127 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/performance.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+<!-- 这个页面就是统计的展示页面，我的接口是展示数据的和搜索页面的 -->
+<!-- 权限组列表 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row main">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">销售业绩统计</h2>
+                </div>
+                <!-- 搜索查询等 -->
+                <div class="layui-col-md12 filter">
+                    <div class="layui-form juf-form">
+                        <form action="" class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">时间：</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="start_time" class="layui-input test-item" id="test5" placeholder="yyyy-MM-dd hh-mm-ss">
+                                    </div>
+                                </div>
+                                <span class="jur-line">-</span>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="end_time" class="layui-input test-item "id="test5" placeholder="yyyy-MM-dd hh-mm-ss">
+                                    </div>
+                                </div>
+                                <div class="example-handle jur-handle">
+                                    <button class="examine-query" lay-submit lay-filter="formSelect">查询</button>
+                                    <button type="reset" class="examine-reset" @click="reset">重置</button>
+                                </div>
+                            </div>
+                            <div class="example-handle handle-add checkList">
+                                <label class="layui-form-label">产品：</label>
+                                <span v-for = "item in LabelData"><a href="javascript:;" @click="product($event,items.sname)" v-for = "items in item.child" class="layui-btn" >{{items.sname}}</a></span>
+                            </div>
+                            <!--来源候选框-->
+                            <div class="examine-select handle-add">
+                                <label class="layui-form-label">渠道来源：</label>
+                                <div class="examine-filter">
+                                    <a href="javascript:;" class="filter-a" :class="{active: SourceCon.isActive, 'open': SourceCon.hasOpen}" @click="checkBox()">
+                                      <span>来源{{SourceCon.source}}</span>
+                                      <i class="iconfont icon-down-arrow"></i>
+                                    </a>
+                                    <!--来源候选框-->
+                                    <div class="filter-time">
+                                        <div class="choose-icon">
+                                            <a href="javascript:;" @click="onSource($event)">不限</a>
+                                            <a href="javascript:;"  
+                                              v-for="(item, key, index) in SourceData"
+                                              @click="checkSource($event, key, index)"
+                                            >{{item}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {if condition="checkAuth('/admin/statistics/performance_statistics/indexs') eq 'true'"}
+                <!-- 团队表格部分 -->        
+                <table class="layui-table">
+                  <thead>
+                    <tr>
+                      <th class="name">团队</th>
+                      <th lay-data="{sort: true}" class="num" ><a href="javascript:;"data-type="0" @click="setTNRise($event)" >成交量<i class="icon" ></i></a></th>
+                      <th lay-data="{sort: true}" class="pay"><a href="javascript:;" data-type="0" @click="setTCRise($event)">成交额<i class="icon"></i></a></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-if="all != ''&& all != undefined" align="center">
+                      <td>{{all}}</td>
+                      <td>{{allnum}}</td>
+                      <td>{{allmoney}}</td>
+                    </tr>
+                    <tr v-for = "items in TeamData" v-if="TeamData != ''" align="center">
+                      <td>{{items.department}}</td>
+                      <td>{{items.pay_num}}</td>
+                      <td>{{items.total}}</td>
+                    </tr>
+                    <tr v-if="TeamData == ''" class="noData">
+                      <td></td>
+                      <td class="notd"></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div align="right" v-if="TeamData != ''"><a :href="'/admin/statistics/performance_statistics/export?educe=2&start_time='+Stime+'&end_time='+Etime+'&product_name='+Pname+'&volume='+Tvolume+'&turnover='+Tturnover+'&cid='+SourceCon.sourceCid" class="iconfont icon-import layui-btn layui-btn-mini">团队导出</a></div> 
+                <div align="right" v-else><a href="javascript:;" class="iconfont icon-import layui-btn layui-btn-mini noDataBut"@click="noData()">无数据导出</a></div> 
+                {/if}
+                {if condition="checkAuth('/admin/statistics/workload_statistics/index') eq 'true'"}
+                <!-- 销售人员表格部分 -->
+                <table class="layui-table">
+                  <thead>
+                    <tr>
+                      <th class="name">销售人员</th>
+                      <th lay-data="{sort: true}" class="num"><a href="javascript:;" data-type="0" @click="setPNRise($event)">成交量<i class="icon-rise"></i><i class="icon" ></i></a></th>
+                      <th lay-data="{sort: true}" class="pay"><a href="javascript:;" data-type="0" @click="setPCRise($event)">成交额<i class="icon-rise"></i><i class="icon"></i></a></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for = "items in PersonalData" v-if="PersonalData != ''" align="center">
+                      <td>{{items.department}}--{{items.username}}</td>
+                      <td>{{items.pay_num}}</td>
+                      <td>{{items.total}}</td>
+                    </tr>
+                    <tr v-if="PersonalData == ''" class="noData">
+                      <td></td>
+                      <td class="notd"></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div align="right" v-if="PersonalData != ''"><a :href="'/admin/statistics/performance_statistics/export?educe=1&start_time='+Stime+'&end_time='+Etime+'&product_name='+Pname+'&volume='+Pvolume+'&turnover='+Pturnover+'&cid='+SourceCon.sourceCid" class="iconfont icon-import layui-btn layui-btn-mini">个人导出</a></div>
+                <div align="right" v-else><a href="javascript:;" class="iconfont icon-import layui-btn layui-btn-mini noDataBut"@click="noData()">无数据导出</a></div> 
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/performance.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

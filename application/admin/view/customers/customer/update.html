@@ -1,0 +1,133 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/client-info.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+
+<div class="container client-info-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <!-- 档案头部 -->
+        <div class="file-head">
+            <div class="layui-row head-row">
+                <div class="file-time pull-left">
+                    <span>档案编号：{{headInfo.archives_num}}</span>
+                    <span>创建时间：{{headInfo.create_time}}</span>
+                </div>
+                <div class="pull-right">
+                    {if condition="checkAuth('/admin/customers/remarks/indexs') eq 'true'"}
+                    <a class="layui-btn" @click.stop="remarkEdit($event)" v-if="headInfo.is_cebind">编辑备注</a>
+                    {/if}
+                    {if condition="checkAuth('/admin/group/employeecustomgroup/updates') eq 'true'"}
+                    <a class="layui-btn" @click.stop="editGroup"  v-if="headInfo.is_cebind">编辑分组</a>
+                    {/if}
+                    {if condition="checkAuth('/admin/customers/customeroperationlog/index') eq 'true'"}
+                    <a class="layui-btn" data-type="tab" data-title="操作日志" :href='"/admin/customers/customer_operation_log/index?customer_id=" + customer_id ' v-if="permission">操作日志</a>
+                    {/if}
+                </div>
+            </div>
+            <div class="layui-row head-row">
+                <div class="client-icon pull-left">
+                    <img :src='"/assets/images/calluser" +headInfo.head_type +".png"' onerror="this.src='/assets/images/calluser0.png'">
+                </div>
+                <div class="basic-info layui-col-md11">
+                    <div class="layui-col-md12 clearfix">
+                        <div class="pull-left" v-if="!('real_name' in dataAuth.customer)">
+                            <span class="pull-left client-name">{{headInfo.real_name ? headInfo.real_name : '未命名'}} <i v-if="!('sex' in dataAuth.customer)">({{headInfo.sex | formatSex}})</i></span>
+                        </div>
+                        <ul class='label-list pull-left layui-col-md11' v-if="permission">
+                            <li v-for="i in client_guest">{{i.tag_name}}</li>
+                        </ul>
+                    </div>
+                    <div class="layui-col-md12 info-row">
+                        <div class="layui-col-md3" v-if="!('from_channel' in dataAuth.customer)">
+                            <label><i style="color: #f2493b">*</i> 来源 : </label>
+                            <span v-if="customer_from_channel">{{customer_from_channel_text}}{{headInfo.mark ? '( ' + headInfo.mark +' )' : ''}}</span>
+                        </div>
+                        <div class="layui-col-md2 layui-elip" v-if="!('qq' in dataAuth.customer_contact)">
+                            <label>QQ : </label>
+                            <span>{{headInfo.qq || '--'}}</span>
+                        </div>
+                        <div class="layui-col-md2 layui-elip" v-if="!('weixin' in dataAuth.customer_contact)">
+                            <label> 微信号 : </label>
+                            <span>{{headInfo.weixin || '--'}}</span>
+                        </div>
+                        <div class="layui-col-md3" v-if="!('id_card' in dataAuth.customer)">
+                            <label>身份证 : </label>
+                            <span>{{headInfo.id_card || '--'}}</span>
+                        </div>
+                        <div class="layui-col-md2" v-if='!("career" in dataAuth.customer)'>
+                            <label>职业 : </label>
+                            <span>{{headInfo.career ||'--'}}</span>
+                        </div>
+                    </div>
+                    <div class="layui-col-md12 info-row">
+                        <div class="layui-col-md12" v-if="!dataAuth.customer.province || !dataAuth.customer.city || !dataAuth.customer.area || !dataAuth.customer.address">
+                            <label>地址 : </label>
+                            <span>{{!dataAuth.customer.province && headInfo.province_name ? headInfo.province_name :'--'}}{{headInfo.city_name}}{{headInfo.area_name}}{{headInfo.address}}</span>
+                        </div>
+                    </div>
+                    <div class="layui-col-md12 phone-row">
+                        <label>电话 : </label>
+                        <div class="phone-row-list">
+                            <span v-for="mobile in headInfo.mobile">{{mobile.mobile || '--'}}
+                                {if condition="checkAuth('/admin/call/call/call') eq 'true'"}
+                                <i v-if="mobile.mobile != '' && mobile.contact_id != ''" class='iconfont icon-phone' @click.stop="callTell(mobile.contact_id)"></i>
+                                {/if}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 档案主题tab -->
+        <div class="main">
+            <div class="layui-tab layui-tab-card" lay-filter="client-tabs" v-if="permission">
+                <ul class="layui-tab-title tab-lists">
+                    {if condition="checkAuth('/admin/customers/customer/detail') eq 'true'"}
+                    <li lay-id="1" class="layui-this basic-li">
+                        <a href="javascript:;">基本信息</a>
+                    </li>
+                    {/if}
+                    {if condition="checkAuth('/admin/customers/followuprecord/index') eq 'true'"}
+                    <li lay-id="2" class="follow-li">
+                        <a href="javascript:;">跟进信息</a>
+                    </li>
+                    {/if}
+                    {if condition="checkAuth('/admin/cooper/customercoopersituation/index') eq 'true'"}
+                    <li lay-id="3" class="cooper-li">
+                        <a href="javascript:;">合作情况</a>
+                    </li>
+                    {/if}
+                </ul>
+                <div class="layui-tab-content tab-content-wrap">
+                    {if condition="checkAuth('/admin/customers/customer/detail') eq 'true'"}
+                    <!-- 基本信息 -->
+                    <div class="layui-tab-item basic-info">
+                        {include file="customers/customer/basic-info"/}
+                    </div>
+                    {/if}
+                    {if condition="checkAuth('/admin/customers/followuprecord/index') eq 'true'"}
+                    <!-- 跟进信息 -->
+                    <div class="layui-tab-item follow-info basic-info">
+                        {include file="customers/customer/follow-info"/}
+                    </div>
+                    {/if}
+                    {if condition="checkAuth('/admin/cooper/customercoopersituation/index') eq 'true'"}
+                    <!-- 合作情况 -->
+                    <div class="layui-tab-item cooperation-situation basic-info">
+                        {include file="customers/customer/cooperation-info"/}
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="no-result" v-if="!permission">
+                <div class="no-result-icon"></div>
+                <p>暂无数据</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/clientInfo.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

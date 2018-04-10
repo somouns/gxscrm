@@ -1,0 +1,36 @@
+﻿每个接入crm消息系统的开发人员注意：
+一.准备工作：
+1.熟悉 https://192.168.0.223:8443/svn/doc.stocksir/trunk/产品文档/巨景智能办公系统（CRM）1.0/档案群组，IVR，消息/消息提示/CRM消息提示（2017-09-19）.xlsx
+下文将此文档直接称为excel
+2.熟悉数据表：crm_sms_config
+3.以上两者的关系是一一对应
+二.对接方式：redis_queue
+三.传参代码示例与参数解释
+使用framework作为框架站点的代码 可直接使用如下代码。未使用此框架的情况，测试过程中请将$arr序列化存入192.168.10.231 端口6379  库3
+
+
+$arr=[];
+$arr["stage"]= "crmsendsms";   exp:固定不变，作为crm通知标识
+$arr["config_id"]="26";         exp:excel行数，或者crm_sms_config的记录id
+$arr["user_ids"]= [1];	 exp:需要接收通知的用户id，一维数组
+$arr["content"]= ['谭大爷','涨停风云','支付成功'];  exp:一维数组,用于消息正文的数据填充。按照先后顺序，填充字符串的'XXX'值，如果没有XXX请传空数组。字符串来至于 excel中的消息列表文案或者crm_sms_config中的smslist_template
+$arr["jumpdata"]= [$jumptemp,$jumptemp2];  
+exp:这个参数用于控制跳转，如果不涉及跳转，这个字段传空数组过来。通过观察excel中的消息列表文案，找到需要跳转的字符串。一个需要跳转的字符串作为一个一维数组的元素。如果有多个需要跳转的字符串  传多个元素。
+分三种情况：
+1.点击整个文档跳转。$where="ALL";
+2.点击整个词汇跳转。$where="word";//word为要替换的词汇
+3.点击某个XXX跳转。$where=有点麻烦;//将整个字符串的XXX提出来组成一个一维数组。哪个XXX要跳转取下标。 
+$x = 0;
+$x = [1=>1]
+比如 excel:26条 取$where=0;  excel:31条 取$where=2;
+-------$jumptemp数据结构-------
+$jumptemp=[];
+$jumptemp['html_a']=$where;
+$jumptemp[...]='...';
+....
+$jumptemp=serialize($jumptemp);//序列化很重要
+以上...根据具体的业务填充数据.比如：要求跳转到详情。需要把详情接口的所有参数转换成键值对，从而构造一维数组。
+-------------------------------
+
+
+queue_ppush($arr);

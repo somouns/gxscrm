@@ -1,0 +1,14 @@
+<!--全局消息框-->
+<div :class="['fixed-wrap', closeGlobalMsgShow && 'open']">
+    <h2 class="fix-tit" >重要提醒<span class="fix-num">{{globalNewsCount}}</span><a class="iconfont icon-cha" @click="closeGlobalMsgShow = false"></a></h2>
+    <div class="fix-con" v-for = "item in globalNews">
+        <div class="fix-time">{{item.createtime}}</div>
+        <p class="con-text">{{item.content}}</p>
+    </div>
+    <div class="fix-bot example-handle">
+        <div id="GlobalMsgPage"></div>
+        <span v-for = "item in globalNews">
+            <a class="examine-operate" data-type="tab" data-title="消息管理" id="global" :href="'/admin/sms/sms?type='+item.type+'&sontype='+item.sontype">立即查看</a>
+        </span>
+    </div>
+</div>

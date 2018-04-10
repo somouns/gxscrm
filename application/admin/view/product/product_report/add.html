@@ -1,0 +1,82 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/signManage.css" />
+{include file="common/header_bottom"/}
+
+<!-- 新增研报 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row add-sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">基本信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">股票名称：</span><span>海特高新（002023）</span></li>
+                    <li class="sign-item"><span class="sign-name">所属产品：</span><span>凤凰一号</span></li>
+                    <li class="sign-item"><span class="sign-name">总仓位：</span><span>3成</span></li>
+                    <li class="sign-item"><span class="sign-name">建仓价：</span><span>12.56元</span></li>
+                    <li class="sign-item"><span class="sign-name">止盈价：</span><span>22.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">止损价：</span><span>8.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">状态：</span><span>未出局</span></li>
+                    <li class="sign-item"><span class="sign-name">标的负责人：</span><span>张三</span></li>
+                </ul>
+            </div>
+            <div class="layui-row add-sign-row">
+                <div class="layui-form">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12 sign-header">
+                        <h2 class="jur-head">研报</h2>
+                    </div>
+                    <!-- 研报名称 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="sign-hit">* </span>研报名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="report_name" required  lay-verify="required" placeholder="请输入研报名称" class="layui-input" minlength="0" maxlength="30">
+                            <!--<i class="sign-danger">内容已到上限，最多输入30个字符</i>-->
+                        </div>
+                    </div>
+                    <!-- 研报内容 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">研报内容</label>
+                        <div class="layui-input-block">
+                            <textarea name="report_content" placeholder="请输入研报内容" class="layui-textarea" minlength="0" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+                    <!-- 操作理由 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">附件</label>
+                        <!--<div class="layui-input-block">-->
+                            <!--<button type="button" class="layui-btn test-file"><i class="layui-icon">&#xe67c;</i>上传文件</button>-->
+                            <!--<span class="file-hint">（大小不得超过5M）</span>-->
+                            <!--<div>-->
+                                <!--<p class="file-text">XXXX海特研报.doc <span class="iconfont icon-delete"></span></p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="layui-input-block">
+                            <button type="button" class="layui-btn" id="test">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+                            <p><img src="" alt="" class="avatar"></p>
+                            <div>
+                                <p class="file-text"><span class="file-span"></span><i class="iconfont icon-delete"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 保存与取消 -->
+                    <div class="examine">
+                        <div class="example-handle">
+                            <button class="examine-reset">取消</button><a lay-submit lay-filter="reportForm" class="examine-query">保存内容</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/signManageReport.js"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,686 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/my-client.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<div class="container my-client-container">
+    <div id="app" v-cloak>
+        <!--侧栏-->
+        <div class="sidebar-collapse">
+            <h3 :class="addGroupShow && 'show-add'">我的客户
+                <i :class="['iconfont','icon-add', addGroupShow && 'disable']" @click="showAddGroup"
+                   title="新增自定义分组"></i>
+            </h3>
+            <div class="add-group-wrap">
+                <input v-model="addedGroupName" class="pull-left" placeholder="请输入15个字符以内" maxlength="15"
+                       id="addGroupName">
+                <div class="btn-wrap pull-right">
+                    <span class="ok" @click="addGroup">确定</span>
+                    <span class="cancel" @click="showAddGroup">取消</span>
+                </div>
+                <p class="err clearfix" v-if="addedGroupNameExist">名称已存在，请重新输入</p>
+                <p class="err clearfix" v-if="addedGroupNameEmpty">请输入群组名称</p>
+            </div>
+            <div class="line"></div>
+
+            <!--自定义群组 groupType:0-->
+            <ul class="nav side-menu">
+                <li class="choice">
+                    <a href="javascript:;" @click="getSideMenu($event, all_num.filename)">
+                        <span class="nav-label">全部{{all_num.total_num >= 0 ? '(':''}}{{all_num.total_num}}{{all_num.total_num >= 0 ? ')':''}}</span>
+                    </a>
+                </li>
+                <li v-for="(i,index) in generalList">
+                    <a href="javascript:;" @click="getSideMenu($event, i.filename, 0)">
+                        <span class="nav-label">{{i.name}}({{i.total_num}})</span>
+                        <span class="iconfont icon-right" v-if="i.child"></span>
+                    </a>
+                    <div class="edit-del-wrap">
+                        <i class="edit" @click="editGroup($event, i.type, i.name)" title="重命名分组"></i>
+                        <i class="del" @click="delGroupTip(i.type, i.total_num, i.name)" title="删除分组"></i>
+                    </div>
+                    <div class="add-group-wrap clearfix">
+                        <input v-model.trim="editingGroupName" class="pull-left" maxlength="15">
+                        <div class="btn-wrap pull-right">
+                            <span class="ok" @click="renameGroupName(i.type)">确定</span>
+                            <span class="cancel" @click="closeEditGroup">取消</span>
+                        </div>
+                        <p class="err clearfix" v-if="addedGroupNameExist">名称已存在，请重新输入</p>
+                        <p class="err clearfix" v-if="addedGroupNameEmpty">请输入群组名称</p>
+                    </div>
+                    <ul class="nav nav-second-level" v-if="i.child">
+                        <li v-for="item in i.child">
+                            <a href="javascript:;" @click="getSideMenu($event, item.filename, 0)">
+                                <span class="nav-label last-nav-label" v-cloak>{{item.name}}({{item.total_num}})</span>
+                                <span class="iconfont icon-right" v-if="item.child"></span>
+                            </a>
+                            <div class="edit-del-wrap">
+                                <i class="edit" @click="editGroup"></i>
+                                <i class="del" @click="delGroupTip"></i>
+                            </div>
+                            <div class="add-group-wrap clearfix">
+                                <input type="text" class="pull-left" maxlength="15">
+                                <div class="btn-wrap pull-right">
+                                    <span class="ok">确定</span>
+                                    <span class="cancel" @click="editGroup">取消</span>
+                                </div>
+                                <p class="err clearfix">名称已存在，请重新输入</p>
+                            </div>
+                            <ul class="nav nav-third-level" v-if="item.child">
+                                <li v-for="j in item.child">
+                                    <a href="javascript:;">
+                                        <span class="nav-label" v-cloak>{{j.name}}({{j.total_num}})</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="line"></div>
+
+            <!--固定群组 groupType:1-->
+            <ul class="nav side-menu">
+                <li v-for="(i,index) in operaList">
+                    <a href="javascript:;" @click="getSideMenu($event, i.filename, 1)">
+                        <span class="nav-label">{{i.name}}({{i.total_num}})</span>
+                        <span class="iconfont icon-right" v-if="i.child"></span>
+                    </a>
+                    <ul class="nav nav-second-level" v-if="i.child">
+                        <li v-for="item in i.child">
+                            <a href="javascript:;" @click="getSideMenu($event, item.filename, 1)">
+                                <span class="nav-label last-nav-label" v-cloak>{{item.name}}({{item.total_num}})</span>
+                                <span class="iconfont icon-right" v-if="item.child"></span>
+                            </a>
+                            <ul class="nav nav-third-level" v-if="item.child">
+                                <li v-for="j in item.child">
+                                    <a href="javascript:;">
+                                        <span class="nav-label" v-cloak>{{j.name}}({{j.total_num}})</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="line"></div>
+
+            <!--特殊群组 groupType:2-->
+            <ul class="nav side-menu">
+                <li v-for="(i,index) in productList">
+                    <a href="javascript:;" @click="getSideMenu($event, i.filename, 2)">
+                        <span class="nav-label">{{i.name}}({{i.total_num}})</span>
+                        <span class="iconfont icon-right" v-if="i.child"></span>
+                    </a>
+                    <ul class="nav nav-second-level" v-if="i.child">
+                        <li v-for="item in i.child">
+                            <a href="javascript:;" @click="getSideMenu($event, item.filename, 2)">
+                                <span class="nav-label last-nav-label" v-cloak>{{item.name}}({{item.total_num}})</span>
+                                <span class="iconfont icon-right" v-if="item.child"></span>
+                            </a>
+                            <ul class="nav nav-third-level" v-if="item.child">
+                                <li v-for="j in item.child">
+                                    <a href="javascript:;">
+                                        <span class="nav-label" v-cloak>{{j.name}}({{j.total_num}})</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--// 侧栏-->
+
+        <!--正文-->
+        <div class="main-wrap">
+            <!--搜索/按钮组-->
+            <div class="search-btn-container">
+                <div class="main clearfix">
+                    <div class="examine-search pull-left">
+                        <form class="layui-form" action="">
+                            <div class="layui-input-inline search-parent">
+                                <input class="layui-input search-inp"
+                                       name="username"
+                                       autocomplete="off"
+                                       maxlength="15"
+                                       placeholder="请输入姓名"
+                                       v-model="username"
+                                >
+                                <input class="layui-input search-inp"
+                                       name="phone"
+                                       autocomplete="off"
+                                       maxlength="15"
+                                       placeholder="请输入手机号"
+                                       v-model="phone"
+                                >
+                            </div>
+                            <button :class="['iconfont icon-search search-icon', (username || phone) && 'available']"
+                                    lay-submit
+                                    lay-filter="formSearch"
+                                    @click="searchName"
+                            >
+                            </button>
+                        </form>
+                    </div>
+                    <div class="example-handle pull-right">
+                        {if condition="checkAuth('/admin/customers/customer/add') eq 'true'"}
+                        <a class="examine-operate" href='/admin/customers/customer/add' title="新增客户">新增客户</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/customers/customer/import') eq 'true'"}
+                        <a class="examine-operate" @click="importUsr">导入客户</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/customers/customer/export') eq 'true'"}
+                        <a href="javascript:;" @click="exportUsr" class="examine-operate">导出客户</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/customers/remarks/index') eq 'true'"}
+                        <a class="examine-operate" href="/admin/customers/remarks/index" title="备注管理">备注管理</a>
+                        {/if}
+                        {if condition="checkAuth('/admin/customers/tag/index') eq 'true'"}
+                        <a class="examine-operate" href="/admin/customers/tag/index" title="标签管理">标签管理</a>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            <!--// 搜索/按钮组-->
+
+            <div class="main">
+                <div class="layui-row condition">
+                    <!--筛选条件-->
+                    <div class="examine-tag" v-show="!showPool">
+                        <span class="tag-title">备注：</span>
+                        <ul>
+                            <li><a href="javascript:;"
+                                   :class="['tag-a', ajaxCondition.remarkId.length === 0 && 'tag-active']"
+                                   @click="cancelAllRemarks($event)"
+                            >不限</a></li>
+                            <li v-for="(item, index) in remarkList">
+                                <a href="javascript:;"
+                                   class="tag-a"
+                                   :data-id="item.id"
+                                   @click="addRemarks($event,index,item.id)"
+                                >
+                                    {{item.mark_name}}
+                                </a>
+                            </li>
+                            <li><a href="javascript:;"
+                                   :class="['tag-a', 'no-tag', !ajaxCondition.remarkId.length === 0 && 'tag-active']"
+                                   @click="addRemarks($event,'',-1)"
+                            >无备注</a></li>
+                        </ul>
+                    </div>
+                    <div class="examine-tag">
+                        <span class="tag-title">标签：</span>
+                        <ul>
+                            <li><a href="javascript:;"
+                                   :class="['tag-a', ajaxCondition.tagId.length === 0 && 'tag-active']"
+                                   @click="cancelAllTag($event)">不限</a></li>
+                            <li v-for="(item, index) in tagList">
+                                <a href="javascript:;"
+                                   class="tag-a"
+                                   :data-id="item.id"
+                                   @click="addTags($event,index,item.tag_code)"
+                                >{{item.tag_name}}</a>
+                            </li>
+                            <li><a href="javascript:;"
+                                   :class="['tag-a','no-tag', !ajaxCondition.tagId.length === 0 && 'tag-active']"
+                                   @click="addTags($event,'',-1)">无标签</a></li>
+                        </ul>
+                    </div>
+                    <div class="examine-select clearfix">
+                        <span class="tag-title">筛选：</span>
+                        <div class="examine-filter" v-for="(item, index) in condition">
+                            <!--筛选项目名称-->
+                            <a :class="['filter-a', condition[index].show && 'open', condition[index].active && 'active']"
+                               href="javascript:;"
+                               @click="setCondition(index)"
+                            ><span>{{item.name }}</span><i class="iconfont icon-down-arrow"></i>
+                            </a>
+                            <!--时间候选框-->
+                            <div class="filter-time" v-if="index < (condition.length -3)">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="cancelCondition($event,index)">不限</a>
+                                    <a href="javascript:;" @click="choiceTime($event,index)">今天</a>
+                                    <a href="javascript:;" @click="choiceTime($event,index)">昨天</a>
+                                    <a href="javascript:;" @click="choiceTime($event,index)">最近7天</a>
+                                    <a href="javascript:;" @click="choiceTime($event,index)">最近30天</a>
+                                    <a href="javascript:;" @click="choiceTime($event,index,1)">自定义</a>
+                                    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                                        <input :class="['layui-input', 'lay-date-a-' + index]" readonly>
+                                        -
+                                        <input :class="['layui-input', 'lay-date-b-' + index]" readonly>
+                                        <button @click="addConditons($event, index, item.type)">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--ECTag 候选框 -->
+                            <div class="filter-time ec-tag" v-if="index == (condition.length -3)">
+                                <ul v-for="item in ECTagArr">
+                                    <li><strong>{{ item.name }}</strong></li>
+                                    <li>
+                                        <ul class="child clearfix">
+                                            <li v-for="i in item.child">
+                                                <a href="javascript:;" :data-id="i.id" @click="chooseECTag">{{ i.name }}</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="ec-tag-empty" v-show="!ECTagArr.length">暂无标签!</div>
+                                <div class="btns">
+                                    <button class="cancel" @click="cancelECTag">不限</button>
+                                    <button class="ensure" @click="okECTag">确定</button>
+                                </div>
+                            </div>
+                            <!--组织架构候选框-->
+                            <div class="organize-framework" v-if="index == (condition.length -2)">
+                                <h2 class="organize-nav">组织架构<a href="JavaScript:;" @click="closeOrg(index,1)"></a></h2>
+                                <div class="organize-content">
+                                    <div class="customer-group">
+                                        <form class="layui-form" action="">
+                                            <div class="layui-inline">
+                                                <div class="layui-input-inline">
+                                                    <select name="modules" lay-filter="search-org" lay-search="">
+                                                        <option value="">请输入用户姓名、账号</option>
+                                                        <option :value="item.id + ','+item.name"
+                                                                v-for="item in OrgSearchArr">{{item.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <nav class="sidebar-nav">
+                                            <ul class="metismenu" id="org-framework">
+                                                <li v-for="(item, index) in usrOrgListInFiltrate">
+                                                    <a :class="!item.type && 'has-arrow'" href="javascript:;"
+                                                       aria-expanded="false" :data-id="item.id" :data-text="item.name"
+                                                       @click="orgSelectItem">
+                                                        {{ item.name }}
+                                                        <span @click.stop="orgSelectAll($event,item.id)"
+                                                              v-if="!item.type">全选</span>
+                                                    </a>
+                                                    <ul aria-expanded="false" v-if="item.child">
+                                                        <li v-for="(item2, index) in item.child">
+                                                            <a :class="!item2.type && 'has-arrow'" href="javascript:;"
+                                                               aria-expanded="false" :data-id="item2.id"
+                                                               :data-text="item2.name" @click="orgSelectItem">
+                                                                {{ item2.name }}
+                                                                <span @click.stop="orgSelectAll"
+                                                                      v-if="!item2.type">全选</span>
+                                                            </a>
+                                                            <ul aria-expanded="false" v-if="item2.child">
+                                                                <li v-for="(item3, index) in item2.child">
+                                                                    <a :class="!item3.type && 'has-arrow'"
+                                                                       href="javascript:;" aria-expanded="false"
+                                                                       :data-id="item3.id" :data-text="item3.name"
+                                                                       @click="orgSelectItem">
+                                                                        {{ item3.name }}
+                                                                        <span @click.stop="orgSelectAll"
+                                                                              v-if="!item3.type">全选</span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" v-if="item3.child">
+                                                                        <li v-for="(item4, index) in item3.child">
+                                                                            <a :class="!item4.type && 'has-arrow'"
+                                                                               href="javascript:;" aria-expanded="false"
+                                                                               :data-id="item4.id"
+                                                                               :data-text="item4.name"
+                                                                               @click="orgSelectItem">
+                                                                                {{ item4.name }}
+                                                                                <span @click.stop="orgSelectAll"
+                                                                                      v-if="!item4.type">全选</span>
+                                                                            </a>
+                                                                            <ul aria-expanded="false"
+                                                                                v-if="item4.child">
+                                                                                <li v-for="(item5, index) in item4.child">
+                                                                                    <a :class="!item5.type && 'has-arrow'"
+                                                                                       href="javascript:;"
+                                                                                       aria-expanded="false"
+                                                                                       :data-id="item5.id"
+                                                                                       :data-text="item5.name"
+                                                                                       @click="orgSelectItem">
+                                                                                        {{ item5.name }}
+                                                                                        <span @click.stop="orgSelectAll"
+                                                                                              v-if="!item5.type">全选</span>
+                                                                                    </a>
+                                                                                    <ul aria-expanded="false"
+                                                                                        v-if="item5.child">
+                                                                                        <li v-for="(item6, index) in item5.child">
+                                                                                            <a :class="!item6.type && 'has-arrow'"
+                                                                                               href="javascript:;"
+                                                                                               aria-expanded="false"
+                                                                                               :data-id="item6.id"
+                                                                                               :data-text="item6.name"
+                                                                                               @click="orgSelectItem">
+                                                                                                {{ item6.name }}
+                                                                                                <span @click.stop="orgSelectAll"
+                                                                                                      v-if="!item6.type">全选</span>
+                                                                                            </a>
+                                                                                            <ul aria-expanded="false"
+                                                                                                v-if="item6.child">
+                                                                                                <!--暂时支持7层-->
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="choose-people">
+                                        <h2>已选客户：{{ selectedOrgUsr.length }}</h2>
+                                        <ul>
+                                            <li v-for="(item, index) in selectedOrgUsr">{{ item.name }} <i
+                                                  @click="delChoose(index)"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="organize-bth">
+                                    <button class="cancel" @click="closeOrg(index)">取消</button>
+                                    <button class="ensure" @click="addConditonsOrg($event, index, item.type)">确定
+                                    </button>
+                                </div>
+                            </div>
+                            <!--来源候选框-->
+                            <div class="filter-time" v-if="index == (condition.length -1)">
+                                <div class="choose-icon">
+                                    <a href="javascript:;" @click="cancelSource($event,index)">不限</a>
+                                    <a href="javascript:;"
+                                       v-for="(item, key, i) in channelSource"
+                                       @click="choiceSource($event, key, index)"
+                                    >{{ item }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--// 筛选条件-->
+
+                    <!--表格-->
+                    <div class="table-box">
+                        <div class="t-header">
+                            <ul class="clearfix">
+                                <li v-if="!showPool">
+                                    {if condition="checkAuth('/admin/customers/remarks/add') eq 'true'"}
+                                    <a href="javascript:;" @click="addRemark"
+                                       :class="!checkedIdArr.length && 'disable'">添加备注</a>
+                                    {/if}
+                                </li>
+                                <li v-if="!showPool">
+                                    {if condition="checkAuth('/admin/customers/remarks/del') eq 'true'"}
+                                    <a href="javascript:;" @click="delRemark"
+                                       :class="!checkedIdArr.length && 'disable'">删除备注</a>
+                                    {/if}
+                                </li>
+                                <li v-if="!showPool">
+                                    {if condition="checkAuth('/admin/customers/customer/movecustomergroup') eq 'true'"}
+                                    <a href="javascript:;" @click="moveGroup"
+                                       :class="!checkedIdArr.length && 'disable'">移动分组</a>
+                                    {/if}
+                                </li>
+                                <li v-if="!showPool">
+                                    {if condition="checkAuth('/admin/customer/customer/sharecustomer') eq 'true'"}
+                                    <a href="javascript:;" @click="shareUsr" :class="!checkedIdArr.length && 'disable'">共享客户</a>
+                                    {/if}
+
+                                </li>
+                                <li v-if="!showPool">
+                                    {if condition="checkAuth('/admin/customers/customer/movecustomertopool') eq 'true'"}
+                                    <a href="javascript:;" @click="removePublic"
+                                       :class="!checkedIdArr.length && 'disable'">移入公海</a>
+                                    {/if}
+                                </li>
+                                <li v-if="!showPool">
+                                    {if condition="checkAuth('/admin/customer/customer/transfercustomer') eq 'true'"}
+                                    <a href="javascript:;" @click="moveUsr" :class="!checkedIdArr.length && 'disable'">转移客户</a>
+                                    {/if}
+                                </li>
+                                <li v-if="!showPool">
+                                    {if condition="checkAuth('/admin/customer/customer/deletecustomer') eq 'true'"}
+                                    <a href="javascript:;" @click="delUser" :class="!checkedIdArr.length && 'disable'"
+                                       v-show="!showPool">删除客户</a>
+                                    {/if}
+                                </li>
+                                <li v-if="showPool">
+                                    {if condition="checkAuth('/admin/customers/customer/customerallocation') eq 'true'"}
+                                    <a href="javascript:;" @click="allotUsr" :class="!checkedIdArr.length && 'disable'">客户分配</a>
+                                    {/if}
+                                </li>
+                                <li class="phone-helper" style="display: none">
+                                    <div class="squaredFour">
+                                        <input type="checkbox" value="None" id="_phone_helper" name="check" checked/>
+                                        <label for="_phone_helper"></label>
+                                    </div>
+                                    <span>电话助手</span>
+                                </li>
+                                {if condition="checkAuth('/admin/customer/customer/batchdeletecustomerpool') eq 'true'"}
+                                <li class="clear-custom" v-show="!showPool">
+                                    <a href="javascript:;" @click="clearUsr">客户清理</a>
+                                </li>
+                                {/if}
+                                {if condition="checkAuth('/admin/customers/customer/export_cooper_situation') eq 'true'"}
+                                <li class="clear-custom" v-show="!showPool">
+                                    <a href="javascript:;" @click="expServer">导出服务数据</a>
+                                </li>
+                                {/if}
+                            </ul>
+                        </div>
+                        <div class="table-container">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="m-table">
+                                <thead>
+                                <tr>
+                                    <th class="usr-name">
+                                        <div class="squaredFour">
+                                            <input type="checkbox" id="_check_all" v-model="allChecked"
+                                                   @click="checkAllUsr"/>
+                                            <label for="_check_all"></label>
+                                        </div>
+                                        <span>({{checkedIdArr.length}})</span>
+                                        <a href="javascript:;">客户({{usrDataTotalNum}})</a>
+                                    </th>
+                                    <th v-if="!('from_channel' in dataAuth.customer)"><a href="javascript:;">来源</a></th>
+                                    <th class="recent-contact">
+                                        <a href="javascript:;"
+                                           data-type="0"
+                                           @click="orderFilter($event, 0)"
+                                        >最近联系<i></i>
+                                        </a>
+                                    </th>
+                                    <th class="recent-news" v-if="!('product_name' in dataAuth.customer_cooper_situation)">
+                                        <a href="javascript:;"
+                                           data-type="0"
+                                           @click="orderFilter($event, 1)"
+                                        >最近动态<i></i>
+                                        </a>
+                                    </th>
+                                    <th class="recent-news">
+                                        <a href="javascript:;"
+                                           data-type="0"
+                                           @click="orderFilter($event, 2)"
+                                        >创建时间<i></i>
+                                        </a>
+                                    </th>
+                                    <th v-if="!('product_name' in dataAuth.customer_cooper_situation)"><a href="javascript:;">最近成交</a></th>
+                                    <th v-if="!('product_name' in dataAuth.customer_cooper_situation)"><a href="javascript:;">所买商品</a></th>
+                                    <th class="call"><a href="javascript:;">拨号</a></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item, index) in usrDataList" :key="item.id">
+                                    <td class="usr-name">
+                                        <!--客户姓名-->
+                                        <div class="squaredFour">
+                                            <input type="checkbox"
+                                                   :id="'_check_item_' + index"
+                                                   name="check"
+                                                   @click="checkUsr(item.id)"
+                                                   v-model="item.checked"
+                                            >
+                                            <label :for="'_check_item_' + index"></label>
+                                        </div>
+                                        <a :href="'/admin/customers/customer/update?type=1&customer_id=' + item.id"
+                                           data-type="tab"
+                                           data-title="基本信息"
+                                        >
+                                            <dl class="clearfix">
+                                                <dd><img
+                                                      src="/assets/images/calluser2.png"
+                                                      :src="'/assets/images/calluser' + item.head_type + '.png'"
+                                                ></dd>
+                                                <dd class="name">
+                                                    {{ item.real_name ? ('real_name' in dataAuth.customer ? '' : item.real_name) : '未命名' }}
+                                                    {{ ('sex' in dataAuth.customer ? '' : item.sex) | formatSex }}
+                                                </dd>
+                                            </dl>
+                                        </a>
+                                    </td>
+                                    <!--来源渠道-->
+                                    <td class="from-channel layui-elip" v-if="!('from_channel' in dataAuth.customer)">
+                                        <a :href="'/admin/customers/customer/update?type=1&customer_id=' + item.id"
+                                           data-type="tab"
+                                           data-title="基本信息"
+                                           class="layui-elip"
+                                        >
+                                            {{ item.from_channel ? item.from_channel : '无' }}
+                                        </a>
+                                    </td>
+                                    <!--最近联系-->
+                                    <td class="contact">
+                                        <a :href="'/admin/customers/customer/update?type=1&customer_id=' + item.id"
+                                           data-type="tab"
+                                           data-title="基本信息"
+                                        >
+                                            <dl class="clearfix">
+                                                <dd><span>{{ item.lately_contact_time }}</span></dd>
+                                                <dd><span>{{ item.lately_contact_employee_name ? item.lately_contact_employee_name : '' }}({{ item.department_name ? item.department_name : '--'}})</span>
+                                                </dd>
+                                            </dl>
+                                        </a>
+                                    </td>
+                                    <!--最近动态-->
+                                    <td v-if="!('product_name' in dataAuth.customer_cooper_situation)">
+                                        <a :href="'/admin/customers/customer/update?type=1&customer_id=' + item.id"
+                                           data-type="tab"
+                                           data-title="基本信息"
+                                           :class="!item.lately_dynamic && 'empty'"
+                                        >
+                                            <dl class="clearfix" v-show="item.lately_dynamic">
+                                                <dd><span>{{ item.lately_dynamic_time }}</span></dd>
+                                                <dd><span>{{ item.lately_dynamic }}</span></dd>
+                                            </dl>
+                                            <span v-show="!item.lately_dynamic">无</span>
+                                        </a>
+                                    </td>
+                                    <!--创建时间-->
+                                    <td>
+                                        <a :href="'/admin/customers/customer/update?type=1&customer_id=' + item.id"
+                                           data-type="tab"
+                                           data-title="基本信息"
+                                        >
+                                            <dl class="clearfix">
+                                                <dd><span>{{ item.create_time }}</span></dd>
+                                                <dd>
+                                                    <span v-if="item.id >= 488109796 && item.id <=1075170340">EC导入</span>
+                                                    <span v-else>{{ item.operate_real_name ? item.operate_real_name : '' }}({{ item.create_department_name ? item.create_department_name : '--'}})</span>
+                                                </dd>
+                                            </dl>
+                                        </a>
+                                    </td>
+                                    <!--最近成交-->
+                                    <td class="recent-buy" v-if="!('product_name' in dataAuth.customer_cooper_situation)">
+                                        <a :href="'/admin/customers/customer/update?type=1&customer_id=' + item.id"
+                                           data-type="tab"
+                                           data-title="基本信息"
+                                           :class="!item.cooper_situation.length && 'empty'"
+                                        >
+                                            <dl class="clearfix" v-show="item.cooper_situation.length">
+                                                <dd><span>{{ item.cooper_situation[0] }}</span></dd>
+                                                <dd>
+                                                    <span>
+                                                        {{ item.cooper_situation[2] === '--' ? '' : item.cooper_situation[2] }}
+                                                        {{ item.cooper_situation[1] === '--' ? '' : '(' }}{{ item.cooper_situation[1] === '--' ? '(--)' : item.cooper_situation[1] }}{{ item.cooper_situation[1] === '--' ? '' : ')' }}
+                                                    </span>
+                                                </dd>
+                                            </dl>
+                                            <span v-show="!item.cooper_situation.length">无</span>
+                                        </a>
+                                    </td>
+                                    <!--所买商品-->
+                                    <td class="product" v-if="!('product_name' in dataAuth.customer_cooper_situation)">
+                                        <a :href="'/admin/customers/customer/update?type=1&customer_id=' + item.id"
+                                           data-type="tab"
+                                           data-title="基本信息"
+                                           :class="!item.product_name.length && 'empty'"
+                                        >
+                                            <dl class="clearfix" v-show="item.product_name.length">
+                                                <dd><span>{{ item.product_name[0] }}</span></dd>
+                                                <dd><span>{{ item.product_name[1] }}</span></dd>
+                                            </dl>
+                                            <span v-show="!item.product_name.length">无</span>
+                                        </a>
+                                    </td>
+                                    <td class="call-it">
+                                        {if condition="checkAuth('/admin/call/call/call') eq 'true'"}
+                                        <a href="javascript:;"
+                                           :class="item.mobile ? (item.mobile.length && 'has-phone' ) : ''"
+                                           @click="getCallIt($event, item.mobile)"></a>
+                                        {/if}
+                                        <!-- 包含多个电话 start -->
+                                        <div class="more-tells-boxs" v-if=" item.mobile && item.mobile.length > 1">
+                                            <header>
+                                                <span>请选择联系电话</span>
+                                                <a href="javascript:;" title="关闭" @click="getCallIt($event)"
+                                                   class="layui-icon">&#x1006;</a>
+                                            </header>
+                                            <section>
+                                                <ul>
+                                                    <li v-for="phoneItem in item.mobile">
+                                                        <span>{{ phoneItem.contact_way }}</span>
+                                                        <a href="javascript:;"
+                                                           @click="moreTelCallIt(phoneItem.contact_id)"></a>
+                                                    </li>
+                                                </ul>
+                                            </section>
+                                        </div>
+                                        <!-- // 包含多个电话 end -->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--暂无数据-->
+                        <div class="no-result" v-show="usrDataList.length === 0">
+                            <p>暂无数据</p>
+                        </div>
+                        <!--// 暂无数据-->
+
+                        <!--分页-->
+                        <div class="t-footer clearfix">
+                            <ul class="show-num pull-left clearfix">
+                                <li>每页展示用户</li>
+                                <li><a class="cur" @click="setShowNum">300</a></li>
+                                <li><a @click="setShowNum">500</a></li>
+                                <li><a @click="setShowNum">1000</a></li>
+                            </ul>
+                            <!--分页-->
+                            <div class="page-container pull-right ">
+                                <div class="pull-left page-total">共有 {{usrDataTotalNum}} 条记录</div>
+                                <div id="page" class="pull-right"></div>
+                            </div>
+                        </div>
+                        <!--// 分页-->
+
+                    </div>
+                    <!--// 表格-->
+                </div>
+            </div>
+            <!--// 正文-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/myClient.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

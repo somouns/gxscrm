@@ -1,0 +1,347 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/financeManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 客户审批 -->
+<div class="container">
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-tab" lay-filter="tabProject">
+                <ul class="layui-tab-title init-tab">
+                    {if condition="checkAuth('/admin/examination/my_audit/my_submit') eq 'true'"}
+                    <li data-id="1">我提交的审批</li>
+                    {/if}
+                    {if condition="checkAuth('/admin/examination/my_audit/all_lists') eq 'true'"}
+                    <li data-id="2">全部审批</li>
+                    {/if}
+                    {if condition="checkAuth('/admin/examination/my_audit/my_modify') eq 'true'"}
+                    <li data-id="3">待我修改的审批</li>
+                    {/if}
+                </ul>
+                <div class="layui-tab-content init-content">
+                    {if condition="checkAuth('/admin/examination/my_audit/my_submit') eq 'true'"}
+                    <!-- 我提交的审批 S-->
+                    <div class="layui-tab-item  content-list" data-id="1">
+                        <!-- 头部 -->
+                        <div class="layui-form-item finance-search">
+                            <div class="layui-input-block">
+                                <form action="" class="layui-form">
+                                    <input type="text" name="title" lay-verify="" @blur="searchBlur" autocomplete="off" placeholder="请输入客户姓名、电话号码、产品名称" class="layui-input light-in">
+                                    <button lay-submit lay-filter="formSearchMe" class="layui-btn iconfont icon-search search-icon"></button>
+                                </form>
+                            </div>
+                        </div>
+                        <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                            <thead>
+                            <tr align="center">
+                                <th v-if="tableDataAllPower.customer_name != 'hide'">客户姓名</th>
+                                <th v-if="tableDataAllPower.goods_name != 'hide'">购买产品</th>
+                                <th v-if="tableDataAllPower.product_type != 'hide'">产品类型</th>
+                                <th v-if="tableDataAllPower.pay_num != 'hide'">购买数量</th>
+                                <th v-if="tableDataAllPower.pay_money != 'hide'">付费金额（元）</th>
+                                <th v-if="tableDataAllPower.pay_type != 'hide'">支付方式</th>
+                                <th>移交时间</th>
+                                <th class="left-status">审核状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr align="center" v-for="item in tableDataMe">
+                                <td v-if="tableDataAllPower.customer_name != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.customer_name}}</a></td>
+                                <td v-if="tableDataAllPower.goods_name != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.goods_name}}</a></td>
+                                <td v-if="tableDataAllPower.product_type != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.product_type == 1 ? '线上产品' : (item.product_type == 2 ? '线下产品' : '******') }}</a></td>
+                                <td v-if="tableDataAllPower.pay_num != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_num}}</a></td>
+                                <td v-if="tableDataAllPower.pay_money != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_money}}</a></td>
+                                <td v-if="tableDataAllPower.pay_type != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_type == 1 ? '线上支付' : (item.pay_type == 2 ? '线下支付' : '******') }}</a></td>
+                                <td><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.create_time}}</a></td>
+                                <td class="audit-td left-status">
+                                    <a class="open-show" data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.new_status}}
+                                        <div class="audit-state">
+                                            <p>上一步状态：{{item.up_status}}</p>
+                                            <p>审核备注：{{item.audit_remark}}</p>
+                                            <p>审核时间：{{item.audit_time}}</p>
+                                            <p>最新状态：{{item.new_status}}</p>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="tableDataMe.length == 0" class="no-result">
+                            <p>暂无数据</p>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataMe.length != 0">
+                            <div class="page-select">
+                                <span class="page-title">每页展示客户</span>
+                                <ul>
+                                    <li><a href="javascript:;" @click="pageNumMe($event ,index)">1000</a></li>
+                                    <li><a href="javascript:;" @click="pageNumMe($event)">500</a></li>
+                                    <li><a href="javascript:;" @click="pageNumMe($event)">300</a></li>
+                                </ul>
+                            </div>
+                            <div class="page-choice">
+                                <div id="test1"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getMeListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 我提交的审批 E-->
+                    {/if}
+                    {if condition="checkAuth('/admin/examination/my_audit/all_lists') eq 'true'"}
+                    <!-- 全部审批 S-->
+                    <div class="layui-tab-item content-list" data-id="2">
+                        <!-- 审核流程 -->
+                        <div class="finance-flow">
+                            <span class="flow-title">审核流程</span>
+                            <ul>
+                                <li><a class="flow-first" href="javascript:;"><span>①</span>财务</a></li>
+                                <li><a class="flow-middle" href="javascript:;"><span>②</span>质检</a></li>
+                                <li><a class="flow-middle" href="javascript:;"><span>③</span>合同</a></li>
+                                <li><a class="flow-last" href="javascript:;"><span>④</span>回访</a></li>
+                            </ul>
+                        </div>
+                        <!-- 搜索 -->
+                        <div class="layui-form-item finance-search financial">
+                            <div class="layui-input-block">
+                                <form action="" class="layui-form">
+                                    <input type="text" name="title" v-model="keywords" lay-verify="keywords" @blur="searchBlur" autocomplete="off" placeholder="请输入客户姓名、电话号码、产品名称或所属销售" class="layui-input">
+                                    <button lay-submit="" lay-filter="formSearchAll" class="layui-btn iconfont icon-search search-icon"></button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 标签 -->
+                        <div class="finance-tag">
+                            <div class="examine-tag">
+                                <span class="tag-title">筛选：</span>
+                                <ul class="filter">
+                                    <li v-for="(item, index) in condition">
+                                        <a href="javascript:;"
+                                           :class="['tag-a', item.show && 'show', item.active && 'tag-active']"
+                                           @click="showCondition(index)">
+                                            {{item.name}}<i class="iconfont icon-down-arrow"></i>
+                                        </a>
+                                        <div class="filter-time" v-if="index == 0">
+                                            <div class="choose-icon">
+                                                <div>
+                                                    <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                                </div>
+                                                <div>
+                                                    <span class="choose-title">财务：</span>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">待财务审核</a>
+
+                                                </div>
+                                                <div>
+                                                    <span class="choose-title">质检：</span>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">待质检审核</a>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">质检转投诉</a>
+                                                </div>
+
+                                                <div>
+                                                    <span class="choose-title">合同：</span>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">待合同审核</a>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">合同待签订</a>
+                                                    <a href="javascript:;" @click="setCondition($event, index)" class="choose-wait">合同待审核</a>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">合同待修改</a>
+                                                </div>
+                                                <div>
+                                                    <span class="choose-title">回访：</span>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">待回访审核</a>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">回访转投诉</a>
+                                                </div>
+                                                <div>
+                                                    <span class="choose-title">销售：</span>
+                                                    <a href="javascript:;" @click="setCondition($event, index)">签单审核待修改</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="filter-time" v-if="index == 1">
+                                            <div class="choose-icon">
+                                                <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">今天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">昨天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">最近7天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">最近30天</a>
+                                                <a href="javascript:;" @click="setCondition($event, index, 1)">自定义</a>
+                                                <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                                                    <input :class="['layui-input', 'lay-date-a-' + index]" readonly="">
+                                                    -
+                                                    <input :class="['layui-input', 'lay-date-b-' + index]" readonly="">
+                                                    <button @click="addConditons($event, index)">确定</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="filter-time" v-if="index == 2">
+                                            <div class="choose-icon">
+                                                <a href="javascript:;" @click="noCondition($event, index)">全部</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">线上支付</a>
+                                                <a href="javascript:;" @click="setCondition($event, index)">线下支付</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="finance-wait">
+                            <div class="squaredFour">
+                                <input type="checkbox" value="None" id="check-all" name="checks" class="checkAll"/>
+                                <label  class="child-select" for="check-all"></label>
+                            </div>
+                            <span>全选</span>
+                            {if condition="checkAuth('/admin/examination/my_audit/del_cooper') eq 'true'"}
+                            <a @click="deleteName">删除合作情况</a>
+                            {/if}
+                        </div>
+                        <table class="common-table wait-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                            <thead>
+                            <tr align="center">
+                                <th></th>
+                                <th v-if="tableDataAllPower.customer_name != 'hide'">客户姓名</th>
+                                <th v-if="tableDataAllPower.goods_name != 'hide'">购买产品</th>
+                                <th v-if="tableDataAllPower.product_type != 'hide'">产品类型</th>
+                                <th v-if="tableDataAllPower.pay_num != 'hide'">购买数量</th>
+                                <th v-if="tableDataAllPower.pay_money != 'hide'">付费金额（元）</th>
+                                <th v-if="tableDataAllPower.pay_type != 'hide'">支付方式</th>
+                                <th>移交时间</th>
+                                <th>销售人员</th>
+                                <th class="left-status">审核状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr align="center" v-for="(item, index) in tableDataAll">
+                                <td class="td-first">
+                                    <div class="squaredFour">
+                                        <input type="checkbox" value="None" :data-id="item.cooper_id" :id='"check" + index' name="check" class="child-input"/>
+                                        <label class="child-select" :for='"check" + index'></label>
+                                    </div>
+                                </td>
+                                <td v-if="tableDataAllPower.customer_name != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.customer_name}}</a></td>
+                                <td v-if="tableDataAllPower.goods_name != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.goods_name}}</a></td>
+                                <td v-if="tableDataAllPower.product_type != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.product_type == 1 ? '线上产品' : (item.product_type == 2 ? '线下产品' : '******') }}</a></td>
+                                <td v-if="tableDataAllPower.pay_num != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_num}}</a></td>
+                                <td v-if="tableDataAllPower.pay_money != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_money}}</a></td>
+                                <td v-if="tableDataAllPower.pay_type != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_type == 1 ? '线上支付' : (item.pay_type == 2 ? '线下支付' : '******') }}</a></td>
+                                <td><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.create_time}}</a></td>
+                                <td><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.salesman}}</a></td>
+                                <td class="audit-td left-status">
+                                    <a class="open-show" data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>
+                                        {{item.new_status}}
+                                        <div class="audit-state">
+                                            <p>上一步状态：{{item.up_status}}</p>
+                                            <p>审核备注：{{item.audit_remark}}</p>
+                                            <p>审核时间：{{item.audit_time}}</p>
+                                            <p>最新状态：{{item.new_status}}</p>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="tableDataAll.length == 0" class="no-result">
+                            <p>暂无数据</p>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataAll.length != 0">
+                            <div class="page-select">
+                                <span class="page-title">每页展示客户</span>
+                                <ul>
+                                    <li><a href="javascript:;" @click="pageNumAll($event)">1000</a></li>
+                                    <li><a href="javascript:;" @click="pageNumAll($event)">500</a></li>
+                                    <li><a href="javascript:;" @click="pageNumAll($event)">300</a></li>
+                                </ul>
+                            </div>
+                            <div class="page-choice">
+                                <div id="test2"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getAllListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 全部审批 E-->
+                    {/if}
+                    {if condition="checkAuth('/admin/examination/my_audit/my_modify') eq 'true'"}
+                    <!-- 待我修改的审批 S-->
+                    <div class="layui-tab-item content-list" data-id="3">
+                        <!-- 审核流程 -->
+                        <div class="finance-flow">
+                            <span class="flow-title">审核流程</span>
+                            <ul>
+                                <li><a class="flow-first" href="javascript:;"><span>①</span>财务</a></li>
+                                <li><a class="flow-middle" href="javascript:;"><span>②</span>质检</a></li>
+                                <li><a class="flow-middle" href="javascript:;"><span>③</span>合同</a></li>
+                                <li><a class="flow-last" href="javascript:;"><span>④</span>回访</a></li>
+                            </ul>
+                        </div>
+                        <table class="common-table wait-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                            <thead>
+                            <tr align="center">
+                                <th v-if="tableDataAllPower.customer_name != 'hide'">客户姓名</th>
+                                <th v-if="tableDataAllPower.goods_name != 'hide'">购买产品</th>
+                                <th v-if="tableDataAllPower.product_type != 'hide'">产品类型</th>
+                                <th v-if="tableDataAllPower.pay_num != 'hide'">购买数量</th>
+                                <th v-if="tableDataAllPower.pay_money != 'hide'">付费金额（元）</th>
+                                <th v-if="tableDataAllPower.pay_type != 'hide'">支付方式</th>
+                                <th>移交时间</th>
+                                <th>拒绝环节</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr align="center" v-for="(item, index) in tableDataWait">
+                                <td v-if="tableDataAllPower.customer_name != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.customer_name}}</a></td>
+                                <td v-if="tableDataAllPower.goods_name != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.goods_name}}</a></td>
+                                <td v-if="tableDataAllPower.product_type != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.product_type == 1 ? '线上产品' : (item.product_type == 2 ? '线下产品' : '******') }}</a></td>
+                                <td v-if="tableDataAllPower.pay_num != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_num}}</a></td>
+                                <td v-if="tableDataAllPower.pay_money != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_money}}</a></td>
+                                <td v-if="tableDataAllPower.pay_type != 'hide'"><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.pay_type == 1 ? '线上支付' : (item.pay_type == 2 ? '线下支付' : '******') }}</a></td>
+                                <td><a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>{{item.create_time}}</a></td>
+                                <td class="audit-td">
+                                    <a class="open-show" data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=1&id=" + item.cooper_id'>
+                                        {{item.refused_link}}
+                                        <div class="audit-state audit-state-other">
+                                            <p>拒绝环节：{{item.refused_link}}</p>
+                                            <p>审核说明：{{item.refused_reason}}</p>
+                                            <p>审核时间：{{item.refused_time}}</p>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-type="tab" data-title="合作情况" :href='"/admin/customers/customer/update?customer_id=" + item.customer_id + "&type=3&status=2&id=" + item.cooper_id' class="audit-skip">修改</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="tableDataWait.length == 0" class="no-result">
+                            <p>暂无数据</p>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataWait.length != 0">
+                            <div class="page-select">
+                                <span class="page-title">每页展示客户</span>
+                                <ul>
+                                    <li><a href="javascript:;" @click="pageNumWait($event)">1000</a></li>
+                                    <li><a href="javascript:;" @click="pageNumWait($event)">500</a></li>
+                                    <li><a href="javascript:;" @click="pageNumWait($event)">300</a></li>
+                                </ul>
+                            </div>
+                            <div class="page-choice">
+                                <div id="test3"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getWaitListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 待我修改的审批 E-->
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/myExamination.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

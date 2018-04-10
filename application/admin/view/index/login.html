@@ -1,0 +1,29 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/login.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+
+<div class="container login-container" id="app">
+    <div class="layui-row">
+        <h2>Athena场景化金融云数据交易链系统</h2>
+        <div class="layui-form">
+            <form class="layui-form">
+            <div class="layui-form-item">
+                <input type="text" class="layui-input name" name="loginusername" required  placeholder="用户名" maxlength="30" autocomplete="off">
+            </div>
+            <div class="layui-form-item">
+                <input type="text" onfocus="this.type='password'" class="layui-input pass" name="loginpassword" required lay-verify="required|pass" placeholder="密码" maxlength="30" autocomplete="off">
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit lay-filter="formLogin">登录</button>
+            </div>
+            <!-- <div class="layui-form-item">
+                <a href="javascript:;">忘记密码</a> | <a href="javascript:;">注册一个新账号</a>
+            </div> -->
+            </form>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/login.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

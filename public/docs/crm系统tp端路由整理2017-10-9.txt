@@ -1,0 +1,279 @@
+﻿
+谭友：
+
+C 表示控制器  A 表示方法  V 表示视图（模板文件夹）
+1.员工客户
+	C  customer/Customer
+	A  index   员工客户列表
+	A  add     员工新增客户
+        A  update  员工编辑客户
+	A  import  员工导入客户
+	V  customer/customer
+
+	admin/customer/customer/index   员工客户列表
+	admin/customer/customer/add     员工新增客户
+	admin/customer/customer/update  员工编辑客户
+	admin/customer/customer/detail  客户详情页面
+	admin/customer/customer/import  员工导入客户
+
+
+
+2.员工对客户自定义分组
+	C  group/EmployeeCustomGroup
+	A  add               员工新增自定义客户分组
+	A  getList           获取员工自定义客户分组列表
+	A  checkNameUnique   验证员工自定义客户分组名称是否唯一
+	A  update            员工编辑自定义客户分组
+	A  delete            员工删除自定义客户分组
+	A  checkHasCustomer  员工检查自定义客户分组下有无客户
+	V  group/employeeCustomGroup
+
+	admin/group/employee_custom_group/add   员工新增自定义客户分组
+	admin/group/employee_custom_group/getList   获取员工自定义客户分组列表
+	admin/group/employee_custom_group/checkNameUnique   验证员工自定义客户分组名称是否唯一
+	admin/group/employee_custom_group/update            员工编辑自定义客户分组
+	admin/group/employee_custom_group/delete            员工删除自定义客户分组
+	admin/group/employee_custom_group/checkHasCustomer
+
+
+3.跟进记录
+	C  customer/FollowupRecord
+	A  index   跟进记录列表
+	A  add     新增跟进记录
+        A  update  编辑跟进记录
+	V  customer/followupRecord
+
+	admin/customer/followup_record/index    跟进记录列表
+	admin/customer/followup_record/add      新增跟进记录
+	admin/customer/followup_record/update   编辑跟进记录
+	admin/cooper/followup_record/delete    删除跟进记录
+	admin/cooper/followup_record/play_voice    播放录音
+	admin/cooper/followup_record/download_voice    下载录音
+
+
+4.客户合作情况
+	C  cooper/CustomerCooperSituation
+	A  index   客户合作情况列表
+	A  add     新增客户合作情况
+        A  update  编辑客户合作情况
+	A  detail  客户合作情况详细
+	V  cooper/customerCooperSituation
+
+	admin/cooper/customer_cooper_situation/index    客户合作情况列表
+	admin/cooper/customer_cooper_situation/add      新增客户合作情况
+	admin/cooper/customer_cooper_situation/update   编辑客户合作情况
+	admin/cooper/customer_cooper_situation/detail   客户合作情况详细
+
+
+田超：
+Product:
+	admin/product/product/index      	//产品列表页
+	admin/product/product/add		//新增产品页
+	admin/product/product/edit		//编辑产品页
+	admin/product/product/detail		//产品详情页
+	admin/product/product/log		//产品操作日志列表页
+	admin/product/product/servicerecord  //产品服务记录 路由
+ProductStock:
+	admin/product/product_stock/index	//标的列表页
+	admin/product/product_stock/add		//新增标的页
+	admin/product/product_stock/edit		//编辑标的页
+	admin/product/product_stock/detail	//标的详情页
+ProductReport:
+	admin/product/product_report/add		//新增研报页
+	admin/product/product_report/edit	//编辑研报页
+	admin/product/product_report/detail	//研报详情页
+ProductTransfer:
+	admin/product/product_transfer/add	//新增调仓记录页
+	admin/product/product_transfer/edit	//编辑调仓记录页
+	admin/product/product_transfer/detail	//调仓记录详情页
+ProductSuggestcontent:
+	admin/product/product_suggestcontent/add		//新增话术页
+	admin/product/product_suggestcontent/edit	//编辑话术页
+	admin/product/product_suggestcontent/detail	//话术详情页
+
+
+Material:
+	admin/material/material/index 		//资料库列表页
+	admin/material/material/log		//资料库操作日志列表页
+	admin/material/material/edit		//编辑资料库(前端人员不需要这个路由，只用于权限控制)
+    	admin/material/material/delete		//删除资料库(前端人员不需要这个路由，只用于权限控制)
+
+MaterialDocument:
+	admin/material/material_document/index	//文档库列表页
+	admin/material/material_document/edit	//编辑文档库(前端人员不需要这个路由，只用于权限控制)
+	admin/material/material_document/delete	//删除文档库(前端人员不需要这个路由，只用于权限控制)
+
+MaterialDocumentArticle:
+	admin/material/material_document_article/add	//新增文档页
+	admin/material/material_document_article/edit	//编辑文档页
+	admin/material/material_document_article/detail	//文档详情页
+	admin/material/material_document_article/categoryArticleIndex	//文档分类展示列表页
+	admin/material/material_document_article/delete 			//删除文档(前端人员不需要这个路由，只用于权限控制)
+	admin/material/material_document_article/articleAttachment 	//文档附件列表(前端人员不需要这个路由，只用于权限控制)
+	admin/material/material_document_article/attachmentDownload 	//附件下载功能点(前端人员不需要这个路由，只用于权限控制)
+	admin/material/material_document_article/categoryAdd		//新增文档分类(前端人员不需要这个路由，只用于权限控制)
+	admin/material/material_document_article/categoryEdit		//编辑文档分类(前端人员不需要这个路由，只用于权限控制)
+	admin/material/material_document_article/categoryDelete		//删除文档分类(前端人员不需要这个路由，只用于权限控制)
+
+
+贯林海
+备注（remarks）:
+	admin/customers/remarks/index   //备注列表页
+标签 (tag)：
+	admin/customers/tag/index       //标签列表页
+公海(opensea)：
+	admin/customers/open_sea/index      //公海客户列表页
+全局(setting)：
+	admin/globalsetting/setting/index        //配置展示页
+	admin/globalsetting/setting/source   	 //配置客户来源
+	admin/globalsetting/setting/followup     //配置跟进类型
+	admin/globalsetting/setting/line     	 //配置线下
+	admin/globalsetting/setting/online   	 //配置线上
+	admin/globalsetting/setting/payee     	 //配置收款账号
+	admin/globalsetting/setting/process  	 //配置销售过程
+统计（statistics）
+	admin/statistics/performance_statistics/index  //销售业绩统计页面 
+	admin/statistics/workload_statistics/index    //销售工作量统计页面
+服务（service）
+	admin/service/service_record/index   //服务记录页面
+	admin/service/service_record/export(带参数educe = 1/2)   //导出接口
+
+	admin/service/service_record/export(带参数educe = 1)   //导出接口
+客户操作日志
+	admin/customers/customer_operation_log/index   //客户操作日志展示页
+
+
+杨宇平
+	admin/globalsetting/setting/edit	 //配置编辑页
+
+
+杨宇平
+FileGroup:
+	admin/group/file_group/index 		//群组列表
+	admin/group/file_group/add		//新增群组
+	admin/group/file_group/view		//查看群组
+    	admin/group/file_group/edit		//编辑群组
+	admin/group/file_group/delete		//删除群组
+
+
+MyAudit:
+	admin/examination/my_audit/my_submit		//我提交的审批
+	admin/examination/my_audit/my_modify		//待我修改的审批
+	admin/examination/my_audit/all_list		//全部审批
+
+Financial:
+	admin/financial/financial/financial_list		//财务客户列表
+	admin/financial/financial/financial_record_list		//财务全部审核记录
+	admin/financial/financial/financial_view		//财务审核页面
+	admin/financial/financial/financial_post		//财务审核提交
+
+Examine:
+	admin/examine/examine/examine_list		//质检客户列表
+	admin/examine/examine/examine_record_list	//质检全部审核记录
+	admin/examine/examine/examine_view		//质检审核页面
+	admin/examine/examine/examine_post		//质检审核提交
+
+Contract:
+	admin/contract/contract/contract_list		//合同列表
+	admin/contract/contract/contract_record_list	//合同全部处理记录
+	admin/contract/contract/contract_view		//合同处理页面
+	admin/contract/contract/contract_add		//合同信息添加
+	admin/contract/contract/contract_edit 		//合同信息编辑
+	admin/contract/contract/contract_post 		//合同审核提交
+
+Visit:
+	admin/visit/visit/visit_list		//回访用户列表
+	admin/visit/visit/visit_record_list	//回访全部记录
+	admin/visit/visit/visit_view		//回访处理页面
+	admin/visit/visit/visit_post		//回访审核提交
+
+
+
+查询crm系统的用户在一个时间区间内联系的客户，返回客户的手机号
+
+查询crm系统的用户在一个时间区间内未联系的客户，返回客户的手机号
+
+
+肖辉
+	权限组  group
+
+		/admin/auth/group/addgroup           //添加权限组
+		/admin/auth/group/delgroup           //删除权限组
+		/admin/auth/group/editgroup          //修改权限组
+		/admin/auth/group/index        //权限组列表
+		/admin/auth/group/selectonegroup     //查询单个权限组
+
+	账号管理  user
+
+		/admin/user/adduser              // 添加员工
+		/admin/user/deluser              // 删除员工
+		/admin/user/index                //员工列表
+		/admin/usre/edituser             //修改员工
+		/admin/user/updatepassword       //修改密码
+		/admin/user/adduserauth          //单独权限设置
+		/admin/user/stopuser             //停用员工
+		/admin/user/startuser            //启动员工
+		/admin/user/selectoneuser              //查看员工
+		/admin/user/getBasic		 //添加员工基础数据
+
+	部门管理 department
+
+		/admin/department/addbranch	//添加公司
+		/admin/department/editbranch	//修改公司
+		/admim/department/delbranch	//删除公司
+		/admin/department/index		//公司列表
+		/admin/department/selectonre	//查询单个公司
+		/admin/department/adddown	//添加部门
+		/admin/department/selectdown	//查询部门
+		/admin/department/selectDepartment //查询部门
+
+	职位管理 position
+
+		/admin/position/addposition		//添加职位
+		/admin/position/editposition		//修改职位
+		/admin/position/index			//职位列表
+		/admin/position/delposition		//删除职位
+		/admin/position/selctoneposition	//查看单个职位
+
+	职级管理 grade
+
+		/admin/grade/addgrade		//添加职级
+		/admin/grade/editgrade		//修改职级
+		/admin/grade/index		//职级列表
+		/admin/grade/delgrade		//删除职级
+		/admin/grade/selectonegrade	//查询单个职级
+
+
+
+拨打电话的权限点
+		/admin/call/call/call    	//拨打电话
+		/admin/call/call/listcall	//通话记录列表
+		/admin/call/call/delete		//删除通话记录
+		/admin/call/call/get		//获取个人的最近通话记录列表权限点
+
+客户列表页的导出功能权限点
+		/admin/customers/customer/export  //导出客户列表的功能权限点
+
+
+// 投诉管理
+	Complaint:
+
+		/admin/complaint/complaint/complaint_matter    	//投诉处理
+		/admin/complaint/complaint/complaint_list    	//投诉列表
+		/admin/complaint/complaint/complaint_maked    	//发起投诉
+		/admin/complaint/complaint/import_csv          //导出
+
+
+//统计 wangzhijun
+		/admin/statistics/workload_statistics/index 工作量统计
+		/admin/statistics/project_statistics/index 项目统计
+		/admin/statistics/service_statistics/index 服务统计
+
+
+
+
+
+
+
+
+

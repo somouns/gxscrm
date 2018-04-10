@@ -1,0 +1,139 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/customer_operation.css?v=__VERSION__" /> 
+{include file="common/header_bottom"/}
+
+<div class="container client-info-container">
+    <div class="main-wrap" id="app" v-cloak>
+		<!-- 档案头部 -->
+		<div class="file-head">
+			<div class="layui-row head-row">
+				<div class="file-time pull-left">
+					<span>档案编号：{{headInfo.archives_num}}</span>
+					<span>创建时间：{{headInfo.create_time}}</span>
+				</div>
+			</div>
+			<div class="layui-row head-row">
+				<div class="client-icon layui-col-md1">
+					<img :src='"/assets/images/calluser" +headInfo.head_type +".png"' onerror="this.src='/assets/images/calluser0.png'">
+				</div>
+				<div class="basic-info layui-col-md11">
+					<div class="layui-col-md12 clearfix">
+	                        <span class="pull-left client-name" v-if="!customer.real_name">{{headInfo.real_name ? headInfo.real_name : '未命名'}} <i  v-if="!('sex' in customer)">({{headInfo.sex | formatSex}})</i></span>
+	                        <ul class='label-list'>
+	                            <li v-for="i in client_guest">{{i.tag_name}}</li>
+	                        </ul>
+	                    </div>
+					<div class="layui-col-md12 info-row">
+                        <div class="layui-col-md2" v-if="!customer.from_channel">
+                            <label>来源 : </label>
+                            <span v-if="customer_from_channel">{{customer_from_channel_text}}{{headInfo.mark ? '：' + headInfo.mark : ''}}</span>
+                        </div>
+                        <div class="layui-col-md2" v-if="!customer_contact.qq">
+                            <label>QQ : </label>
+                            <span>{{headInfo.qq || '--'}}</span>
+                        </div>
+                        <div class="layui-col-md2" v-if="!customer_contact.weixin">
+                            <label> 微信号 : </label>
+                            <span>{{headInfo.weixin || '--'}}</span>
+                        </div>
+                        <div class="layui-col-md3" v-if="!customer.id_card">
+                            <label>身份证 : </label>
+                            <span>{{headInfo.id_card || '--'}}</span>
+                        </div>
+                        <div class="layui-col-md2" v-if="!customer.career">
+                            <label>职业 : </label>
+                            <span>{{headInfo.career ||'--'}}</span>
+                        </div>
+                        <div class="layui-col-md3" v-if="!customer.province || !customer.city || !customer.area || !customer.address">
+                            <label>地址 : </label>
+                            <span>{{!customer.province_name ? (headInfo.province_name || '--') :''}}{{!customer.city_name ? headInfo.city_name :''}}{{!customer.area_name ? headInfo.area_name :''}}{{!customer.address ? headInfo.address : ''}}</span>
+                        </div>
+                    </div>
+                    <div class="layui-col-md12 phone-row">
+                        <label>电话 : </label>
+                        <div class="phone-row-list">
+                            <span v-for="mobile in headInfo.mobile">{{mobile.mobile || '--'}}
+                                {if condition="checkAuth('/admin/call/call/call') eq 'true'"}
+                                <i v-if="mobile.mobile != '' && mobile.contact_id != ''" class='iconfont icon-phone' @click.stop="callTell(mobile.contact_id)"></i>
+                                {/if}
+                            </span>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<!-- 搜索查询等 -->
+			<div class="layui-col-md12 jur-top row-list fl">
+				<form class="layui-form juf-form">
+					<div action="" class="layui-form">
+						<div class="layui-form-item">
+							<label class="layui-form-label jur-name-label">搜索：</label>
+							<div class="layui-input-block">
+								<input type="text" name="name" lay-verify="" placeholder="请输入操作人姓名" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">跟进时间：</label>
+								<div class="layui-input-inline">
+									<input type="text" name="start_time" class="layui-input test-item" placeholder="yyyy-MM-dd hh-mm-ss">
+								</div>
+							</div>
+							<span class="jur-line">-</span>
+							<div class="layui-inline">
+								<div class="layui-input-inline">
+									<input type="text" name="stop_time" class="layui-input test-item" placeholder="yyyy-MM-dd hh-mm-ss">
+								</div>
+							</div>
+						</div>
+						<div class="example-handle jur-handle">
+							<button class="examine-query" lay-submit lay-filter="formTable">查询</button>
+							<button type="reset" class="examine-reset" @click="reset">重置</button>
+						</div>
+						<div class="example-handle layui-form-item">
+							<label class="layui-form-label jur-name-label">操作类型：</label>
+							<!-- 1-档案绑定，2-合作信息，3-跟进记录，4-基本信息 -->
+							<a href="javascript:;" @click="getType($event,'')" class="layui-btn layui-btn-small">不限</a>
+							<a href="javascript:;" @click="getType($event,3)" class="layui-btn layui-btn-small">跟进信息</a>
+							<a href="javascript:;" @click="getType($event,4)" class="layui-btn layui-btn-small">基本信息</a>
+							<a href="javascript:;" @click="getType($event,2)" class="layui-btn layui-btn-small">合作信息</a>
+							<a href="javascript:;" @click="getType($event,1)" class="layui-btn layui-btn-small">档案绑定</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- 表格部分 -->
+			<div class="table" v-if="TableData != ''">
+				<table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+					<thead>
+						<tr align="center">
+							<th class="count">操作内容</th>
+							<th>操作类型</th>
+							<th>操作人</th>
+							<th class="small">操作时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr align="center" v-for="item in TableData">
+							<td>{{item.info}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.operate_real_name}}</td>
+							<td>{{item.create_time}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="noData layui-col-md12" v-if="TableData == ''"></div>
+			<!-- 分页 S-->
+		     <div class="page" v-if="TableData !=''">
+		     	<div class="jur-total clear">共<span class="jur-number">{{TableDatatotle}}</span>条数据</div>
+		          <div id="test" align="right"></div>
+		     </div>
+		     <!-- 分页 E-->
+	     </div>
+    </div>
+</div>	
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/customer_operation.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,96 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINJS__/libs/jsTree/css/style.min.css"/>
+<link rel="stylesheet" href="__ADMINCSS__/page/rule.css"/>
+{include file="common/header_bottom"/}
+
+<!-- 帐号列表 -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" v-cloak class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row rule-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12 clear">
+                    <h2 class="jur-head">编辑路由</h2>
+                </div>
+                <div v-show="contractShow" class="layui-row structure-row">
+                    <!-- jstree-open 默认展开 li里面加类 -->
+                    <div class="alert-title">请选择</div>
+
+                    <div class="tree-main">
+                        <div id="jstree">
+                            <ul class="jstree-ul">
+                                <li :data-id="item.id" class="" v-for="(item, index) in dataParent">
+                                    <span class="tree-partment" :data-id="item.id">{{item.name}}</span>
+                                    <ul class="jstree-ul">
+                                        <li :data-id="list.id" class="" v-for="(list, index) in item.child">
+                                            <span class="tree-partment" :data-id="list.id">{{list.name}}</span>
+                                            <ul class="jstree-ul">
+                                                <li :data-id="lastList.id" class="" v-for="(lastList, index) in list.child">
+                                                    <span class="tree-partment" :data-id="lastList.id">{{lastList.name}}</span>
+                                                    <ul class="jstree-ul">
+                                                        <li :data-id="itemFour.id" class="" v-for="(itemFour, index) in lastList.child">
+                                                            <span class="tree-partment" :data-id="itemFour.id">{{itemFour.name}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-handle">
+                        <a class="examine-query" @click="selectEnter">保存</a>
+                    </div>
+                </div>
+                <div action="" class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">上级路由</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" :value="getOneName.title" :data-id="getOneName.id" required readonly lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input paren-canter">
+                            <div class="example-handle">
+                                <a class="examine-query" @click="selectCantrat">选择</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rule-list form-item">
+                        <div class="add-import">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">URL</label>
+                                <div class="layui-input-block">
+                                    <input type="text" v-model="getOneData.name" name="title" required  lay-verify="required" placeholder="请输入URL" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">路由名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" v-model="getOneData.title" required  lay-verify="required" placeholder="请输入路由名称" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-block">
+                                    <input type="text" v-model="getOneData.remark" required  lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <form class="layui-form form-list" action="">
+                            <div class="example-handle">
+                                <a class="examine-query save-name" @click="saveEdit">保存</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/ruleEdit.js"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,873 @@
+<!--  查看合作情况 -->
+<div class="examine-cooperation" :class="{'layui-hide':editCooperation}">
+    <div class="cooperation-title">
+        <em v-if="cooperationTable.total_pay_num && !dataAuth.customer_cooper_situation.pay_num"> 购买数量:
+            <span>{{cooperationTable.total_pay_num}}</span>
+        </em>
+        <em v-if="cooperationTable.total_pay_money && !dataAuth.customer_cooper_situation.pay_money">
+            购买金额:
+            <span>{{cooperationTable.total_pay_money}}元</span>
+        </em>
+        {if condition="checkAuth('/admin/cooper/customercoopersituation/add') eq 'true'"}
+        <a href="javascript:;" @click.stop="addCoop">新增合作情况</a>
+        {/if}
+    </div>
+    <div class="cooperation-table" v-if="cooperationTable.onService && cooperationTable.onService.length">
+        <h1>进行中的服务</h1>
+        <table class="layui-table layui-col-md12 product-table">
+            <tbody class="layui-col-md12">
+                <tr class="layui-col-md12 first-tr">
+                    <td class="layui-col-md2" v-if="!dataAuth.customer_cooper_situation.product_name">产品名称</td>
+                    <td class="layui-col-md2">购买电话</td>
+                    <td class="layui-col-md3" v-if="!dataAuth.customer_cooper_situation.service_start_time">服务开始时间</td>
+                    <td class="layui-col-md3" v-if="!dataAuth.customer_cooper_situation.service_end_time">服务结束时间</td>
+                    <td class="layui-col-md2">操作</td>
+                </tr>
+                <tr class="layui-col-md12" v-for="(i,index) in cooperationTable.onService">
+                    <td class="layui-col-md2 layui-elip" v-if="!dataAuth.customer_cooper_situation.product_name">{{i.product_name || '--'}}</td>
+                    <td class="layui-col-md2">{{i.pay_mobile || '--'}}</td>
+                    <td class="layui-col-md3" v-if="!dataAuth.customer_cooper_situation.service_start_time">{{i.service_start_time || '--'}}</td>
+                    <td class="layui-col-md3" v-if="!dataAuth.customer_cooper_situation.service_end_time">{{i.service_end_time || '--'}}</td>
+                    <td class="layui-col-md2">
+                        <a href="javascript:;" @click="alterServeTime" v-if="i.product_type == 2">提前终止</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="cooperation-table" v-if="cooperationTable.dataProduct && cooperationTable.dataProduct.length">
+        <h1>合作情况</h1>
+        <div class="layui-table layui-col-md12">
+            <table class="layui-table layui-col-md12 product-table">
+                <tbody class="layui-col-md12">
+                    <tr class="layui-col-md12 first-tr">
+                        <td class="layui-col-md2" v-if="!dataAuth.customer_cooper_situation.product_name">产品名称</td>
+                        <td class="layui-col-md2">购买电话</td>
+                        <td class="layui-col-md3" v-if="!dataAuth.customer_cooper_situation.pay_time">购买时间</td>
+                        <td class="layui-col-md1" v-if="!dataAuth.customer_cooper_situation.pay_num">购买数量</td>
+                        <td class="layui-col-md2" v-if="!dataAuth.customer_cooper_situation.pay_money">付费金额(元)</td>
+                        <td class="layui-col-md2">销售人员</td>
+                    </tr>
+                    <tr class="layui-col-md12" v-for="i in cooperationTable.dataProduct">
+                        <td class="layui-col-md2 layui-elip" v-if="!dataAuth.customer_cooper_situation.product_name">{{i.product_name || '--'}}</td>
+                        <td class="layui-col-md2">{{i.pay_mobile || '--'}}</td>
+                        <td class="layui-col-md3" v-if="!dataAuth.customer_cooper_situation.pay_time">{{i.pay_time ||'--'}}</td>
+                        <td class="layui-col-md1" v-if="!dataAuth.customer_cooper_situation.pay_num">{{i.pay_num || '--'}}</td>
+                        <td class="layui-col-md2" v-if="!dataAuth.customer_cooper_situation.pay_money">{{i.pay_money || '--'}}</td>
+                        <td class="layui-col-md2 layui-elip">
+                            {{i.employee_name || '--'}}
+                            <i v-if="i.employee_name">({{i.department || '--'}})</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="no-data" v-if="(!cooperationTable.dataProduct || !cooperationTable.dataProduct.length) && (!cooperationTable.onService || !cooperationTable.onService.length)">
+        <div class="no-data-img">
+            <p>暂无数据</p>
+        </div>
+    </div>
+</div>
+<!-- 新增编辑合作情况 -->
+<div v-if="coopAuth || isCooperAdd">
+    <form class="add-cooperation layui-form" :class="editCooperation && !noData ? 'layui-show' :'layui-hide'">
+        <div class="layui-collapse examine-basic-info">
+            <!-- 编辑模式 合作产品-->
+            <div class="layui-colla-item basic-item" :class="cooper_situation_jjtag ? 'layui-show' : 'layui-hide'">
+                <h2 class="layui-colla-title basic-item-title">合作产品</h2>
+                <div class="layui-colla-content basic-item-content layui-show">
+                    <div class=''>
+                        <div class="layui-form-item layui-col-md12" v-if='cooper_situation_base.product_type !="******"'>
+                            <label class="layui-form-label row-label">
+                                <span>*</span>产品名称</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <input type="radio" name="product_type" value="1" title="线上投顾计划" v-model="cooper_situation_base.product_type" lay-filter="product_type">
+                                <!-- <input type="radio" name="product_type" value="2" title="线下投顾计划" v-model="cooper_situation_base.product_type" lay-filter="product_type"> -->
+                            </div>
+                        </div>
+                        <div class="product_online" :class='cooper_situation_base.product_type == 1 && cooper_product.online.length && cooper_situation_base.product_id != "******" ? "layui-show" : "layui-hide"'>
+                            <div class="layui-form-item layui-col-md12 cooper-product-box">
+                                <div class="layui-input-inline input-block-box child-box" style="width:auto">
+                                    <input type="radio" name="product_id" v-for="item in cooper_product.online" :value="item.sid" :title="item.sname" v-model='cooper_situation_base.product_id'
+                                           :data-code="item.scode" lay-filter="product_id" :key="item.sid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product_online" :class='cooper_situation_base.product_type == 1 && cooper_product.online.length == 0 && cooper_situation_base.product_type !="******" ? "layui-show" : "layui-hide"'>
+                            <div class="layui-form-item layui-col-md12 cooper-product-box">
+                                <div class="layui-input-inline input-block-box">
+                                    暂无任何产品,请重新选择
+                                </div>
+                            </div>
+                        </div>
+                        <!--  <div class="product_line" :class="cooper_situation_base.product_type == 2 && global_set.line_investment_plan.length ? 'layui-show' :'layui-hide'">
+                             <div class="layui-form-item layui-col-md12 cooper-product-box">
+                                 <div class="layui-input-inline input-block-box child-box" style="width:auto">
+                                     <input type="radio" name="product_id" lay-skin="primary" :value="i" :title="i" lay-filter="product_id" v-for="(i,index) in global_set.line_investment_plan"
+                                         v-model="cooper_situation_base.product_name">
+                                 </div>
+                             </div>
+                         </div> -->
+                        <!--  <div class="product_line" :class="cooper_situation_base.product_type == 2 && global_set.line_investment_plan.length == 0 ? 'layui-show' :'layui-hide'">
+                             <div class="layui-form-item layui-col-md12 cooper-product-box">
+                                 <div class="layui-input-inline input-block-box" :class='cooper_situation_base.product_type == 2 && !global_set.line_investment_plan.length ?"layui-show":"layui-hide"'>
+                                     暂无任何产品,请重新选择
+                                 </div>
+                             </div>
+                         </div> -->
+                        <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.pay_type !='******'">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>支付方式</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <input type="radio"
+                                       name="pay_type"
+                                       value="1"
+                                       title="线上"
+                                       v-model="cooper_situation_base.pay_type"
+                                       lay-filter="pay_type"
+                                       :disabled="cooper_situation_base.product_type == 2"
+                                >
+                                <input type="radio"
+                                       name="pay_type"
+                                       value="2"
+                                       title="线下"
+                                       v-model="cooper_situation_base.pay_type"
+                                       lay-filter="pay_type"
+                                >
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12 pay-record-box" v-show="cooper_situation_base.product_type == 1">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>购买电话</label>
+                            <div class="layui-input-block layui-col-md8 input-block-box">
+                                <input type="radio"
+                                       v-for="(mobile,index) in mobile"
+                                       name="pay_mobile"
+                                       :value="mobile.contact_id"
+                                       :title="mobile.contact_way"
+                                       v-model="cooper_situation_base.pay_mobile"
+                                       lay-filter='pay_mobile'
+                                >
+                            </div>
+                            <a href="javascript:;" @click.stop="payRecord" v-if="cooper_situation_base.product_type == 1 && cooper_situation_base.product_id && cooper_situation_base.pay_type == 1 && cooper_situation_base.pay_mobile">关联购买记录</a>
+                            <div class="layui-form-item layui-col-md12" v-show="cooper_situation_base.pay_type != 2 && cooper_situation_base.pay_num !='******'">
+                                <label class="layui-form-label row-label">购买数量</label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <i v-text="cooper_situation_base.pay_num || '--'"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-show="cooper_situation_base.pay_type != 2 && cooper_situation_base.goods_price !='******' && cooper_situation_base.days !='******'">
+                            <div class="layui-input-block layui-col-md12 input-block-box product-box">
+                                <span>
+                                    <i>服务期限 : {{cooper_situation_base.days || '--'}}
+                                        <em v-if="cooper_situation_base.days">{{cooper_situation_base.is_trade_day == 1 ? '交易日' : '自然日'}}</em>
+                                    </i>
+                                    <i>商品价格 : {{cooper_situation_base.goods_price ? cooper_situation_base.goods_price + '元' :'--'
+                                        }}
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- 财务 -->
+                        <div v-show="cooper_situation_base.pay_type == 2">
+                            <div class="layui-form-item layui-col-md12">
+                                <label class="layui-form-label row-label">
+                                    <span>*</span>购买数量</label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <input type="text"
+                                           name="pay_num"
+                                           class="layui-input"
+                                           placeholder="请输入购买数量"
+                                           v-model="cooper_situation_base.pay_num"
+                                           :lay-verify="cooper_situation_base.pay_type == 2 && cooper_situation_base.pay_num != '******' ? 'pay_num|number' : ''"
+                                           :disabled="cooper_situation_base.pay_num == '******'"
+                                    >
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md12" v-if='cooper_situation_base.is_trade_day !="******"'>
+                                <label class="layui-form-label row-label">
+                                    <span>*</span>服务期限</label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <input type="radio" name="is_trade_day" value="1" title="交易日" v-model="cooper_situation_base.is_trade_day" lay-filter="is_trade_day">
+                                    <input type="radio" name="is_trade_day" value="2" title="自然日" v-model="cooper_situation_base.is_trade_day" lay-filter="is_trade_day">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md12" v-if='cooper_situation_base.is_trade_day !="******"'>
+                                <label class="layui-form-label row-label"></label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <input type="text"
+                                           name="days"
+                                           class="layui-input"
+                                           placeholder="请输入服务期限"
+                                           v-model="cooper_situation_base.days"
+                                           :lay-verify="cooper_situation_base.pay_type == 2 ? (cooper_situation_base.is_trade_day == 1 ? 'days|number|tradingDay' : 'days|number' )  : ''"
+                                    >
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md12 item-unit" v-if='cooper_situation_base.goods_price !="******"'>
+                                <label class="layui-form-label row-label">
+                                    <span>*</span>商品价格</label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <input type="text" name="goods_price" placeholder="请输入购买价格" class="layui-input" v-model="cooper_situation_base.goods_price"
+                                           :lay-verify="cooper_situation_base.pay_type == 2 ? 'goods_price|number' : ''">
+                                </div>
+                                <span class="unit">元</span>
+                            </div>
+                            <!-- 财务end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 查看模式 合作产品-->
+            <div class="layui-colla-item basic-item" v-if="!cooper_situation_jjtag">
+                <h2 class="layui-colla-title basic-item-title">合作产品</h2>
+                <div class="layui-colla-content basic-item-content layui-show">
+                    <div class="layui-form-item layui-col-md12 examine-method" >
+                        <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer_cooper_situation.product_name">
+                            <label>购买产品</label>
+                            <span v-if="cooper_situation_base.product_type">{{cooper_situation_base.product_type == 1 ? '线上投顾计划' :'线下投顾计划'}}-{{cooper_situation_base.product_name}}</span>
+                            <!-- <span>{{cooper_situation_base.product_type == 1 '线上投顾计划' :'线下投顾计划'}}</span> -->
+                        </div>
+                        <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer_cooper_situation.pay_type">
+                            <label>支付方式</label>
+                            <span>{{cooper_situation_base.pay_type == 2 ? '线下' : '线上'}}</span>
+                        </div>
+                        <div class="layui-col-md3 layui-col-item">
+                            <label>购买电话</label>
+                            <span> {{examineMobile}}</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12 examine-method" v-if="!dataAuth.customer_cooper_situation.pay_num">
+                        <div class="layui-col-md3 layui-col-item">
+                            <label>购买数量</label>
+                            <span>{{cooper_situation_base.pay_num || '--'}}</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12" v-if='!dataAuth.customer_cooper_situation.goods_price || !dataAuth.customer_cooper_situation.days'>
+                        <div class="layui-input-block layui-col-md12 input-block-box product-box">
+                            <span>
+                                <i v-if="!dataAuth.customer_cooper_situation.days">服务期限 : {{cooper_situation_base.days || '--'}}
+                                    <em v-if="cooper_situation_base.days">{{cooper_situation_base.is_trade_day == 1 ? '交易日' : '自然日'}}</em>
+                                </i>
+                                <i v-if="!dataAuth.customer_cooper_situation.goods_price">商品价格 : {{cooper_situation_base.goods_price ? cooper_situation_base.goods_price + '元' :'--' }}
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 财务信息 -->
+            <div class="layui-colla-item basic-item" v-show="cooper_situation_jjtag">
+                <h2 class="layui-colla-title basic-item-title">财务信息</h2>
+                <div class="layui-colla-content basic-item-content layui-show">
+                    <!-- 默认情况 -->
+                    <div class="" v-if="cooper_situation_base.pay_type != 2">
+                        <div class="layui-col-md12 content-row">
+                            <div class="layui-col-md2 layui-col-item" v-if="cooper_situation_base.pay_money !='******'">
+                                <label>付费金额</label>
+                                <span>{{cooper_situation_base.pay_money ? cooper_situation_base.pay_money +'元' : '--'}}</span>
+                            </div>
+                            <div class="layui-col-md4 layui-col-item" v-if="cooper_situation_base.pay_time !='******'">
+                                <label>付费日期</label>
+                                <span v-text="cooper_situation_base.pay_time || '--'"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 默认情况 end -->
+                    <!-- 财务 -->
+                    <div v-show="cooper_situation_base.pay_type == 2">
+                        <div class="layui-form-item layui-col-md12 product-tip" v-if="cooper_situation_base.pay_money !='******'">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>付费金额</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <input type="text" name="pay_money" placeholder="请输入交费金额" autocomplete="off" class="layui-input" v-model="cooper_situation_base.pay_money"
+                                       :lay-verify="cooper_situation_base.pay_type == 2 ? 'pay_money|number' : ''">
+                            </div>
+                            <span class="unit">元</span>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if='cooper_situation_base.pay_time !="******"'>
+                            <label class="layui-form-label row-label">
+                                <span>*</span>付费日期</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <!-- <input type="text" name="pay_time" placeholder="请输入交费日期" class="layui-input" v-model="cooper_situation_base.pay_time" :lay-verify="cooper_situation_base.pay_type == 2 ? 'pay_time' : ''"> -->
+                                <input type="text" name="pay_time" class="layui-input" id="product_pay_time" placeholder="yyyy-MM-dd HH:mm:ss" v-model="cooper_situation_base.pay_time" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.payer != '******'">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>付费人</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <input type="text" name="payer" placeholder="请输入付费人" class="layui-input" v-model="cooper_situation_base.payer" :lay-verify="cooper_situation_base.pay_type == 2 ? 'payer' : ''">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.pay_method !='******'">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>付费方式</label>
+                            <div class="layui-input-block layui-col-md8 input-block-box">
+                                <input type="radio" name="pay_method" lay-filter="pay_method" value="1" title="银行转账" v-model="cooper_situation_base.pay_method">
+                                <input type="radio" name="pay_method" lay-filter="pay_method" value="2" title="支付宝" v-model="cooper_situation_base.pay_method">
+                                <input type="radio" name="pay_method" lay-filter="pay_method" value="3" title="微信" v-model="cooper_situation_base.pay_method">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.pay_method == 1 && cooper_situation_base.pay_method !='******'">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>付费银行</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <input type="text" name="pay_bank" placeholder="请输入付费银行" class="layui-input" v-model="cooper_situation_base.pay_bank" :lay-verify="cooper_situation_base.pay_type == 2 ? 'pay_bank' : ''"
+                                       maxlength='100'>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if='cooper_situation_base.payment_account !="******"'>
+                            <label class="layui-form-label row-label">付费账号</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <input type="text" name="payment_account" placeholder="请输入付费账号" class="layui-input" v-model="cooper_situation_base.payment_account" maxlength='100'>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.receive_bank !='******' && cooper_situation_base.receive_account !='******'">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>收款账号</label>
+                            <div class="layui-input-block layui-col-md9 input-block-box" :class="global_set.collection_account && global_set.collection_account.length ? 'layui-show' :'layui-hide'">
+                                <input type="radio" name="receive_bank" lay-filter="receive_bank" v-for="(account,index) in global_set.collection_account"
+                                       :value="account.name" :title="account.name" v-model="cooper_situation_base.receive_bank">
+                            </div>
+                            <div class="layui-input-block layui-col-md9 input-block-box" :class="!global_set.collection_account || !global_set.collection_account.length ? 'layui-show' :'layui-hide'">
+                                无收款方可供选择，请联系管理员配置
+                            </div>
+                            <div class="layui-col-md12" :class="receive_account && receive_account.length ? 'layui-show' : 'layui-hide'">
+                                <label class="layui-form-label row-label"></label>
+                                <div class="layui-input-block layui-col-md9 input-block-box" id="removeLayui">
+                                    <input type="radio" name="receive_account" v-for="i in receive_account" :value="i" :title="i" v-model="cooper_situation_base.receive_account"
+                                           lay-filter="receive_account">
+                                </div>
+                            </div>
+                            <!-- <div class="layui-col-md12" :class="!cooper_situation_base.receive_bank || !cooper_situation_base.receive_bank.length ? 'layui-show' : 'layui-hide'">
+                                暂无任何收款方可供选择，请联系管理员配置
+                            </div> -->
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.payment_certificate != '******'">
+                            <label class="layui-form-label row-label">付费凭证
+                                <br>
+                                <i>(最多上传9张)</i>
+                            </label>
+                            <div class="layui-upload layui-col-md9 input-block-box">
+                                <blockquote class="layui-elem-quote layui-quote-nm">
+                                    <div class="layui-upload-list">
+                                        <section id="financeBoxs">
+                                            <a :href="item.image" v-for="(item,index) in cooper_situation_base.payment_certificate" :key="index" class="uploadImges">
+                                                <img :src="item.thumb_image" alt="">
+                                                <i class="iconfont icon-delete" @click.stop.prevent="delPaymentImage(index, item.image, item.thumb_image)"></i>
+                                            </a>
+                                            <button type="button" v-show="cooper_situation_base.payment_certificate.length < 9" class="layui-btn upload-btn"
+                                                    id="uploadVoucher">
+                                                <i class="iconfont icon-add"></i>
+                                            </button>
+                                        </section>
+
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 财务 end -->
+                    <!-- 法务，审核查看 -->
+                    <div class="finance-info layui-hide">
+                        <div class="layui-col-md12 content-row">
+                            <div class="layui-col-md2 layui-col-item" v-if="cooper_situation_base.pay_money != '******'">
+                                <label>付费金额</label>
+                                <span v-text="cooper_situation_base.pay_money || '--'"></span>
+                            </div>
+                            <div class="layui-col-md4 layui-col-item" v-if="cooper_situation_base.pay_time !='******'">
+                                <label>付费日期</label>
+                                <span v-text="cooper_situation_base.pay_time || '--'"></span>
+                            </div>
+                            <div class="layui-col-md3 layui-col-item" v-if="cooper_situation_base.payer !='******'">
+                                <label>付费人</label>
+                                <span v-text="cooper_situation_base.payer || '--'"></span>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12 content-row">
+                            <div class="layui-col-md2 layui-col-item" v-if="cooper_situation_base.pay_method !='*******'">
+                                <label>付费方式</label>
+                                <span v-text="cooper_situation_base.pay_method || '--'"></span>
+                            </div>
+                            <div class="layui-col-md4 layui-col-item" v-if="cooper_situation_base.pay_bank !='******'">
+                                <label>付费银行</label>
+                                <span v-text="cooper_situation_base.pay_bank || '--'"></span>
+                            </div>
+                            <div class="layui-col-md3 layui-col-item" v-if="cooper_situation_base.payment_account !='******'">
+                                <label>付费账号</label>
+                                <span v-text="cooper_situation_base.payment_account || '--'"></span>
+                            </div>
+                        </div>
+
+                        <div class="layui-col-md12 content-row layui-hide" v-if="cooper_situation_base.receive_bank !='******' && cooper_situation_base.receive_account !='******'">
+                            <div class="layui-col-md12 layui-col-item">
+                                <label>收款账号</label>
+                                <span v-text="cooper_situation_base.receive_bank || '--'"></span>
+                                <span v-text="cooper_situation_base.receive_account || '--'"></span>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12 content-row certificate layui-hide" v-if="cooper_situation_base.payment_certificate !='******'">
+                            <div class="layui-col-md12 layui-col-item">
+                                <label class="pull-left">付费凭证</label>
+                                <div class="layui-input-block layui-col-md10" id="justiceboxs">
+                                    <a :href="i.image" v-for="i in cooper_situation_base.payment_certificate">
+                                        <img :src="i.thumb_image" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 法务，审核查看 end-->
+                </div>
+            </div>
+            <!-- 查看模式 财务-->
+            <div class="layui-colla-item basic-item" v-if="!cooper_situation_jjtag">
+                <h2 class="layui-colla-title basic-item-title">财务信息</h2>
+                <div class="layui-colla-content basic-item-content examine-method layui-show">
+                    <div class="layui-form-item layui-col-md12">
+                        <div class="layui-col-md3 layui-col-item" v-if='!dataAuth.customer_cooper_situation.pay_money'>
+                            <label>付费金额</label>
+                            <span>{{cooper_situation_base.pay_money ? cooper_situation_base.pay_money +'元' : '--'}}</span>
+                        </div>
+                        <div class="layui-col-md4 layui-col-item" v-if="!dataAuth.customer_cooper_situation.pay_time">
+                            <label>付费日期</label>
+                            <span v-text="cooper_situation_base.pay_time || '--'"></span>
+                        </div>
+                        <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer_cooper_situation.payer">
+                            <label>付费人</label>
+                            <span v-text="cooper_situation_base.payer || '--'"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer_cooper_situation.pay_method">
+                        <div class="layui-col-md3 layui-col-item">
+                            <label>付费方式</label>
+                            <span v-if="cooper_situation_base.pay_method == 1">银行卡</span>
+                            <span v-if="cooper_situation_base.pay_method == 2">支付宝</span>
+                            <span v-if="cooper_situation_base.pay_method == 3">微信</span>
+                        </div>
+                        <div class="layui-col-md4 layui-col-item" v-if="!dataAuth.customer_cooper_situation.pay_bank">
+                            <label>付费银行</label>
+                            <span v-text="cooper_situation_base.pay_bank"></span>
+                        </div>
+                        <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer_cooper_situation.payment_account">
+                            <label>付费账号</label>
+                            <span v-text="cooper_situation_base.payment_account"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer_cooper_situation.receive_bank && !dataAuth.customer_cooper_situation.receive_account">
+                        <div class="layui-col-md12 layui-col-item">
+                            <label>收款账号</label>
+                            <span>{{cooper_situation_base.receive_bank}} {{cooper_situation_base.receive_account}}</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-col-md12" :class="!dataAuth.customer_cooper_situation.payment_certificate && cooper_situation_base.payment_certificate.length ? 'layui-show' : 'layui-hide'">
+                        <label class="pull-left">付费凭证</label>
+                        <div class="layui-upload layui-col-md10 input-block-box" style="margin-left:20px" v-if='cooper_situation_base.payment_certificate !="******"'>
+                            <blockquote class="layui-elem-quote layui-quote-nm">
+                                <div class="layui-upload-list">
+                                    <section id="examineImages">
+                                        <a :href="item.image" v-for="(item,index) in cooper_situation_base.payment_certificate" :key="index" class="uploadImges">
+                                            <img :src="item.thumb_image" alt="">
+                                        </a>
+                                    </section>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <div class="layui-upload layui-col-md10 input-block-box" style="margin-left:20px" v-else>******</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 合规信息 -->
+            <div class="layui-colla-item basic-item" v-if="!examine && hfyjj">
+                <div class="layui-colla-item basic-item" v-if="!examine && hfyjj">
+                    <h2 class="layui-colla-title basic-item-title">合规信息</h2>
+                    <div class="layui-colla-content basic-item-content layui-show">
+                        <div class="layui-clear">
+                            <div class="layui-form-item layui-col-md12">
+                                <label class="layui-form-label row-label">
+                                    <span>*</span>合规类型</label>
+                                <div class="layui-input-block layui-col-md3 input-block-box">
+                                    <input type="radio" name="compliance_type" value="1" title="线上合规" lay-filter="compliance_type" v-model="cooper_situation_base.compliance_type">
+                                    <!--<input type="radio" name="compliance_type" value="2" title="线下合规" lay-filter="compliance_type" v-model="cooper_situation_base.compliance_type">-->
+                                </div>
+                                <div class="layui-input-block compliance layui-col-md6 input-block-box" v-if="cooper_situation_base.compliance_type == 1">
+                                    <p class="layui-col-md3">合规状态 &nbsp;&nbsp;
+                                        <i>{{cooper_situation_base.compliance_status == 1 ? '已合规' : ' 未合规' }}</i>
+                                    </p>
+                                    <p class="layui-col-md3">风险评测&nbsp;&nbsp;
+                                        <i>{{cooper_situation_base.risk}}</i>
+                                    </p>
+                                    <p class="layui-col-md5">适当性评测 &nbsp;&nbsp;
+                                        <i>{{cooper_situation_base.adapt}}</i>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- 线下合规 -->
+                            <div v-if="cooper_situation_base.compliance_type == 2">
+                                <div class="layui-form-item layui-col-md12">
+                                    <label class="layui-form-label row-label">
+                                        <span>*</span>合规状态</label>
+                                    <div class="layui-input-block layui-col-md3 input-block-box">
+                                        <input type="radio" name="compliance_status" value="1" title="已合规" lay-filter="compliance_status" v-model="cooper_situation_base.compliance_status">
+                                        <input type="radio" name="compliance_status" value="0" title="未合规" lay-filter="compliance_status" v-model="cooper_situation_base.compliance_status">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-col-md12">
+                                    <label class="layui-form-label row-label">
+                                        <span>*</span>风险评测</label>
+                                    <div class="layui-input-block layui-col-md8 input-block-box">
+                                        <input type="radio" name="risk" value="保守型" title="保守型" lay-filter="risk" v-model="cooper_situation_base.risk">
+                                        <input type="radio" name="risk" value="相对保守型" title="相对保守型" lay-filter="risk" v-model="cooper_situation_base.risk">
+                                        <input type="radio" name="risk" value="稳健型" title="稳健型" lay-filter="risk" v-model="cooper_situation_base.risk">
+                                        <input type="radio" name="risk" value="相对积极型" title="相对积极型" lay-filter="risk" v-model="cooper_situation_base.risk">
+                                        <input type="radio" name="risk" value="积极型" title="积极型" lay-filter="risk" v-model="cooper_situation_base.risk">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-col-md12">
+                                    <label class="layui-form-label row-label">
+                                        <span>*</span>适当性评测</label>
+                                    <div class="layui-input-block layui-col-md3 input-block-box">
+                                        <input type="radio" name="adapt" value="普通投资者" title="普通投资者" lay-filter="adapt" v-model="cooper_situation_base.adapt">
+                                        <input type="radio" name="adapt" value="专业投资者" title="专业投资者" lay-filter="adapt" v-model="cooper_situation_base.adapt">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  默认 -->
+                            <div class="layui-form-item layui-col-md12">
+                                <label class="layui-form-label row-label">
+                                    <span>*</span>合同类型</label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <input type="radio" name="contract_type" value="1" title="电子合同" v-model="cooper_situation_base.contract_type" lay-filter="contract_type">
+                                    <input type="radio" name="contract_type" value="2" title="纸质合同" v-model="cooper_situation_base.contract_type" lay-filter="contract_type">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md12" v-show='cooper_situation_base.pay_type == 2 && cooper_situation_base.contract_type == 1 && isHetong'>
+                                <label class="layui-form-label row-label">
+                                    <span>*</span>合同乙方</label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <input type="radio" name="electronics_region" value="1" title="成都" lay-filter="electronics_region" v-model="cooper_situation_base.electronics_region">
+                                    <input type="radio" name="electronics_region" value="2" title="长沙" lay-filter="electronics_region" v-model="cooper_situation_base.electronics_region">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.pay_type == 2 && cooper_situation_base.contract_type == 1 && !isHetong">
+                                <label class="layui-form-label row-label">合同乙方</label>
+                                <div class="layui-input-block layui-col-md4 input-block-box">
+                                    <p class="layui-col-md4">
+                                        <i>{{cooper_situation_base.electronics_region == 1 && cooper_situation_base.electronics_region != 0 ? '成都' : '长沙'}}</i>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md12" v-show="cooper_situation_base.compliance_type == 2">
+                                <label class="layui-form-label row-label">
+                                    <span>*</span>附件
+                                    <br>
+                                    <i>(最多上传9份)</i>
+                                </label>
+                                <div class="layui-upload layui-col-md9 input-block-box">
+                                    <blockquote class="layui-elem-quote layui-quote-nm">
+                                        <div class="layui-upload-list" id="annexBox">
+                                            <section id="annexImages">
+                                                <a :href="item.image" v-for="(item,index) in cooper_situation_base.attachment.image" :key="index" class="uploadImges">
+                                                    <img :src="item.thumb_image" alt="">
+                                                    <i class="iconfont icon-delete" @click.stop.prevent="delAnnexImage(index, item.image, item.thumb_image)"></i>
+                                                </a>
+                                                <button type="button" v-show="cooper_situation_base.attachment.image.length + cooper_situation_base.attachment.voice.length < 9"
+                                                        class="layui-btn upload-btn" id="uploadAnnex">
+                                                    <i class="iconfont icon-add"></i>
+                                                </button>
+                                            </section>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-col-md12" v-show="cooper_situation_base.compliance_type == 2">
+                                <label class="layui-form-label row-label"></label>
+                                <div class="layui-upload  input-block-inline">
+                                    <blockquote class="layui-elem-quote layui-quote-nm">
+                                        <div class="layui-upload-list">
+                                            <section id="voiceBox" class="pull-left">
+                                                <p class="pull-left" v-for="(item,index) in cooper_situation_base.attachment.voice">
+                                                    <i @click="playFollow(item.video,item.title)"></i>
+                                                    <span class="voice" @click="playFollow(item.video,item.videoname)">{{item.videoname}}</span>
+                                                    <span class="del-vioce" @click="delVoice(index,item.video)">删除</span>
+                                                </p>
+                                            </section>
+                                            <button type="button" v-show="cooper_situation_base.attachment.image.length + cooper_situation_base.attachment.voice.length < 9"
+                                                    class="layui-btn pull-left" id="voiceBtn">添加语音
+                                            </button>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <!-- 默认 end-->
+                            <!-- 财务 法务 审核查看-->
+                            <div class="layui-form-item layui-col-md12 layui-hide">
+                                <label class="layui-form-label row-label">合同类型</label>
+                                <div class="layui-input-block compliance layui-col-md4 input-block-box">
+                                    <p class="layui-col-md4">
+                                        <i>纸质合同</i>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- 财务end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 查看 合规-->
+            <div class="layui-colla-item basic-item" v-if="examine || !hfyjj">
+                <h2 class="layui-colla-title basic-item-title">合规信息</h2>
+                <div class="layui-colla-content basic-item-content layui-show">
+                    <div class="layui-clear">
+                        <div class="layui-form-item layui-col-md12">
+                            <label class="layui-form-label row-label">合规类型</label>
+                            <div class="layui-input-block layui-col-md2 input-block-box">
+                                <span>{{cooper_situation_base.compliance_type == 1 ? '线上合规' : '线下合规'}}</span>
+                            </div>
+                            <div class="layui-input-block compliance layui-col-md6 input-block-box">
+                                <p class="layui-col-md3">合规状态 &nbsp;&nbsp;
+                                    <i>{{cooper_situation_base.compliance_status == 1 ? '已合规' : '未合规'}}</i>
+                                </p>
+                                <p class="layui-col-md3" v-if="cooper_situation_base.risk">风险评测&nbsp;&nbsp;
+                                    <i>{{cooper_situation_base.risk || '--'}}</i>
+
+                                </p>
+                                <p class="layui-col-md3" v-if="cooper_situation_base.adapt">适当性评测 &nbsp;&nbsp;
+                                    <i>{{cooper_situation_base.adapt || '--'}}</i>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- 默认 end-->
+                        <!-- 财务 法务 审核查看-->
+                        <div class="layui-form-item layui-col-md12">
+                            <label class="layui-form-label row-label">合同类型</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <p class="layui-col-md4">
+                                    <i>{{cooper_situation_base.contract_type == 1 ? '电子合同' : '纸质合同'}}</i>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-if="cooper_situation_base.contract_type == 1 && cooper_situation_base.electronics_region && cooper_situation_base.electronics_region != 0">
+                            <label class="layui-form-label row-label">合同乙方</label>
+                            <div class="layui-input-block layui-col-md4 input-block-box">
+                                <p class="layui-col-md4">
+                                    <i>{{cooper_situation_base.electronics_region == 1 && cooper_situation_base.electronics_region != 0 ? '成都' : '长沙'}}</i>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- 财务end -->
+                        <div class="layui-form-item layui-col-md12" v-show="cooper_situation_base.compliance_type == 2">
+                            <label class="layui-form-label row-label">
+                                <span>*</span>附件
+                                <br>
+                                <i>(最多上传9份)</i>
+                            </label>
+                            <div class="layui-upload layui-col-md9 input-block-box">
+                                <blockquote class="layui-elem-quote layui-quote-nm">
+                                    <div class="layui-upload-list" id="annexBox">
+                                        <section id="annexImages">
+                                            <a :href="item.image" v-for="(item,index) in cooper_situation_base.attachment.image" :key="index" class="uploadImges">
+                                                <img :src="item.thumb_image" alt="">
+                                            </a>
+                                        </section>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-col-md12" v-show="cooper_situation_base.compliance_type == 2">
+                            <label class="layui-form-label row-label"></label>
+                            <div class="layui-upload  input-block-inline">
+                                <blockquote class="layui-elem-quote layui-quote-nm">
+                                    <div class="layui-upload-list">
+                                        <section id="voiceBox">
+                                            <p class="pull-left" v-for="(item,index) in cooper_situation_base.attachment.voice">
+                                                <i @click="playFollow(item.video,item.title)"></i>
+                                                <span class="voice" @click="playFollow(item.video,item.videoname)">{{item.videoname}}</span>
+                                            </p>
+                                        </section>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 销售过程 -->
+            <div class="layui-colla-item basic-item">
+                <h2 class="layui-colla-title basic-item-title">销售过程</h2>
+                <div class="layui-colla-content sales-process layui-clear layui-show">
+                    <div class="layui-row layui-col-md12 sales-process-item" v-for="(item,index) in sp_saleprocess" v-show="item.title">
+                        <h2>{{item.title}}
+                            <div>
+                                <a href="javascript:;" @click.stop="addSaleprocess(index)" v-if="!examine">新增销售过程</a>
+                                <a href="javascript:;" @click.stop="associateTrack(index)" v-if="!examine">关联跟进信息</a>
+                            </div>
+                        </h2>
+                        <!-- 临时展示数据 start -->
+                        <div class="layui-row-content sales-item-content layui-clear" v-for="(product,i) in item.info">
+                            <div class="content-item content-title layui-col-md12" v-if="product.employee_nickname || product.employee_department || product.product_info && product.product_info.length">
+                                <strong v-if="product.employee_nickname">{{product.employee_nickname}}</strong>
+                                <span>{{product.employee_department}}</span>
+                                <a href="javascript:;" class="pull-right" v-if="product.product_info &&　product.product_info.length && !dataAuth.customer_cooper_situation.product_name" v-for="product_name in product.product_info">{{product_name.product_name}}</a>
+                            </div>
+                            <div class="layui-col-md12 content-item">
+                                {{product.text_record}}
+                            </div>
+                            <div class="layui-col-md12 content-item product-iamges-box" v-if=" product.images &&　 product.images.length" :id='"productIamges_"+index+i'>
+                                <a class="img-box" :href="img.image" v-for="img in product.images">
+                                    <img :src="img.thumb_image" alt="" v-if="img.thumb_image">
+                                </a>
+                            </div>
+                            <div class="info-item layui-table layui-col-md12" :class="product.voice_records && product.voice_records.length ? 'layui-show' :'layui-hide'">
+                                <table class="layui-col-md12">
+                                    <tbody class="layui-col-md12">
+                                    <tr class="layui-col-md12">
+                                        <td class="layui-col-md2">姓名</td>
+                                        <td class="layui-col-md2">电话</td>
+                                        <td class="layui-col-md2">通话时长</td>
+                                        <td class="layui-col-md2">通话时间</td>
+                                        <td class="layui-col-md2">通话类型</td>
+                                        <td class="layui-col-md2">操作</td>
+                                    </tr>
+                                    <tr class="layui-col-md12" v-for="voice in product.voice_records">
+                                        <td class="layui-col-md2">{{voice.customer_real_name || '未知用户'}}</td>
+                                        <td class="layui-col-md2">{{voice.customer_mobile || '--'}}</td>
+                                        <td class="layui-col-md2">{{voice.talk_time | VformatM}}</td>
+                                        <td class="layui-col-md2">{{voice.call_time || '--'}}</td>
+                                        <td class="layui-col-md2">{{voice.call_type == 1 ? '呼入' :'呼出'}}</td>
+                                        <td class="layui-col-md2">
+                                            <a v-if="voice.recfile" @click="playFollow(voice.recfile,voice.customer_real_name,voice.call_time)" href="javascript:;">播放录音</a>
+                                            <span v-else>暂无录音播放</span>
+                                            <a v-if="voice.recfile" :href="voice.recfile ? voice.recfile : 'javascript:;'" download="xxx">下载录音</a>
+                                            <span v-else>暂无录音下载</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="info-item layui-item-time layui-col-md12 del-box" v-if="product.text_record && product.text_record.length || product.voice_records && product.voice_records.length || product.images && product.images.length">
+                                <span>{{product.create_time}}</span>
+                                <a class="del" href="javascript:;" @click.stop='delProductItem(index,i)' v-if="!examine">删除</a>
+                            </div>
+                        </div>
+                        <!-- // 临时展示数据 end -->
+
+                        <!-- 编辑 start -->
+                        <div class="layui-row-content layui-clear sales-item-content new-item-content layui-hide">
+                            <div class="layui-form-item layui-col-md12">
+                                <div class="layui-input-block layui-col-md12 textarea-box">
+                                    <textarea name="desc" v-model="item.userdesc" placeholder="请输入说明内容，不超过500字" class="layui-textarea" maxlength="500"></textarea>
+                                    <span>{{item.userdesc ? item.userdesc.length : '0'}}/500</span>
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <div class="layui-form-item layui-col-md12">
+                                    <div class="layui-upload layui-col-md12">
+                                        <blockquote class="layui-elem-quote layui-quote-nm">
+                                            <div class="layui-upload-list">
+                                                <section :id='"saleimgboxs_"+index'>
+                                                    <a :href="imgs.image" class="uploadImges" v-for="(imgs,imgsi) in item.userimages">
+                                                        <img :src="imgs.thumb_image ? imgs.thumb_image : ''" alt="">
+                                                        <i class="iconfont icon-delete" @click.stop.prevent="delSalesImage(index, imgsi, imgs.image, imgs.thumb_image)"></i>
+                                                    </a>
+                                                    <button type="button" class="layui-btn upload-btn" :id='"salesImgUpload_"+index' v-show="item.userimages.length < 15">
+                                                        <i class="iconfont icon-add"></i>
+                                                    </button>
+                                                </section>
+
+                                            </div>
+                                        </blockquote>
+                                    </div>
+                                    <div class="content-item layui-col-md12">
+                                        <span>{{item.userimages.length}}/15</span> 每张图片请小于2M
+                                    </div>
+                                </div>
+                                <div class="content-item layui-col-md12 content-btn-box">
+                                    <a class="layui-btn layui-btn-primary" @click.stop="cancelProductItem(index)">取消</a>
+                                    <a class="layui-btn" @click.stop="addProductItem(index)">确认</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //编辑 end -->
+                    </div>
+                    <div class="layui-row layui-col-md12 sales-process-item">
+                        <h2>备注
+                        </h2>
+                        <div class="layui-row-content layui-clear sales-item-content new-item-content" v-if="!examine || cooper_situation_base.remark">
+                            <div class="layui-col-md12 content-item" v-if="cooper_situation_base.remark">
+                                {{cooper_situation_base.remark}}
+                            </div>
+                            <div v-if="!examine">
+                                <div class="layui-form-item layui-col-md12">
+                                    <div class="layui-input-block layui-col-md12 textarea-box">
+                                        <textarea name="remark" placeholder="请输入说明内容，不超过500字" class="layui-textarea remark" maxlength="500" v-model="remarkWord"></textarea>
+                                        <span class="remark-numlen">{{remarkWord.length || 0}}/500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item btn-box" v-if='!examine'>
+            <a class="layui-btn layui-btn-primary" @click="cooprationCancel">取消</a>
+            <button class="layui-btn" id="cooperation-btn" lay-submit lay-filter="cooprationBtn">提交</button>
+            <!-- " -->
+        </div>
+        <div class="layui-form-item btn-box" v-if='examine'>
+            <a class="layui-btn back-btn" @click="cooprationCancel">返回</a>
+        </div>
+    </form>
+</div>
+<div class="no-coopAuth" v-if="!coopAuth && isCoopEdit">
+    <p>由于数据权限不够，您无法修改合作情况，请联系管理员开通相应权限！</p>
+</div>
+<div class="layui-form-item btn-box" v-if='!coopAuth && isCoopEdit'>
+    <a class="layui-btn back-btn" @click="cooprationCancel">返回</a>
+</div>
+
+<div class="no-data" v-if="noData">
+    <div class="no-data-img">
+        <p>暂无数据</p>
+    </div>
+</div>
+<script id="track" type="text/html">
+    <li>
+        <div class="checkbox-box">
+            <input type="checkbox" name="checkAllCall" lay-filter="checkAllCall" lay-skin="primary">
+        </div>
+        <div class="li-item follow-name">跟进产品</div>
+        <div class="li-item follow-time">跟进时间</div>
+        <div class="li-item word">文字</div>
+        <div class="li-item record">包含语音</div>
+        <div class="li-item img">包含图片</div>
+        <div class="li-item operator">操作人</div>
+    </li>
+    {% each list as value i %}
+    <li>
+        <div class="checkbox-box">
+            {%if value.ischecked%}
+            <input type="checkbox" checked name="checkItem" lay-filter="checkItem" lay-skin="primary" data-id="{% value.followup_id%}"> {%else%}
+            <input type="checkbox" name="checkItem" lay-filter="checkItem" lay-skin="primary" data-id="{% value.followup_id%}"> {%/if%}
+        </div>
+        <div class="li-item layui-elip follow-name">
+            {% if value.product_info && value.product_info.length %} {% each value.product_info as name %}
+            <a href="javascript:;">{% name.product_name || '--' %}</a>
+            {% /each %} {% else %}
+            <a href="javascript:;">--</a>
+            {% /if %}
+        </div>
+        <div class="li-item layui-elip follow-time">{% value.create_time || '--' %}</div>
+        <div class="li-item layui-elip word">{% value.text_record || '--' %}</div>
+        <div class="li-item layui-elip record">{% value.voice_records && value.voice_records.length ? '是':'否' %}</div>
+        <div class="li-item layui-elip img">{% value.images && value.images .length ? '是':'否' %}</div>
+        <div class="li-item layui-elip operator">{% value.employee_nickname || '--' %}</div>
+    </li>
+    {% /each %}
+</script>

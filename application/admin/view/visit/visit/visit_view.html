@@ -1,0 +1,80 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/financeManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 合同审核 -->
+<div class="container">
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container finance-container">
+            <div class="example-handle">
+                <button v-if="visitList.is_audit == 1" class="examine-operate examine-other">审核</button>
+                <button v-else class="examine-operate" @click="visitAudit">审核</button>
+                <!--<button class="examine-operate" @click="visitAudit">审核</button>-->
+                <button class="examine-operate" @click="editRemark">编辑备注</button>
+            </div>
+            <!-- 客户信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">产品信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item" v-if="visitList.customer_name != 'hide'"><span class="sign-name">客户姓名：</span><span>{{visitList.customer_name}}</span></li>
+                    <li class="sign-item" v-if="visitList.id_card != 'hide'"><span class="sign-name">身份证号：</span><span>{{visitList.id_card}}</span></li>
+                    <li class="sign-item">
+                        <span class="sign-name">联系电话：</span>
+                        <div class="vis-phone">
+                            <span class="sign-span" v-for="mobile in visitList.mobile">{{mobile.contact_way}}
+                                <i v-if='mobile.contact_way.indexOf("*") == -1' class="iconfont icon-phone" :data-id="mobile.contact_id" @click="cellPhone(mobile.contact_id)"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="sign-item">
+                        <span class="sign-name">购买电话：</span>
+                        <div class="vis-phone">
+                            <span class="sign-span">{{visitList.pay_mobile.contact_way}}
+                                <i v-if='visitList.pay_mobile.contact_way.indexOf("*") == -1' class="iconfont icon-phone" :data-id="visitList.pay_mobile.contact_id" @click="cellPhone(visitList.pay_mobile.contact_id)"></i>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item" v-if="visitList.goods_name != 'hide'"><span class="sign-name">购买产品：</span><span>{{visitList.goods_name}}</span></li>
+                    <li class="sign-item" v-if="visitList.pay_num != 'hide'"><span class="sign-name">购买数量：</span><span>{{visitList.pay_num}}</span></li>
+                    <li class="sign-item" v-if="visitList.pay_money != 'hide'"><span class="sign-name">付费金额：</span><span>{{visitList.pay_money}} 元</span></li>
+                    <li class="sign-item" v-if="visitList.pay_time != 'hide'"><span class="sign-name">付费日期：</span><span>{{visitList.pay_time}}</span></li>
+                    <li class="sign-item" v-if="visitList.days != 'hide'"><span class="sign-name">服务期限：</span><span>{{visitList.days}} 个自然日</span></li>
+                    <li class="sign-item" v-if="visitList.pay_type != 'hide'"><span class="sign-name">支付方式：</span><span>{{visitList.pay_type == 1 ? '线上支付' : (visitList.pay_type == 2 ? '线下支付' : '******') }}</span></li>
+                </ul>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">风险测评：</span><span>{{visitList.risk_assessment}}</span></li>
+                    <li class="sign-item"><span class="sign-name">适当性测评：</span><span>{{visitList.appropriateness_assessment}}</span></li>
+                    <li class="sign-item"><span class="sign-name">合规状态：</span><span>{{visitList.compliance_status == 1 ? '已合规' : (visitList.compliance_status == 0 ? '未合规' : '******') }}</span></li>
+                </ul>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">合同类型：</span><span>{{visitList.contract_type == 1 ? '电子合同' : (visitList.contract_type == 2 ? '纸质合同' : '******') }}</span></li>
+                    <li class="sign-item"><span class="sign-name">合同状态：</span><span>{{visitList.contract_status}}</span></li>
+                    <li class="sign-item"><span class="sign-name">销售人员：</span><span>{{visitList.salesman}}</span></li>
+                </ul>
+            </div>
+            <!-- 客户信息 S-->
+            <!-- 审核信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">审核信息</h2>
+                </div>
+                <ul class="sign-list clearfix" v-for="item in visitList.audit_info">
+                    <li class="sign-item"><span class="sign-name">审核人：</span><span>{{item.financial_real}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核时间：</span><span>{{item.financial_time}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核结果：</span><span class="finance-reject">{{item.financial_action}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核说明：</span><span class="sign-span">{{item.financial_reason | isMaxLen(100)}}</span></li>
+                </ul>
+            </div>
+            <!-- 审核信息 S-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/visitManageAudit.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,64 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/remark-manage.css" />
+{include file="common/header_bottom"/}
+
+<div class="container add-client-container">
+	<div class="main-wrap" id="app" v-cloak>
+        <div class="layui-row add-remark-title">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="examine-search layui-col-md6">
+                        <div class="layui-input-inline">
+                            <form class="layui-form" action="">
+                                <input type="text" name="mark_name" v-model="searchVal" lay-verify="search" autocomplete="off" maxlength="15" placeholder="请输入备注" class="layui-input">
+                                <button class="layui-btn iconfont icon-search search-icon" :class="{'available':available}" lay-submit lay-filter="formSearch"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="example-handle layui-col-md6">
+                        <div class="layui-inline" v-show="!addShow">
+                            <span class="add-btn" @click="addShow = !addShow"><i></i>新增备注</span>
+                            <span class="tips">*&nbsp;客户备注最多50个</span>
+                        </div>
+                        <div class="layui-inline layui-inline-custom" v-show="addShow">
+                            <form class="layui-form" action="">
+                                <div class="layui-input-inline layui-input-custom">
+                                    <input type="text" name="mark_name" v-model="addVal" lay-verify="search" autocomplete="off" maxlength="15" placeholder="请输入15个字符以内" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <button class="layui-btn" lay-submit lay-filter="formAdd">确定</button>
+                                    <button type="reset" @click="addShow = !addShow" class="layui-btn layui-btn-primary">取消</button>
+                                </div>
+                                <div class="layui-form-mid layui-word-aux" v-show="tipsword.length" v-text="tipsword"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="layui-row">
+                <div class="remarks-list">
+                    <ul>
+                        <li class="list-item"
+                            v-for="(item,index) in list"
+                            :key="item.id"
+                        >{{item.mark_name}}
+                            <i @click="deleteRemark(index, item.id, item.mark_name)"></i>
+                        </li>
+                    </ul>
+                </div>
+                <p class="row-cue">*&nbsp;删除备注后，客户名下的本条备注也将删除</p>
+            </div>
+
+            <div class="btn-box" style="text-align: center">
+                <a href="javascript:;" class="layui-btn layui-btn-primary" @click="tagJump">返回</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/remarkManage.js"></script>
+{include file="common/footer_bottom"/}

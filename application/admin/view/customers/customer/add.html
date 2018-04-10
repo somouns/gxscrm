@@ -1,0 +1,152 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/add-client.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<div class="container add-client-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main">
+            <div class="layui-row usr-info">
+                <div class="layui-row-title">客户信息</div>
+                <!--客户信息表单-->
+                <div class="layui-form">
+                    <!--姓名-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <input type="text" placeholder="请输入姓名" v-model="addObject.real_name" name="real_name" autocomplete="off" maxlength="15" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <!--性别-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <div class="layui-col-xs3">
+                                <input type="radio" name="sex" lay-filter="sex" value="1" title="男">
+                                <input type="radio" name="sex" lay-filter="sex" value="2" title="女">
+                            </div>
+                        </div>
+                    </div>
+                    <!--电话-->
+                    <div class="layui-form-item" v-for="(item, index) in addObject.mobileArr">
+                        <label class="layui-form-label" v-if="index == 0">电话</label>
+                        <div class="layui-input-block phone-box">
+                            <div class="input-item layui-col-md3">
+                                <input type="text" placeholder="请输入电话号码" v-model="item.mobile" @foucs="item.err = ''" @blur="checkCustomer($event, 1, item.mobile, index)" name="mobile[]" autocomplete="off" maxlength="30" class="layui-input">
+                                <span><i class="add-ico" @click="addMobile" v-if="index == 0"></i><i class="del-ico" v-else @click="removeMobile(index)"></i></span>
+                            </div>
+                            <div class="err layui-col-md3">
+                                <i class="err-prompt" v-html="item.err"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!--// 电话-->
+                    <!--QQ-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">QQ</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <input type="text" placeholder="请输入QQ" v-model="addObject.qq.val" @blur="checkCustomer($event, 3, addObject.qq.val)" maxlength="30" autocomplete="off" name="qq" class="layui-input">
+                            </div>
+                            <div class="err layui-col-md3">
+                                <i class="err-prompt">{{addObject.qq.err}}</i>
+                            </div>
+                        </div>
+                    </div>
+                    <!--微信号-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">微信号</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <input type="text" placeholder="请输入微信号" v-model="addObject.weixin.val" @blur="checkCustomer($event, 2, addObject.weixin.val)" name="weixin" autocomplete="off" maxlength="30" class="layui-input">
+                            </div>
+                            <div class="err layui-col-md3">
+                                <i class="err-prompt">{{addObject.weixin.err}}</i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 身份证 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">身份证</label>
+                        <div class="layui-input-block ">
+                            <div class="input-item layui-col-md3">
+                                <input type="text" placeholder="请输入身份证号码" v-model="addObject.id_card" name="id_card" autocomplete="off" maxlength="18" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <!--来源-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*&nbsp;</span>来源</label>
+                        <div class="layui-input-block">
+                            <div class="layui-col-xs5">
+                                <input type="radio" lay-filter="channel" v-for="(item,key,index) in channelSource" name="from_channel" :value="key" :title="item">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" v-show="showChannel">
+                        <div class="layui-input-block phone-box">
+                            <div class="input-item layui-col-md3">
+                                <input type="text" name="mark" v-model="addObject.mark" autocomplete="off" maxlength="15" placeholder="请输入其他来源" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <!--// 来源-->
+                </div>
+                <!--// 客户信息表单-->
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-row-title">客户备注</div>
+                <div class="remarks-list">
+                    <ul>
+                        <!-- <li class="list-item active">老客户</li> -->
+                        <li class="list-item" :class="{active: item.active}" @click="choiceRemark(index, item.id)" v-for="(item,index) in remarks">{{item.mark_name}}</li>
+                        <li class="add-remarks" v-show="!addRemarkShow" @click="addRemarkShow = !addRemarkShow"><i></i>新增备注</li>
+                        <div class="add-input" v-show="addRemarkShow">
+                            <div>
+                                <form class="layui-form" action="">
+                                    <input maxlength="15" name="mark_name" v-model="addRemarkVal" lay-verify="search" autocomplete="off" placeholder="请输入15个字符以内">
+                                    <button class="layui-btn ok" lay-submit lay-filter="formAddRemark">确定</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary" @click="addRemarkShow = !addRemarkShow">取消</button>
+                                </form>
+                            </div>
+                            <p class="err-tip">{{tipsRemarkWord}}</p>
+                        </div>
+                    </ul>
+                </div>
+                <p class="row-cue">*新增备注后需要点击确定后生效</p>
+            </div>
+            <div class="layui-row">
+                <div class="layui-row-title">客户分组</div>
+                <div class="remarks-list">
+                    <ul>
+                        <li class="list-item" :class="{active: item.active}" @click="choiceGroup(index, item.id)" v-for="(item,index) in groups">{{item.name}}</li>
+                        <li class="add-remarks disabled-add" v-show="!addGroupShow" @click="addGroupShow = !addGroupShow">
+                            <i></i>新增分组
+                        </li>
+                        <div class="add-input" v-show="addGroupShow">
+                            <div>
+                                <form class="layui-form" action="">
+                                    <input maxlength="15" name="name" v-model="addGroupVal" lay-verify="search" autocomplete="off" placeholder="请输入15个字符以内">
+                                    <button class="layui-btn ok" lay-submit lay-filter="formAddGroup">确定</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary" @click="addGroupShow = !addGroupShow">取消</button>
+                                </form>
+                            </div>
+                            <p class="err-tip">{{tipsGroupWord}}</p>
+                        </div>
+                    </ul>
+                </div>
+                <p class="row-cue">*新增分组后需要点击确定后生效</p>
+            </div>
+            <div class="btn-box">
+                <button type="reset" class="layui-btn layui-btn-primary" @click="cancelAdd($event)" data-url="/admin/customers/customer">返回</button>
+                <button class="layui-btn" @click="addUsrTip" :disabled="addUsrTipBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/addClient.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

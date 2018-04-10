@@ -1,0 +1,692 @@
+<!--基本信息 -->
+
+<div class="eidt-box">
+        <span>
+            <i>*</i>新增合作情况必输</span>
+    <span>
+            <i>*</i>新增客户必输</span>
+    {if condition="checkAuth('/admin/customers/customer/updates') eq 'true'"}
+    <a href="javascript:;" @click.stop="isEditBasic" v-if="!editBasic">编辑</a>
+    {/if}
+</div>
+<!-- 查看基本信息 -->
+<div class="layui-collapse examine-basic-info" :class="{'layui-hide':editBasic}">
+    <div class="layui-colla-item basic-item">
+        <h2 class="layui-colla-title basic-item-title">基本信息</h2>
+        <div class="layui-colla-content basic-item-content layui-clear layui-show">
+            <div class="layui-col-md12 content-row">
+                <div class="layui-col-md3 layui-col-item" v-if="!('real_name' in dataAuth.customer)">
+                    <label>
+                        <i>*</i>姓名</label>
+                    <span v-if="!dataAuth.customer.real_name">{{basicInfo.real_name || '未命名'}}</span>
+                    <span v-else>未知用户</span>
+                </div>
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.id_card">
+                    <label>
+                        <i>*</i> 身份证</label>
+                    <span v-text="basicInfo.id_card || '--'"></span>
+                </div>
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.sex">
+                    <label>性别</label>
+                    <span>{{basicInfo.sex | formatSex}}</span>
+                </div>
+            </div>
+            <div class="layui-col-md12 content-row">
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.age">
+                    <label>年龄</label>
+                    <span v-text="basicInfo.age || '--'"></span>
+                </div>
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.career">
+                    <label>职业</label>
+                    <span v-text="basicInfo.career || '--'">--</span>
+                </div>
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.from_channel">
+                    <label><i style="color: #f2493b">*</i>来源</label>
+                    <!-- <span>{{global_set.customer_from_channel[basicInfo.from_channel]}}</span> -->
+                    <span>{{customer_from_channel_text}}{{basicInfo.mark ? '(' + basicInfo.mark +')' : ''}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-colla-item layui-clear basic-item">
+        <h2 class="layui-colla-title basic-item-title">联系方式</h2>
+        <div class="layui-colla-content basic-item-content layui-show">
+            <div class="layui-col-md12 content-row">
+                <div class="layui-col-item layui-col-md12">
+                    <label>
+                        <i>*</i> 电话</label>
+                    <span v-for='i in basicInfo.mobile'>{{i.mobile ? i.mobile : '--'}}</span>
+                </div>
+            </div>
+            <div class="layui-col-md12 content-row layui-elip" v-if="!dataAuth.customer_contact.qq">
+                <div class="layui-col-item layui-col-md3 layui-elip">
+                    <label>QQ</label>
+                    <span v-text="basicInfo.qq || '--'"></span>
+                </div>
+                <div class="layui-col-item layui-col-md3 layui-elip" v-if="!dataAuth.customer_contact.weixin">
+                    <label>微信号</label>
+                    <span v-text="basicInfo.weixin || '--'"></span>
+                </div>
+            </div>
+            <div class="layui-col-md12 content-row">
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.province">
+                    <label>省份</label>
+                    <span v-text="basicInfo.province_name || '--'"></span>
+                </div>
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.city">
+                    <label>市</label>
+                    <span v-text="basicInfo.city_name ||'--'"></span>
+                </div>
+                <div class="layui-col-md3 layui-col-item" v-if="!dataAuth.customer.area">
+                    <label>区/县</label>
+                    <span v-text="basicInfo.area_name || '--'"></span>
+                </div>
+            </div>
+            <div class="layui-col-md12 content-row" v-if="!dataAuth.customer.address">
+                <div class="layui-col-item">
+                    <label>详细地址</label>
+                    <span v-text="basicInfo.address || '--'"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-colla-item basic-item layui-clear">
+        <h2 class="layui-colla-title basic-item-title">财务投资经验</h2>
+        <div class="layui-colla-content basic-item-content layui-show">
+            <div class="layui-col-md12 content-row">
+                <div class="layui-col-md4 layui-col-item">
+                    <label>收入来源</label>
+                    <span v-for="i in finance_info.income_source" v-if="i.is_check">{{i.t_name}}<font v-if="i.t_id == 4">{{basicInfo.finance_info.income_source_mark ? '('+basicInfo.finance_info.income_source_mark +')' : ''}}</font></span>
+                </div>
+                <div class="layui-col-md4 layui-col-item layui-elip">
+                    <label>最近三年平均收入</label>
+                    <span>{{finance_info.lately_avg_income ? finance_info.lately_avg_income +' 元' : '--'}}</span>
+                </div>
+                <div class="layui-col-md3 layui-col-item">
+                    <label>有无债务</label>
+                    <span>{{finance_info.has_debt == '2' ? '无' :  finance_info.has_debt == '' ? '--' : '有'}} {{finance_info.has_debt == 1 &&finance_info.has_debt_mark ? finance_info.has_debt_mark + '元' : ''}}</span>
+                </div>
+            </div>
+            <div class="layui-col-md12 content-row">
+                <div class="layui-col-md4 layui-col-item flex-box">
+                    <label>金融资产</label>
+                    <div class="words-wrap">
+                        <span v-for="i in finance_info.financial_assets" v-if="i.is_check">{{i.t_name}}{{i.t_money ? '：'+i.t_money + '元' : ''}}{{i.t_name ? '；' : ''}}</span>
+                    </div>
+                </div>
+                <div class="layui-col-md4 layui-col-item">
+                    <label>开通创业板</label>
+                    <span>{{finance_info.is_open_gem == 1 ? '是': finance_info.is_open_gem == 2 ? '否' : '--'}}</span>
+                </div>
+                <div class="layui-col-md3 layui-col-item">
+                    <label>开通ST</label>
+                    <span>{{finance_info.is_open_st == 1 ? '是': finance_info.is_open_st == 2 ? '否' : '--'}}</span>
+                </div>
+            </div>
+            <div class="layui-col-md12 content-row border-bottom">
+                <div class="layui-col-item">
+                    <label>当前仓位</label>
+                    <span>{{finance_info.current_position != '' ?  finance_info.current_position + '成' : '--'}} </span>
+                </div>
+            </div>
+            <div class="layui-col-md12 content-row">
+                <div class="layui-col-md4 layui-col-item flex-box">
+                    <label>证券投资</label>
+                    <div class="words-wrap">
+                        <span v-for="i in finance_info.portfolio_investment" v-if="i.is_check">{{i.t_name}}{{i.t_money ? '：'+i.t_money + '年' : ''}}{{i.t_name ? '；' : ''}}</span>
+                    </div>
+                </div>
+                <div class="layui-col-md4 layui-col-item layui-elip">
+                    <label>金融投资学习工作经历</label>
+                    <span v-if="finance_info.financial_investment_experience && finance_info.financial_investment_experience_mark">{{finance_info.financial_investment_experience_mark + '年'}}</span>
+                    <span v-if="finance_info.financial_investment_experience && !finance_info.financial_investment_experience_mark">{{finance_info.financial_investment_experience == 1 ? '有' : '无'}}</span>
+                    <span v-if="!finance_info.financial_investment_experience">--</span>
+                </div>
+                <div class="layui-col-md3 layui-col-item layui-elip">
+                    <label>金融行业职业资格证书</label>
+                    <span v-if="finance_info.financial_industry_certificate && finance_info.financial_industry_certificate_mark">{{'《' + finance_info.financial_industry_certificate_mark +'》'}}</span>
+                    <span v-if="finance_info.financial_industry_certificate && !finance_info.financial_industry_certificate_mark">{{finance_info.financial_industry_certificate == 1 ? '有' : '无'}}</span>
+                    <span v-if="!finance_info.financial_industry_certificate">--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-box">
+        <button class="layui-btn" @click="basicBack">返回</button>
+    </div>
+</div>
+<!-- 编辑基本信息 -->
+<div class="layui-collapse layui-form edit-basic-info" :class="{'layui-hide':!editBasic}">
+    <div class="layui-colla-item basic-item">
+        <h2 class="layui-colla-title basic-item-title">基本信息</h2>
+        <div class="layui-colla-content layui-form basic-item-content layui-clear layui-show">
+            <div class="layui-form-item layui-col-md12" v-if="!('real_name' in dataAuth.customer)">
+                <label class="layui-form-label row-label">
+                    <span>*</span>姓名</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                    <input type="text"
+                           name="real_name"
+                           placeholder="请输入姓名"
+                           class="layui-input"
+                           :value="!dataAuth.customer.real_name ? basicInfo.real_name : '未命名'"
+                           :disabled="dataAuth.customer.real_name"
+                           maxlength="15"
+                    >
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer.id_card">
+                <label class="layui-form-label row-label">
+                    <span>*</span>身份证</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                    <input type="text"
+                           name='id_card'
+                           placeholder="请输入身份证"
+                           :disabled="basicInfo.id_card == '******'"
+                           class="layui-input"
+                           :value="basicInfo.id_card"
+                           maxlength="18"
+                    >
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer.sex">
+                <label class="layui-form-label row-label">性别</label>
+                <div class="layui-input-block layui-col-md4 input-block-box" >
+                    <input type="radio"
+                           name="sex"
+                           value="1"
+                           title="男"
+                           lay-filter='sex'
+                           :checked="basicInfo.sex == 1"
+                           :disabled="basicInfo.sex == '******'"
+                    >
+                    <input type="radio"
+                           name="sex"
+                           value="2"
+                           title="女"
+                           lay-filter='sex'
+                           :checked="basicInfo.sex == 2"
+                           :disabled="basicInfo.sex == '******'"
+                    >
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer.age">
+                <label class="layui-form-label row-label">年龄</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                    <input type="text"
+                           name='age'
+                           placeholder="请输入年龄"
+                           :disabled="basicInfo.age == '******'"
+                           onkeyup="value=value.replace(/[^\d{2}]/,'')"
+                           class="layui-input"
+                           :value="basicInfo.age"
+                           maxlength="3"
+                           :lay-verify="basicInfo.age != '******' ? 'noRequiredNum':''"
+                    >
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer.career">
+                <label class="layui-form-label row-label">职业</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                    <input type="text"
+                           name="career"
+                           placeholder="请输入职业"
+                           :disabled="basicInfo.career == '******'"
+                           class="layui-input"
+                           :value="basicInfo.career"
+                           maxlength="15"
+                    >
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12 source-box" v-if="!dataAuth.customer.from_channel">
+                <label class="layui-form-label row-label">
+                    <span class="red-font">*</span>来源</label>
+                <div class="layui-input-block layui-col-md8 input-block-box">
+                    <input type="radio"
+                           name="from_channel"
+                           v-for="(i,index) in global_set.customer_from_channel"
+                           :value="index"
+                           :title="i"
+                           :checked="basicInfo.from_channel == index"
+                           :disabled="basicInfo.from_channel == '******'"
+                           lay-filter="from_channel"
+                           v-if="index != 120"
+                           :key="index"
+                    >
+                    <input type="radio"
+                           name="from_channel"
+                           v-for="(i,index) in global_set.customer_from_channel"
+                           :value="index"
+                           :title="i"
+                           :checked="basicInfo.from_channel == index"
+                           :disabled="basicInfo.from_channel == '******'"
+                           lay-filter="from_channel"
+                           v-if="index == 120"
+                           :key="index"
+                    >
+                    <div class="layui-input-inline input-block-box" :class="{'layui-hide': basicInfo.from_channel !=120}" data-show="from_channel">
+                        <input type="text"
+                               name="mark"
+                               :disabled="basicInfo.mark == '******'"
+                               placeholder="请输入来源"
+                               maxlength="15"
+                               class="layui-input"
+                               :value="basicInfo.mark"
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-colla-item basic-item">
+        <h2 class="layui-colla-title basic-item-title">联系方式 </h2>
+        <div class="layui-colla-content clearfix layui-show basic-item-content basic-first-content" style="overflow:visible">
+            <div id="basicInfoMobile">
+                <div class="layui-form-item layui-col-md12" v-for="(mobile,index) in basicInfo.mobile">
+                    <label class="layui-form-label row-label" v-html="index == 0 ? '<span>*</span>电话' : ''"></label>
+                    <div class="layui-input-block layui-col-md4 input-block-box input-icon-box">
+                        <input type="text"
+                               :name='"mobile[" + index + "]"'
+                               onkeyup="this.value = this.value.replace(/[^\d]/g,'')"
+                               placeholder="请输入电话号码"
+                               maxlength="30"
+                               class="layui-input"
+                               data-err=""
+                               :value="basicInfo.mobile[index].mobile"
+                               :disabled="basicInfo.mobile[index].is_relation == 1 || /\*/.test(basicInfo.mobile[index].mobile)">
+                        <span class="icon-box">
+                                <i class="iconfont icon-shanchu"
+                                   title="删除"
+                                   v-show="basicInfo.mobile[index].is_relation != 1 && !/\*/.test(basicInfo.mobile[index].mobile)"
+                                   v-if="index != 0"
+                                   @click.stop="delMobileItem(index,basicInfo.mobile)"
+                                ></i>
+                                <i class="iconfont icon-add" title="增加" v-if="index == 0" @click.stop="addMobile()"></i>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer_contact.qq">
+                <label class="layui-form-label row-label">QQ</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                    <input type="text"
+                           name="qq"
+                           placeholder="请输入QQ号码"
+                           :disabled="basicInfo.qq == '******'"
+                           class="layui-input"
+                           maxlength="30"
+                           :value="basicInfo.qq"
+                           onkeyup="this.value = this.value.replace(/[^\d]/g,'')"
+                           @blur="numVerify(3,$event,'update')"
+                    >
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer_contact.weixin">
+                <label class="layui-form-label row-label">微信</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                    <input type="text"
+                           name='weixin'
+                           placeholder="请输入微信号码"
+                           :disabled="basicInfo.weixin == '******'"
+                           class="layui-input"
+                           maxlength="30"
+                           :value="basicInfo.weixin"
+                           @blur="numVerify(2,$event,'update')"
+                    >
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer.province || !dataAuth.customer.city || !dataAuth.customer.area">
+                <label class="layui-form-label row-label">所在地区</label>
+                <div class="layui-input-block layui-col-md2 select-wrap input-block-box" v-if="!dataAuth.customer.province">
+                    <select name="province" lay-filter="province" :disabled="basicInfo.province == '******'">
+                        <option value=""></option>
+                        <option :value="i.id" :selected="basicInfo.province == i.id" v-for="i in area.province">{{i.name}}</option>
+                    </select>
+                </div>
+                <div class="layui-input-block layui-col-md2 select-wrap input-block-box" v-if="!dataAuth.customer.city">
+                    <select name="city" lay-filter="city" :disabled="basicInfo.city == '******'">
+                        <option value=""></option>
+                        <option :value="i.id" :selected="basicInfo.city == i.id" v-for="i in area.city">{{i.name}}</option>
+                    </select>
+                </div>
+                <div class="layui-input-block layui-col-md2 select-wrap input-block-box" v-if="!dataAuth.customer.area">
+                    <select name="area" lay-filter="area" :disabled="basicInfo.area == '******'">
+                        <option value="" ></option>
+                        <option :value="i.id" :selected="basicInfo.area == i.id" v-for="i in area.county">{{i.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-col-md12" v-if="!dataAuth.customer.address">
+                <label class="layui-form-label row-label">详细地址</label>
+                <div class="layui-input-block layui-col-md4 input-block-box">
+                        <textarea name="address"
+                                  placeholder="请输入详细地址"
+                                  :disabled="basicInfo.address == '******'"
+                                  class="layui-textarea"
+                                  :value="basicInfo.address"
+                                  maxlength="100"
+                        ></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 编辑财务信息 -->
+    <div class="layui-colla-item finance basic-item">
+        <h2 class="layui-colla-title basic-item-title">财务投资经验</h2>
+        <div class="layui-colla-content basic-item-content layui-show">
+            <div class="clearfix border-bottom">
+                <div class="layui-form-item layui-col-md12">
+                    <label class="layui-form-label row-label">收入来源</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="checkbox"
+                               :value="item.t_id"
+                               v-for="(item,index) in finance_info.income_source"
+                               :name='"income_source[" +index+ "]"'
+                               lay-skin="primary"
+                               lay-filter='income_source'
+                               :checked="item.is_check"
+                               :title="item.t_name"
+                        >
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12"
+                     v-for="(item,index) in finance_info.income_source"
+                     v-if="index == 3"
+                     :class="{'layui-hide': item.t_id == 4 && item.is_check != 1}"
+                     data-show="showOther">
+                    <label class="layui-form-label row-label"></label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="text"
+                               name='income_source_mark'
+                               :value="finance_info.income_source_mark"
+                               maxlength="15"
+                               placeholder="请输入其他来源"
+                               class="layui-input "
+                        >
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12 unit-wrap">
+                    <label class="layui-form-label row-label">最近三年平均收入</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="text"
+                               placeholder="请输入金额"
+                               name="lately_avg_income"
+                               class="layui-input"
+                               :value="finance_info.lately_avg_income"
+                               lay-verify='noRequiredNum'
+                               onkeyup="value=value.replace(/[^\d]/,'')"
+                               maxlength="12"
+                        >
+                    </div>
+                    <span class="unit">元</span>
+                </div>
+                <div class="layui-form-item layui-col-md12">
+                    <label class="layui-form-label row-label">有无债券</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="radio" name="has_debt" value="1" title="有" lay-filter='has_debt' :checked="finance_info.has_debt == 1">
+                        <input type="radio" name="has_debt" value="2" title="无" lay-filter='has_debt' :checked="finance_info.has_debt == 2">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12 unit-wrap" data-show="has_debt" :class="{'layui-hide': finance_info.has_debt != 1}">
+                    <label class="layui-form-label row-label"></label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="text"
+                               name="has_debt_mark"
+                               :value="finance_info.has_debt_mark"
+                               placeholder="请输入债券金额"
+                               class="layui-input"
+                               lay-verify='noRequiredNum'
+                               onkeyup="value=value.replace(/[^\d]/,'')"
+                               maxlength="12"
+                        >
+                    </div>
+                    <span class="unit">元</span>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label row-label">金融资产</label>
+                    <div class="layui-input-block layui-col-md3 assets input-block-box" v-for="(item,index) in finance_info.financial_assets" v-if="index <= 1">
+                        <input type="checkbox"
+                               :name='"financial_assets["+index+"]"'
+                               lay-filter="financial_assets"
+                               :value="item.t_id"
+                               :checked="item.is_check"
+                               lay-skin="primary"
+                               :title="item.t_name"
+                        >
+                        <div class="layui-input-block layui-col-md6">
+                            <input type="text"
+                                   :name='"financial_assets_money["+index+"]"'
+                                   :disabled="!item.is_check"
+                                   :value="item.t_money"
+                                   placeholder="请输入存款金额"
+                                   class="layui-input"
+                                   lay-verify='noRequiredNum'
+                                   onkeyup="value=value.replace(/[^\d]/,'')"
+                                   maxlength="12"
+                            >
+                        </div>
+                        <span class="unit">元</span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label row-label"></label>
+                    <div class="layui-input-block layui-col-md3 assets input-block-box" v-for="(item,index) in finance_info.financial_assets" v-if="index > 1">
+                        <input type="checkbox"
+                               :name='"financial_assets["+index+"]"'
+                               lay-filter="financial_assets"
+                               :value="item.t_id"
+                               :checked="item.is_check"
+                               lay-skin="primary"
+                               :title="item.t_name"
+                        >
+                        <div class="layui-input-block layui-col-md6">
+                            <input type="text"
+                                   :name='"financial_assets_money["+index+"]"'
+                                   :disabled="!item.is_check"
+                                   :value="item.t_money"
+                                   placeholder="请输入存款金额"
+                                   class="layui-input"
+                                   lay-verify='noRequiredNum'
+                                   onkeyup="value=value.replace(/[^\d]/,'')"
+                                   maxlength="12"
+                            >
+                        </div>
+                        <span class="unit">元</span>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12">
+                    <label class="layui-form-label row-label">是否开通创业板</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="radio" name="is_open_gem" value="1" title="是" lay-filter='is_open_gem' v-model="finance_info.is_open_gem">
+                        <input type="radio" name="is_open_gem" value="2" title="否" lay-filter='is_open_gem' v-model="finance_info.is_open_gem">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12">
+                    <label class="layui-form-label row-label">开通ST</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="radio" name="is_open_st" value="1" title="是" lay-filter='is_open_st' v-model="finance_info.is_open_st">
+                        <input type="radio" name="is_open_st" value="2" title="否" lay-filter='is_open_st' v-model="finance_info.is_open_st">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12 unit-wrap">
+                    <label class="layui-form-label row-label">当前仓位</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="text"
+                               name="current_position"
+                               onkeyup="value=value.replace(/[^\d{10}]/,'')"
+                               maxlength="2"
+                               placeholder="请输入当前仓位"
+                               class="layui-input"
+                               :value="finance_info.current_position"
+                               lay-verify = 'current_position'
+                        >
+                    </div>
+                    <span class="unit">成</span>
+                </div>
+            </div>
+            <div class="clearfix form-padding">
+                <div class="layui-form-item">
+                    <label class="layui-form-label row-label">证券投资</label>
+                    <div class="layui-input-block layui-col-md3 assets" v-for="(item,index) in finance_info.portfolio_investment" v-if="index <= 1">
+                        <input type="checkbox"
+                               :value="item.t_id"
+                               lay-filter='portfolio_investment'
+                               :name='"portfolio_investment["+index+"]"'
+                               lay-skin="primary"
+                               :title="item.t_name"
+                               :checked="item.is_check"
+                        >
+                        <div class="layui-input-block layui-col-md6 input-block-box">
+                            <input type="text"
+                                   :value="item.t_money"
+                                   :disabled="!item.is_check"
+                                   :name='"portfolio_investment_money["+index+"]"'
+                                   placeholder="请输入年限"
+                                   class="layui-input"
+                                   lay-verify='noRequiredNum'
+                                   onkeyup="value=value.replace(/[^\d]/,'')"
+                                   maxlength="3"
+                            >
+                        </div>
+                        <span class="unit">年</span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label row-label"></label>
+                    <div class="layui-input-block layui-col-md3 assets" v-for="(item,index) in finance_info.portfolio_investment" v-if="index == 2 || index == 3">
+                        <input type="checkbox"
+                               :value="item.t_id"
+                               lay-filter='portfolio_investment'
+                               :name='"portfolio_investment["+index+"]"'
+                               lay-skin="primary"
+                               :title="item.t_name"
+                               :checked="item.is_check"
+                        >
+                        <div class="layui-input-block layui-col-md6 input-block-box">
+                            <input type="text"
+                                   :value="item.t_money"
+                                   :disabled="!item.is_check"
+                                   :name='"portfolio_investment_money["+index+"]"'
+                                   placeholder="请输入年限" class="layui-input"
+                                   lay-verify='noRequiredNum'
+                                   onkeyup="value=value.replace(/[^\d]/,'')"
+                                   maxlength="3"
+                            >
+                        </div>
+                        <span class="unit">年</span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label row-label"></label>
+                    <div class="layui-input-block layui-col-md3 assets" v-for="(item,index) in finance_info.portfolio_investment" v-if="index > 3">
+                        <input type="checkbox"
+                               :value="item.t_id"
+                               lay-filter='portfolio_investment'
+                               :name='"portfolio_investment["+index+"]"'
+                               lay-skin="primary"
+                               :title="item.t_name"
+                               :checked="item.is_check"
+                        >
+                        <div class="layui-input-block layui-col-md6 input-block-box">
+                            <input type="text"
+                                   :value="item.t_money"
+                                   :disabled="!item.is_check"
+                                   :name='"portfolio_investment_money["+index+"]"'
+                                   placeholder="请输入年限"
+                                   class="layui-input reset-input"
+                                   lay-verify='noRequiredNum'
+                                   onkeyup="value=value.replace(/[^\d]/,'')"
+                                   maxlength="3"
+                            >
+                        </div>
+                        <span class="unit unit-ccc">年</span>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12">
+                    <label class="layui-form-label row-label">金融投资学习工作经历</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="radio"
+                               name="financial_investment_experience"
+                               value="2"
+                               title="无"
+                               lay-filter='financial_investment_experience'
+                               :checked="finance_info.financial_investment_experience == 2"
+                        >
+                        <input type="radio"
+                               name="financial_investment_experience"
+                               value="1"
+                               title="有"
+                               lay-filter='financial_investment_experience'
+                               :checked="finance_info.financial_investment_experience == 1"
+                        >
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md12 unit-wrap" :class="{'layui-hide': finance_info.financial_investment_experience != 1}" data-show="financial_investment_experience">
+                    <label class="layui-form-label row-label"></label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="text"
+                               name="financial_investment_experience_mark"
+                               placeholder="请输入年限"
+                               class="layui-input"
+                               :value="finance_info.financial_investment_experience_mark"
+                               lay-verify='noRequiredNum'
+                               onkeyup="value=value.replace(/[^\d]/,'')"
+                               maxlength="3"
+                        >
+                    </div>
+                    <span class="unit">年</span>
+                </div>
+                <div class="layui-form-item layui-col-md12">
+                    <label class="layui-form-label row-label">金融行业职业资格证书</label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="radio"
+                               name="financial_industry_certificate"
+                               value="2"
+                               title="无"
+                               lay-filter='financial_industry_certificate'
+                               :checked="finance_info.financial_industry_certificate == 2"
+                        >
+                        <input type="radio"
+                               name="financial_industry_certificate"
+                               value="1"
+                               title="有"
+                               lay-filter='financial_industry_certificate'
+                               :checked="finance_info.financial_industry_certificate == 1"
+                        >
+                    </div>
+                </div>
+                <!-- v-if="finance_info.financial_industry_certificate == 1" -->
+                <div class="layui-form-item layui-col-md12 unit-wrap"
+                     data-show="financial_industry_certificate_mark"
+                     :class="{'layui-hide': finance_info.financial_industry_certificate != 1}"
+                     data-show="financial_industry_certificate"
+                >
+                    <label class="layui-form-label row-label"></label>
+                    <div class="layui-input-block layui-col-md4 input-block-box">
+                        <input type="text"
+                               name="financial_industry_certificate_mark"
+                               placeholder="请输入证书名称"
+                               class="layui-input"
+                               :value="finance_info.financial_industry_certificate_mark"
+                        >
+                    </div>
+                    <span class="unit">资格证</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item btn-box">
+        <button class="layui-btn layui-btn-primary" @click.stop="cancel(editBasic)">取消</button>
+        <button class="layui-btn" lay-submit :disabled="basicBtnDisabled" lay-filter="ok" >确认</button><!-- @click.stop="basicBtn" -->
+    </div>
+</div>
+<script type="text/html" id="tpl-mobile">
+    <div class="layui-form-item layui-col-md12" data-type="addMobile">
+        <label class="layui-form-label row-label"></label>
+        <div class="layui-input-block layui-col-md4 input-block-box input-icon-box">
+            <input type="text" name='mobile[{%index%}]' onkeyup="this.value = this.value.replace(/[^\d]/g,'')"  placeholder="请输入电话号码" maxlength="30" class="layui-input" data-err="">
+            <span class="icon-box">
+                <i class="iconfont icon-shanchu" data-index="{%index%}" title="删除"></i>
+            </span>
+        </div>
+    </div>
+</script>

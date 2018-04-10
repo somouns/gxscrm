@@ -1,0 +1,44 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/configure-edit.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+<!-- 销售过程： -->
+<div class="container my-client-container">
+  <div  id="app" class="main-wrap" v-cloak>
+    <div class="main process">
+      <h2>销售过程：</h2>
+    	<div class="layui-form layui-col-md12 formbar">
+    		<form class="layui-form">
+					<!--客户来源：  -->
+					<div class="orgin">
+						<div class="layui-form-item ">
+						    <dl>
+								<dt>
+									<div class="tit name" >名称</div>
+									<div class="tit sort" >排序</div>
+								</dt>
+							    <dd v-for = "(item,index) in processInfo" class="datas">
+								    <div class="layui-input-block name">
+								     	<input type="text"  :value="item.name" class="layui-input"   @blur="checkCustomer($event,item.name,index)"placeholder="请输入内容！" v-model = "item.name" :name='"value["+index+"]"'maxlength="15">
+								    </div>
+								    <div class="layui-input-block sort">
+								     	<input type="number"  :value="item.num" class="layui-input num"   @blur="checkCustomer($event,item.num,index)"placeholder="请输入排序" :name='index' v-model = "item.num">
+								    </div>
+								    <a href="javascript:;" class="del del-btn" @click="removeMobile(index)">删除</a>
+							    </dd>
+							</dl>
+						     <div class="add add-process"><a href="javascript:;" class="layui-btn"  @click="addInput()"><i class="iconfont icon-add"></i>新增</a></div>
+					 	</div>
+						<div class="btn-wrap layui-col-md12">
+					 		<button class="layui-btn" lay-submit lay-filter="formAddRemark">确定</button>
+					 		<button type="reset" class="layui-btn layui-btn-primary" @click="cancelAdd">取消</button>
+						</div>
+					</div>
+				</form>
+    	</div>
+		</div>
+  </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/configure-process.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

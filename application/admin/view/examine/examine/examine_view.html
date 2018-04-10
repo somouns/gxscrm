@@ -1,0 +1,130 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/financeManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 质检审核 -->
+<div class="container">
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container finance-container">
+            <div class="example-handle">
+                <button v-if="examineList.is_audit == 1" class="examine-operate examine-other">审核</button>
+                <button v-else class="examine-operate" @click="examineAudit">审核</button>
+                <!--<button class="examine-operate" @click="examineAudit">审核</button>-->
+                <button class="examine-operate" @click="editRemark">编辑备注</button>
+            </div>
+            <!-- 客户信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">客户信息</h2>
+                </div>
+                <!-- customer_id -->
+                <ul class="sign-list clearfix">
+                    <li class="sign-item" v-if="examineList.customer_name != 'hide'"><span class="sign-name">客户姓名：</span><span>{{examineList.customer_name}}</span>
+                    </li>
+                    <li class="sign-item"><span class="sign-name">购买电话：</span>
+                        <div class="vis-phone">
+                            <span class="sign-span" v-for="mobile in examineList.mobile">{{mobile.contact_way}}
+                                {if condition="checkAuth('/admin/call/call/call') eq 'true'"}
+                                <i v-if='mobile.contact_way.indexOf("*") == -1' class="iconfont icon-phone" :data-id="mobile.contact_id" @click="cellPhone(mobile.contact_id)"></i>
+                                {/if}
+                            </span>
+                        </div>
+                    </li>
+                    <li class="sign-item" v-if="examineList.pay_time != 'hide'"><span class="sign-name">付费日期：</span><span>{{examineList.pay_time}}</span></li>
+                    <li class="sign-item" v-if="examineList.goods_name != 'hide'"><span class="sign-name">购买产品：</span><span>{{examineList.goods_name}}</span>
+                    </li>
+                    <li class="sign-item"><span
+                            class="sign-name">风险测评：</span><span>{{examineList.risk_assessment}}</span></li>
+                    <li class="sign-item"><span class="sign-name">适当性测评：</span><span>{{examineList.appropriateness_assessment}}</span>
+                    </li>
+                    <li class="sign-item"><span
+                            class="sign-name">合规状态：</span><span>{{examineList.compliance_status == 1 ? '已合规' : (examineList.compliance_status == 0 ? '未合规' : '******') }}</span></li>
+                </ul>
+            </div>
+            <!-- 客户信息 S-->
+            <!-- 销售过程 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">销售过程</h2>
+                </div>
+                <ul id="financeCkeckBoxs" class="sign-list examine-list clearfix" v-if="examineList.sales_process != ''">
+                    <!-- S -->
+                    <li class="sign-item sign-examines" v-for="(item,index) in examineList.sales_process">
+                        <span class="sign-name" v-if="item.info != ''">{{item.title}}：</span>
+                        <div class="first-communication" v-for="(list,i) in item.info">
+                            <div class="examine-distance">
+                                <span class="examine-me">{{list.employee_nickname}}</span>
+                                <span>{{list.employee_department}}</span>
+                                <ul class="pull-right" v-if="list.product_name != 'hide'" v-for="product in list.product_info">
+                                    <li class="pull-left examine-li">{{product.product_name}}</li>
+                                </ul>
+                            </div>
+                            <p class="examine-distance examine-explain">{{list.text_record}}</p>
+                            <table v-if="list.voice_records.length != 0" class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                   align="center">
+                                <thead>
+                                <tr align="center">
+                                    <th>姓名</th>
+                                    <th>电话</th>
+                                    <th>通话时长</th>
+                                    <th>通话时间</th>
+                                    <th>通话类型</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr align="center" v-for="voice in list.voice_records">
+                                    <td>{{voice.customer_real_name || '未知用户'}}</td>
+                                    <td>{{voice.customer_mobile}}</td>
+                                    <td>{{voice.call_time}}</td>
+                                    <td>{{voice.talk_time | VformatM}}</td>
+                                    <td>{{voice.call_type == 1 ? '呼入' : '呼出'}}</td>
+                                    <td>
+                                        <a v-if="voice.recfile" @click="playSound(voice.recfile, voice.customer_real_name, voice.call_time)" class="audit-skip">播放录音</a>
+                                        <a v-else>暂无录音播放</a>
+                                        <a v-if="voice.recfile" :href="voice.recfile ? voice.recfile : 'javascript:;'" download="xxx" class="audit-skip">下载录音</a>
+                                        <a v-else>暂无录音下载</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <div class="examine-img-cont examine-distance">
+                                    <div :id='"sign-imgs-box-"+index+i' class="sign-imgs">
+                                        <a :href="item.image" class="uploadImges" v-for="item in list.images">
+                                            <img class="finance-img" :src="item.thumb_image" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </table>
+                            <p class="examine-distance clearfix"><span>{{list.create_time}}</span></p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="remark-list" v-show="examineList.remark">
+                    <span class="sign-name">备注：</span>
+                    <p>{{examineList.remark}}</p>
+                </div>
+            </div>
+            <!-- 销售过程 S-->
+            <!-- 审核信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">审核信息</h2>
+                </div>
+                <ul class="sign-list clearfix" v-for="item in examineList.audit_info">
+                    <li class="sign-item"><span class="sign-name">审核人：</span><span>{{item.financial_real}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核时间：</span><span>{{item.financial_time}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核结果：</span><span class="finance-reject">{{item.financial_action}}</span>
+                    </li>
+                    <li class="sign-item"><span class="sign-name pull-left">审核说明：</span><span class="sign-span">{{item.financial_reason | isMaxLen(100)}}</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- 审核信息 S-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/examineManageAudit.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

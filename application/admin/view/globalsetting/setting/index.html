@@ -1,0 +1,123 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/configure-view.css?v=__VERSION__" />
+{include file="common/header_bottom"/}
+
+<div class="container my-client-container">
+     <div  id="app" class="main-wrap"  v-cloak>
+          <!--正文-->
+    		<div class=" layui-container">
+    			<h3 class="main-top">配置管理</h3>
+    			<!-- 表格start -->
+            <div class="tableBar">  
+               <!-- 表格渲染 -->
+               <table class="layui-table">
+                  	<thead>
+	                    <tr>
+	                      <th class="titName">名称</th>
+	                      <th>值</th>
+	                      <th class="titcom">操作</th>
+	                    </tr>
+                  	</thead>
+                  	<tbody>
+	                    <tr >
+	                       	<td>客户来源</td>
+	                       	<td>
+                              <span v-for="(item,index) in sourceInfo">{{item.name}};</span>
+                          </td>
+	                      	<td class="status">
+                                {if condition="checkAuth('/admin/globalsetting/setting/process') eq 'true'"}
+                                <a href="/admin/globalsetting/setting/source" class="tab-edit" title="客户来源" data-type="tab">编辑</a>
+                                {/if}
+	                      	</td>
+	                    </tr>
+                      <tr>
+                          <td>线上投顾计划</td>
+                          <td>
+                            <span v-for="(item, index) in onlineInfo">
+                              {{ item.bname }}:
+                              <span v-for="(items, index) in item.child">
+                                <i>{{items.sname}}、</i>
+                              </span>
+                              ;
+                            </span>
+                          </td>
+                          <td class="status">
+                              {if condition="checkAuth('/admin/globalsetting/setting/process') eq 'true'"}
+                              <a href="/admin/globalsetting/setting/online" class="tab-edit"  data-type="tab" title="线上投顾计划">编辑</a>
+                              {else /}
+                              {/if}
+                          </td>
+                      </tr>
+                      <tr style="display: none;">
+                          <td>线下投顾计划</td>
+                          <td>
+                            <span v-for="(item, index) in lineInfo">{{item}};</span>
+                          </td>
+                          <td class="status">
+                              {if condition="checkAuth('/admin/globalsetting/setting/process') eq 'true'"}
+                              <a href="/admin/globalsetting/setting/line" class="tab-edit" data-type="tab" title="线下投顾计划">编辑</a>
+                              {else /}
+                              {/if}
+                          </td>
+                      </tr>
+                      <tr >
+                          <td>跟进类型</td>
+                          <td>
+                            <span v-for="(item, index) in followupInfo">{{item}};</span>
+                          </td>
+                          <td class="status">
+                              {if condition="checkAuth('/admin/globalsetting/setting/process') eq 'true'"}
+                              <a href="/admin/globalsetting/setting/followup" class="tab-edit" data-type="tab" title="跟进类型">编辑</a>
+                              {/if}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>收款账号</td>
+                          <td>
+                            <span v-for="(item, index) in collectionInfo">
+                              <i>{{item.name}}</i>:
+                              <i v-for = '(list, index) in item.acc'>
+                                {{list}}、
+                              </i>
+                              ；
+                            </span>
+                          </td>
+                          <td class="status">
+                              {if condition="checkAuth('/admin/globalsetting/setting/process') eq 'true'"}
+                              <a href="/admin/globalsetting/setting/payee" class="tab-edit" data-type="tab" title="收款账号">编辑</a>
+                              {/if}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>销售过程</td>
+                          <td>
+                            <span v-for="(item, index) in processInfo">{{item}};</span>
+                          </td>
+                          <td class="status">
+                              {if condition="checkAuth('/admin/globalsetting/setting/process') eq 'true'"}
+                              <a href="/admin/globalsetting/setting/process" class="tab-edit" data-type="tab" title="销售过程">编辑</a>
+                              {/if}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>产品、标的更新通知对象</td>
+                          <td>
+                            <span v-for="(item, index) in processInfo">{{item}};</span>
+                          </td>
+                          <td class="status">
+                              {if condition="checkAuth('/admin/globalsetting/setting/notice') eq 'true'"}
+                              <a href="/admin/globalsetting/setting/notice " class="tab-edit" data-type="tab" title="销售过程">编辑</a>
+                              {/if}
+                          </td>
+                      </tr>
+                  	</tbody>
+               </table> 
+            </div>
+            <!-- 表格end -->
+      	</div>  
+     </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/configure-view.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}

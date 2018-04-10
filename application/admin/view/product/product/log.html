@@ -1,0 +1,56 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/product-list.css" /> {include file="common/header_bottom"/}
+
+<div class="container product-list-container">
+    <div class="main-wrap" id="app" v-cloak>
+        <div class="main clearfix">
+            <div class="layui-form layui-col-md12 form">
+                <div class="layui-form-item" style="margin-bottom:0">
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">内容</label>
+                        <input type="text" placeholder="请输入搜索内容" class="layui-input product-input" v-model="getLogData.content">
+                    </div>
+                    <div class="product-item-inline pull-left">
+                        <label class="pull-left">操作时间</label>
+                        <input type="text" name="operate_start_time" id="operate_start_time" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input product-input time-input" v-model="getLogData.create_time_start">
+                        <span class="horizontal-line">-</span>
+                        <input type="text" name="operate_end_time" id="operate_end_time" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input product-input time-input last-time-input" v-model="getLogData.create_time_end">
+                    </div>
+                    <div class="product-item-inline pull-left">
+                        <button class="layui-btn pull-left" @click.stop="inquire">查询</button>
+                        <button class="layui-btn layui-btn-primary pull-left" @click.stop="reset">重置</button>
+                        <!--  -->
+                    </div>
+                    <a href="javascript:;" class='layui-btn add-btn' @click="comeback">返回上一级</a>
+                </div>
+            </div>
+            <div class="main-table layui-col-md12">
+                <h2 class="table-title">操作日志</h2>
+                <div class="table-wrap" v-if="logData.list && logData.list.length">
+                    <table class="layui-table layui-col-md12">
+                        <thead class="layui-col-md12">
+                            <tr class="layui-col-md12 first-tr">
+                                <td class="layui-col-md9 layui-elip">内容</td>
+                                <td class="layui-col-md1">操作人</td>
+                                <td class="layui-col-md2">操作时间</td>
+                            </tr>
+                            <tr class="layui-col-md12" v-for="i in logData.list">
+                                <td class="layui-col-md9 layui-elip">{{i.content}}</td>
+                                <td class="layui-col-md1 layui-elip">{{i.operating_name}}</td>
+                                <td class="layui-col-md2 layui-elip">{{i.create_time}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- 分页器容器 -->
+                <div class="page-box clearfix" v-if="logData.list && logData.list.length">
+                    <div id="product-page" class="product-page pull-right"></div>
+                </div>
+            </div>
+            <div class="noData layui-col-md12" v-if="!logData.list || !logData.list.length"></div>
+        </div>
+    </div>
+</div>
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/productLog.js"></script>
+{include file="common/footer_bottom"/}

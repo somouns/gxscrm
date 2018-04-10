@@ -1,0 +1,372 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/signManage.css"/>
+{include file="common/header_bottom"/}
+
+<!-- 标的详情页   -->
+<div class="container">
+    {include file="common/bread_nav"/}
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-tab" lay-filter="test">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本标的信息</li>
+                    <li lay-id="1">研报</li>
+                    <li lay-id="2">调仓记录</li>
+                    <li lay-id="3">话术</li>
+                    <li lay-id="4">操作日志</li>
+                </ul>
+                <div class="layui-row add-sign-row">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12">
+                        <h2 class="jur-head">基本信息</h2>
+                    </div>
+                    <ul class="sign-list clearfix">
+                        <li class="sign-item"><span class="sign-name">股票名称：</span><span>海特高新（002023）</span></li>
+                        <li class="sign-item"><span class="sign-name">所属产品：</span><span>凤凰一号</span></li>
+                        <li class="sign-item"><span class="sign-name">总仓位：</span><span>3成</span></li>
+                        <li class="sign-item"><span class="sign-name">建仓价：</span><span>12.56元</span></li>
+                        <li class="sign-item"><span class="sign-name">止盈价：</span><span>22.15元</span></li>
+                        <li class="sign-item"><span class="sign-name">止损价：</span><span>8.15元</span></li>
+                        <li class="sign-item"><span class="sign-name">状态：</span><span>未出局</span></li>
+                        <li class="sign-item"><span class="sign-name">标的负责人：</span><span>张三</span></li>
+                    </ul>
+                </div>
+                <div class="layui-tab-content">
+                    <!-- 基本标的信息 S========================================================================-->
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="jur-head">研报
+                                    <span class="detail-title">此处只显示最近发布的五条记录，查看更多请前往 </span>
+                                    <a href="javascript:;" data-id="1" class="to-report"> 研报</a>
+                                    <div class="example-handle">
+                                        <a href="/admin/product/product_report/add" class="examine-operate">新增研报</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 研报表格(自动化渲染) ========================================================================-->
+                                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                       align="center">
+                                    <thead>
+                                    <tr align="center">
+                                        <th>研报名称</th>
+                                        <th>时间</th>
+                                        <th>操作人</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr align="center" v-show="index < 5" v-for="(item, index) in tableDataReport">
+                                        <td>业绩上升</td>
+                                        <td>{{item.create_time}}</td>
+                                        <td>admin</td>
+                                        <td>
+                                            <a class="audit-skip" data-type="tab" data-title="查看账号"
+                                               href="/admin/product/product_report/detail">查看详情</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号"
+                                               href="/admin/product/product_report/edit">编辑</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="jur-head">调仓
+                                    <span class="detail-title">此处只显示最近发布的五条记录，查看更多请前往 </span>
+                                    <a href="javascript:;" data-id="2" class="to-report"> 调仓</a>
+                                    <div class="example-handle">
+                                        <a href="/admin/product/product_transfer/add" class="examine-operate">新增调仓</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 调仓表格(自动化渲染) ========================================================================-->
+                                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                       align="center">
+                                    <thead>
+                                    <tr align="center">
+                                        <th>调仓类型</th>
+                                        <th>调仓价格</th>
+                                        <th>是否有建议话术</th>
+                                        <th>是否有操作理由</th>
+                                        <th>调仓时间</th>
+                                        <th>操作人</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr align="center" v-show="index < 5" v-for="(item, index) in tableDataSpace">
+                                        <td>清仓</td>
+                                        <td>{{item.group_name}}</td>
+                                        <td>3</td>
+                                        <td>正常</td>
+                                        <td>{{item.create_time}}</td>
+                                        <td>admin</td>
+                                        <td>
+                                            <a class="audit-skip" data-type="tab" data-title="查看账号"
+                                                href="/admin/product/product_transfer/detail">查看详情</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号"
+                                                href="/admin/product/product_transfer/edit">编辑</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="jur-head">话术
+                                    <span class="detail-title">此处只显示最近发布的五条记录，查看更多请前往 </span>
+                                    <a href="javascript:;" data-id="3" class="to-report"> 话术</a>
+                                    <div class="example-handle">
+                                        <a href="/admin/product/product_suggestcontent/add"
+                                           class="examine-operate">新增话术</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 话术表格(自动化渲染) ========================================================================-->
+                                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                       align="center">
+                                    <thead>
+                                    <tr align="center">
+                                        <th>建议话术</th>
+                                        <th>操作人</th>
+                                        <th>操作时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr align="center" v-show="index < 5" v-for="(item, index) in tableDataSpeech">
+                                        <td class="group-decript">{{item.administrator}}</td>
+                                        <td>{{item.group_name}}</td>
+                                        <td>{{item.create_time}}</td>
+                                        <td>
+                                            <a class="audit-skip" data-type="tab" data-title="查看"
+                                               href="/admin/product/product_suggestcontent/detail">查看</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号"
+                                               href="/admin/product/product_suggestcontent/edit">编辑</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 基本标的信息 E-->
+                    <!-- 研报 S--------------------------------------------------------------------------------->
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="details-head">
+                                    <div class="example-handle">
+                                        <a href="/admin/product/product_report/add" class="examine-operate">新增研报</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 研报表格(自动化渲染) -->
+                                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                       align="center">
+                                    <thead>
+                                    <tr align="center">
+                                        <th>研报名称</th>
+                                        <th>时间</th>
+                                        <th>操作人</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr align="center" v-for="(item, index) in tableDataReport">
+                                        <td>业绩上升</td>
+                                        <td>{{item.create_time}}</td>
+                                        <td>admin</td>
+                                        <td>
+                                            <a class="audit-skip" data-type="tab" data-title="查看账号"
+                                               href="/admin/product/product_report/detail">查看详情</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号"
+                                               href="/admin/product/product_report/edit">编辑</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataReport.length != 0">
+                            <div class="page-choice">
+                                <div id="test-report"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getReportListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 研报 E-->
+                    <!-- 调仓记录 S--------------------------------------------------------------------------------->
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="details-head">
+                                    <div class="example-handle">
+                                        <a href="/admin/product/product_transfer/add" class="examine-operate">新增调仓</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 调仓表格(自动化渲染) -->
+                                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                       align="center">
+                                    <thead>
+                                    <tr align="center">
+                                        <th>调仓类型</th>
+                                        <th>调仓价格</th>
+                                        <th>是否有建议话术</th>
+                                        <th>是否有操作理由</th>
+                                        <th>调仓时间</th>
+                                        <th>操作人</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr align="center" v-for="(item, index) in tableDataSpace">
+                                        <td>清仓</td>
+                                        <td>{{item.group_name}}</td>
+                                        <td>3</td>
+                                        <td>正常</td>
+                                        <td>{{item.create_time}}</td>
+                                        <td>admin</td>
+                                        <td>
+                                            <a class="audit-skip" data-type="tab" data-title="查看账号"
+                                               href="/admin/product/product_transfer/detail">查看详情</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号"
+                                               href="/admin/product/product_transfer/edit">编辑</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataSpace.length != 0">
+                            <div class="page-choice">
+                                <div id="test-space"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getSpaceListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 调仓记录 E-->
+                    <!-- 话术 S--------------------------------------------------------------------------------->
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="details-head">
+                                    <div class="example-handle">
+                                        <a href="/admin/product/product_suggestcontent/add" class="examine-operate">新增话术</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 话术表格(自动化渲染) -->
+                                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                       align="center">
+                                    <thead>
+                                    <tr align="center">
+                                        <th>建议话术</th>
+                                        <th>操作人</th>
+                                        <th>操作时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr align="center" v-for="(item, index) in tableDataSpeech">
+                                        <td>{{item.administrator}}</td>
+                                        <td>{{item.group_name}}</td>
+                                        <td>{{item.create_time}}</td>
+                                        <td>
+                                            <a class="audit-skip" data-type="tab" data-title="查看账号"
+                                               href="/admin/product/product_suggestcontent/detail">查看</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号"
+                                               href="/admin/product/product_suggestcontent/edit">编辑</a>
+                                            <a class="audit-skip" data-type="tab" data-title="编辑账号">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataSpeech.length != 0">
+                            <div class="page-choice">
+                                <div id="test-speech"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getSpeechListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 话术 E-->
+                    <!-- 操作日志 S--------------------------------------------------------------------------------->
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 话术表格(自动化渲染) -->
+                                <table class="common-table" cellpadding="0" cellspacing="0" border="0" width="100%"
+                                       align="center">
+                                    <thead>
+                                    <tr align="center">
+                                        <th>内容</th>
+                                        <th>操作人</th>
+                                        <th>操作时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr align="center" v-for="(item, index) in tableDataLog">
+                                        <td>{{item.administrator}}</td>
+                                        <td>{{item.group_name}}</td>
+                                        <td>{{item.create_time}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 分页 S-->
+                        <div class="page" v-show="tableDataLog.length != 0">
+                            <div class="page-choice">
+                                <div id="test-log"></div>
+                            </div>
+                            <p class="page-total">共有<span>{{ getLogListTotal }}</span>条记录</p>
+                        </div>
+                        <!-- 分页 E-->
+                    </div>
+                    <!-- 操作日志 E-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/signManageDetail.js"></script>
+{include file="common/footer_bottom"/}

@@ -1,0 +1,77 @@
+{include file="common/header_top"/}
+<link rel="stylesheet" href="__ADMINCSS__/page/financeManage.css?v=__VERSION__"/>
+{include file="common/header_bottom"/}
+
+<!-- 财务审核 -->
+<div class="container">
+    <div id="app" v-cloak="" class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container finance-container">
+            <div class="example-handle">
+                <button v-if="financialList.is_audit == 1" class="examine-operate examine-other">审核</button>
+                <button v-else class="examine-operate"  @click="financeAudit">审核</button>
+                <!--<button class="examine-operate" @click="financeAudit">审核</button>-->
+                <button class="examine-operate" @click="editRemark">编辑备注</button>
+            </div>
+            <!-- 客户信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">客户信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item" v-if="financialList.customer_name != 'hide'"><span class="sign-name">客户姓名：</span><span>{{financialList.customer_name}}</span></li>
+                    <li class="sign-item"><span class="sign-name">购买电话：</span><span class="mobile-left" v-for="mobile in financialList.mobile">{{mobile}}</span></li>
+                    <li class="sign-item" v-if="financialList.goods_name != 'hide'"><span class="sign-name">购买产品：</span><span>{{financialList.goods_name}}</span></li>
+                    <li class="sign-item" v-if="financialList.pay_num != 'hide'"><span class="sign-name">购买数量：</span><span>{{financialList.pay_num}}</span></li>
+                    <li class="sign-item" v-if="financialList.pay_money != 'hide'"><span class="sign-name">付费金额：</span><span>{{financialList.pay_money}} 元</span></li>
+                    <li class="sign-item"><span class="sign-name">销售人员：</span><span>{{financialList.salesman}}</span></li>
+                    <li class="sign-item" v-if="financialList.pay_time != 'hide'"><span class="sign-name">付费日期：</span><span>{{financialList.pay_time}}</span></li>
+                    <li class="sign-item" v-if="financialList.days != 'hide'"><span class="sign-name">服务期限：</span><span>{{financialList.days}} 个{{financialList.is_trade_day == 1 ? '交易日' : '自然日'}}</span></li>
+                    <!--<li class="sign-item"><span class="sign-name">服务期限：</span><span>{{financialList.days == 'hide' ? '******' : financialList.days}} </span><span v-if="financialList.days != 'hide'">个{{financialList.is_trade_day == 1 ? '交易日' : '自然日'}}</span></li>-->
+                </ul>
+            </div>
+            <!-- 客户信息 S-->
+            <!-- 付款信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">财务信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item" v-if="financialList.pay_money != 'hide'"><span class="sign-name">付款金额：</span><span>{{financialList.pay_money}}</span></li>
+                    <li class="sign-item" v-if="financialList.pay_time != 'hide'"><span class="sign-name">付费日期：</span><span>{{financialList.pay_time}}</span></li>
+                    <li class="sign-item" v-if="financialList.payer != 'hide'"><span class="sign-name">付费人：</span><span>{{financialList.payer}}</span></li>
+                    <li class="sign-item" v-if="financialList.pay_type != 'hide'"><span class="sign-name">付费方式：</span><span>{{financialList.pay_type}}</span></li>
+                    <li class="sign-item" v-if="financialList.pay_bank != 'hide' && financialList.is_bank == 1"><span class="sign-name">付费银行：</span><span>{{financialList.pay_bank}}</span></li>
+                    <li class="sign-item" v-if="financialList.payment_account != 'hide'"><span class="sign-name">付费帐号：</span><span>{{financialList.payment_account}}</span></li>
+                    <li class="sign-item" v-if="financialList.receive_account != 'hide'"><span class="sign-name">收款帐号：</span><span>{{financialList.receive_account}}</span></li>
+                    <li class="sign-item" v-if="financialList.payment_certificate != 'hide'" id="financeCkeckBoxs"><span class="sign-name">付费凭证：</span>
+                        <div v-if="financialList.payment_certificate instanceof Array" class="sign-imgs sign-span finance-sign">
+                            <a :href="item.image" v-for="item in financialList.payment_certificate">
+                                <img class="finance-img" :src="item.thumb_image" alt="">
+                            </a>
+                        </div>
+                        <span v-else>{{financialList.payment_certificate}}</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- 付款信息 S-->
+            <!-- 审核信息 S-->
+            <div class="layui-row finance-row">
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">审核信息</h2>
+                </div>
+                <ul class="sign-list clearfix" v-for="item in financialList.audit_info">
+                    <li class="sign-item"><span class="sign-name">审核人：</span><span>{{item.financial_real}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核时间：</span><span>{{item.financial_time}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核结果：</span><span class="finance-reject">{{item.financial_action}}</span></li>
+                    <li class="sign-item"><span class="sign-name">审核说明：</span><span class="sign-span">{{item.financial_reason | isMaxLen(100)}}</span></li>
+                </ul>
+            </div>
+            <!-- 审核信息 S-->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer_top"/}
+<script src="__ADMINJS__/app/financeManageAudit.js?v=__VERSION__"></script>
+{include file="common/footer_bottom"/}
